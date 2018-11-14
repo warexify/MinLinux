@@ -31,28 +31,19 @@ fi
 }
 
 function updatescriptprompt {
-
-if [ ! -f ~/.updated ]; then
-    
-     if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and restart with the most recent version of wlinux-setup? This is recommended periodically to get new features and fixes." 10 60) then
-        createtmp
-        echo "Backing up old /etc/setup to /etc/setup.old"
-        sudo cp /etc/setup /etc/setup.old
-        echo "Getting fresh wlinux-setup from GitHub"
-        wget https://github.com/WhitewaterFoundry/WLinux/raw/updatemessage/linux_files/setup
-        sudo cp setup /etc/setup
-        echo "Running updated wlinux-setup"
-        touch ~/.updated
-        bash /etc/setup
-        exit 0
-    else
-        whiptail --title "Release setup" --msgbox "Continuing with built-in setup. If you encounter problems, please try updating." 8 85
-    fi
-
+if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and restart with the most recent version of wlinux-setup? This is recommended periodically to get new features and fixes." 10 60) then
+    createtmp
+    echo "Backing up old /etc/setup to /etc/setup.old"
+    sudo cp /etc/setup /etc/setup.old
+    echo "Getting fresh wlinux-setup from GitHub"
+    wget https://github.com/WhitewaterFoundry/WLinux/raw/updatemessage/linux_files/setup
+    sudo cp setup /etc/setup
+    echo "Running updated wlinux-setup"
+    touch ~/.updated
+    bash /etc/setup
+    exit 0
 else
-
-    rm ~/.updated
-
+    whiptail --title "Release setup" --msgbox "Continuing with built-in setup. If you encounter problems, please try updating." 8 85
 fi
 }
 
@@ -922,9 +913,15 @@ fi
 }
 
 # main
-welcomeprompt
-continueprompt
-updatescriptprompt
+
+if [ ! -f ~/.updated ]; then
+    welcomeprompt
+    continueprompt
+    updatescriptprompt
+else
+    rm ~/.updated
+fi
+
 securitypatches
 installmenu
 byemessage
