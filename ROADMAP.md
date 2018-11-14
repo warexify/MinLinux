@@ -48,7 +48,7 @@ Status: Released on Store.
 - Latest Go build.
 - Minor fixes and improvements.
 
-# Release 1.1.22
+## Release 1.1.22
 
 Status: Released.
 
@@ -63,15 +63,16 @@ Status: Released.
 - Minor fixes and improvements, particularly to Go.
 - Latest Debian build.
 
-## Release 1.1.25
+# Release 1.1.25
 
 Status: Testing. Late November.
 
-- Secure Docker bridge to Windows host.
-- Rebase to Debian testing.
+- Secure Docker bridge to Windows host. You can re-enable TLS.
+- Rebase to Debian testing. Newer packages. No more release mixing.
 - Latest Go from Google.
 - Refinements to wlinux-setup GUI.
-- Minor fixes and improvements.
+- Minor fixes and improvements to zsh.
+- Latest Debian build.
 
 ## Release 1.1.26
 
