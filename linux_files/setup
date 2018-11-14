@@ -42,7 +42,7 @@ if [ ! -f ~/.updated ]; then
         wget https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/master/linux_files/setup
         sudo cp setup /etc/setup
         echo "Running updated wlinux-setup"
-        touch .updated
+        touch ~/.updated
         bash /etc/setup
         exit 0
     else
