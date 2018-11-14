@@ -67,11 +67,11 @@ Status: Released.
 
 Status: Testing. Late November.
 
-- Secure Docker bridge to Windows host. You can re-enable TLS.
+- Secure bridge to Docker on Windows host. You should re-enable TLS.
 - Rebase to Debian testing. Newer packages. No more release mixing.
 - Latest Go from Google.
-- Refinements to wlinux-setup GUI.
-- Minor fixes and improvements to zsh.
+- Refinements to wlinux-setup GUI. Will no longer bug you to update if you just did.
+- Minor fixes and improvements, including zsh.
 - Latest Debian build.
 
 ## Release 1.1.26
