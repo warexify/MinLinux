@@ -14,7 +14,6 @@ The first Linux® distribution optimized for WSL. Based on Debian®. From open-s
 [![VK Follow](https://img.shields.io/badge/VK-WLinux-4c75a3.svg)](https://vk.com/wlinux)
 [![LINE Follow](https://img.shields.io/badge/LINE-WLinux-00c300.svg)](https://line.me/R/ti/p/%40yck9322o)
 [![Telegram](https://img.shields.io/badge/Telegram-wslinux-0088cc.svg)](https://t.me/wslinux)
-![WeChat Follow](https://img.shields.io/badge/WeChat-WLinuxApp-7bb32e.svg)
 
 ## Features
 
@@ -22,20 +21,21 @@ The first Linux® distribution optimized for WSL. Based on Debian®. From open-s
 - WLinux is also the first Linux distribution pre-configured and optimized to run specifically on [Windows® Subsystem for Linux](https://github.com/sirredbeard/Awesome-WSL), a Microsoft-supported feature of Windows 10 and Windows Server 2019.
 - WLinux includes [wslu](https://github.com/wslutilities/wslu), a set of useful open-source utilities for interacting between WSL and Windows 10.
 - A custom wlinux-setup tool, accessible via `$ wlinux-setup` allows new WLinux users to get started on Linux immediately:
-    - Change language settings.
+    - Change language and keyboard settings.
     - Select optional shells: csh, zsh (with [oh-my-zsh](https://ohmyz.sh/)), and [fish](https://fishshell.com/) (with [oh-my-fish](https://github.com/oh-my-fish/oh-my-fish)).
     - Choose text editors: [emacs](https://www.gnu.org/software/emacs/), [neovim](https://neovim.io/), and [Visual Studio Code](https://code.visualstudio.com/).
-    - Unpack your favorite development environment [NodeJS](https://nodejs.org/) (with n, npm, and/or yarn), Python 3.7 (and pip), [Ruby](http://www.ruby-lang.org/) (via rbenv), and [Go](https://golang.org/).
+    - Unpack your favorite development environment [NodeJS](https://nodejs.org/) (with n, npm, and/or yarn), Python 3.7 (with pip), [Ruby](http://www.ruby-lang.org/) (via rbenv), and [Go](https://golang.org/).
     - Manage your Microsoft Windows and Azure deployments with [PowerShell](https://github.com/PowerShell/PowerShell) and [azure-cli](https://github.com/Azure/azure-cli), command line tools for Azure.
     - Enable/disable Windows Explorer shell integration.
     - Configure experimental GUI settings, including HiDPI support and international input methods.
+    - Create a secure bridge to Docker running on Windows.
 - Support for [many Linux graphical applications](https://github.com/ethanhs/WSL-Programs) with no need to configure display or libGL in Wlinux. (Requires a Windows-based X client, such as [X410](http://afflnk.microsoft.com/c/1291904/459838/7593?prodsku=9NLP712ZMN9Q&u=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fstore%2Fp%2Fx410%2F9NLP712ZMN9Q).)
-- Install over 25,353 open source packages via the apt package management system from the [expansive Debian repositories](https://packages.debian.org/stable/) and any third-party Debian-compatible repositories from outside projects.
+- Install over 27,790 open source packages via the apt package management system from the [expansive Debian repositories](https://packages.debian.org/testing/) and any third-party Debian-compatible repositories from outside projects.
 - WLinux provides faster patching for WSL-specific bugs than any upstream Linux distro available on WSL.
 - A handful of unnecessary packages, such as systemd, have been removed from the base image to reduce image size and increase stability.
 - New features are [actively developed](https://github.com/WhitewaterFoundry/WLinux/pulls) based on [community input](https://github.com/WhitewaterFoundry/WLinux/issues). Learn how you can [earn paid grants](CONTRIBUTING.md) improving WLinux. 
 
-Note: The features above refer to the version slated for release as 1.1.23 on the Microsoft Store in late October. Build WLinux yourself and help us test and debug new features. 
+Note: The features above refer to the version slated for release as 1.1.25 on the Microsoft Store in late November. Build WLinux yourself and help us test and debug new features. 
 
 ## Obtaining Support
 
