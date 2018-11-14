@@ -24,14 +24,14 @@ function continueprompt {
 if (whiptail --title "Continue setup?" --yesno "Would you like to continue wlinux-setup?" 8 45) then
     echo "Starting wlinux-setup."
 else
-    echo "Exiting wlinux-setup"
+    echo "Exiting wlinux-setup."
     echo "You may run the script again any time by running: $ wlinux-setup"
     exit 0
 fi
 }
 
 function updatescriptprompt {
-if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and restart with the most recent version of wlinux-setup? This is recommended periodically to get new features and fixes." 10 60) then
+if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and restart with the most recent version of wlinux-setup?\n\nThis is recommended periodically to get new features and fixes." 9 90) then
     createtmp
     echo "Backing up old /etc/setup to /etc/setup.old"
     sudo cp /etc/setup /etc/setup.old
@@ -43,7 +43,7 @@ if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and re
     bash /etc/setup
     exit 0
 else
-    whiptail --title "Release setup" --msgbox "Continuing with built-in setup. If you encounter problems, please try updating." 8 85
+    whiptail --title "Release setup" --msgbox "Continuing with built-in wlinux-setup.\n\nIf you encounter problems, please try updating wlinux-setup." 9 90
 fi
 }
 
@@ -866,7 +866,7 @@ if (whiptail --title "DOCKER" --yesno "Would you like to install the bridge to D
 
     if [[ $(wslpath 'C:\\') != '/c/' ]]; then
 
-        if (whiptail --title "DOCKER" --yesno "To correctly integrate the volume mounting between docker Linux and Windows, your root mount point must be changed from /mnt/c to /c. Would you like I perform this change?" 10 75); then
+        if (whiptail --title "DOCKER" --yesno "To correctly integrate the volume mounting between docker Linux and Windows, your root mount point must be changed from /mnt/c to /c. Continue?" 10 80); then
             echo "Changing the root from /mnt to /"
 
             if [ $(grep -c "root" /etc/wsl.conf) -eq 0 ]; then
