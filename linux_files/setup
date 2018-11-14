@@ -32,20 +32,28 @@ fi
 
 function updatescriptprompt {
 
-if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and restart with the most recent version of this setup? This is recommended periodically to get new features and fixes." 10 60) then
-    createtmp
-    echo "Backing up old /etc/setup to /etc/setup.old"
-    sudo cp /etc/setup /etc/setup.old
-    echo "Getting fresh setup from GitHub"
-    wget https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/master/linux_files/setup
-    sudo cp setup /etc/setup
-    echo "Running updated wlinux-setup"
-    bash /etc/setup
-    exit 0
-else
-    whiptail --title "Release setup" --msgbox "Continuing with built-in setup. If you encounter problems, please try updating." 8 85
-fi
+if [ ! -f ~/.updated ]; then
+    
+     if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and restart with the most recent version of wlinux-setup? This is recommended periodically to get new features and fixes." 10 60) then
+        createtmp
+        echo "Backing up old /etc/setup to /etc/setup.old"
+        sudo cp /etc/setup /etc/setup.old
+        echo "Getting fresh wlinux-setup from GitHub"
+        wget https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/master/linux_files/setup
+        sudo cp setup /etc/setup
+        echo "Running updated wlinux-setup"
+        touch .updated
+        bash /etc/setup
+        exit 0
+    else
+        whiptail --title "Release setup" --msgbox "Continuing with built-in setup. If you encounter problems, please try updating." 8 85
+    fi
 
+else
+
+    rm ~/.updated
+
+fi
 }
 
 function securitypatches {
@@ -76,7 +84,7 @@ function byemessage {
 ## internationalization
 
 function languageprompt {
-if (whiptail --title "Language" --yesno "Would you like to configure for international languages?" 8 45) then
+if (whiptail --title "Language" --yesno "Would you like to configure default keyboard input/language?" 8 65) then
     echo "Running $ dpkg-reconfigure locales"
     sudo dpkg-reconfigure locales
 fi
@@ -698,7 +706,7 @@ fi
 }
 
 function explorerintegration {
-if (whiptail --title "EXPLORER" --yesno "Would you like to enable Windows Explorer shell integration?" 8 75) then
+if (whiptail --title "EXPLORER" --yesno "Would you like to enable Windows Explorer shell integration?" 8 65) then
     echo "Enabling Windows Explorer shell integration."
     createtmp
     cat << 'EOF' >> Install.reg
