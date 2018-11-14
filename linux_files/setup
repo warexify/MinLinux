@@ -96,7 +96,7 @@ whiptail --title "wlinux-setup" --checklist --separate-output "\nHand-curated ad
     "GO" "Install the latest Go from Google" off \
     "RUBY" "Install Ruby using rbenv and optionally install Rails" off \
     "DOTNET" "Install .NET Core SDK from Microsoft and optionally install NuGet" off \
-    "JAVA" "Install the Java SDK and JRE and optionally install Eclipse IDE" off \
+    "JAVA" "Install the Java SDK and JRE" off \
     "POWERSHELL" "Install PowerShell for Linux and/or Azure CLI tools" off \
     "GUI" "Install the basics needed for most GUI apps and configure GUI options" off \
     "DOCKER" "Install a secure bridge to Docker for Windows" off 3>&1 1>&2 2>&3
@@ -653,15 +653,6 @@ if (whiptail --title "OpenJDK" --yesno "Would you like to Install OpenJDK 8?" 8 
 else
     echo "Skipping OpenJDK"
 fi
-
-if (whiptail --title "Java IDE" --yesno "Would you like to install the Eclipse IDE?" 8 50) then
-    echo "Installing Eclipse"
-    echo "$ apt install eclipse -y"
-    sudo apt install eclipse -y
-else
-    echo "Skipping Eclipse"
-fi
-}
 
 function powershellinstall {
 
