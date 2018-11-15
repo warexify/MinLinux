@@ -12,12 +12,11 @@ DOCKERVERSION="18.06.1-ce"
 ## core functions
 
 function welcomeprompt {
-whiptail --title "Welcome to WLinux" --msgbox "Thank you for supporting sustainable independent open-source development.\n
-WLinux comes with a core set of packages installed. wlinux-setup allows \
-you to install curated selections for WLinux and configure optional settings. \
-Many more packages are available via the apt package management system.\n
-To learn more about apt you could use man, try typing $ man apt \
-" 13 80
+whiptail --title "Welcome to WLinux" --msgbox "Thank you for supporting sustainable independent open source development.\n
+WLinux comes with a core set of useful packages pre-installed, such as curl, git, and wslu. \n
+wlinux-setup allows you to install additional hand-curated selections for WLinux and configure optional WSL-specific settings. \n
+Many more packages are available via the apt package manager and optional pip, npm, and RubyGems package managers.\
+" 16 80
 }
 
 function continueprompt {
