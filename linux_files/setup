@@ -16,7 +16,7 @@ whiptail --title "Welcome to WLinux" --msgbox "Thank you for supporting sustaina
 WLinux comes with a core set of useful packages pre-installed, such as curl, git, and wslu. \n
 wlinux-setup allows you to install additional hand-curated selections for WLinux and configure optional WSL-specific settings. \n
 Many more packages are available via the apt package manager and optional pip, npm, and RubyGems package managers.\
-" 16 80
+" 15 96
 }
 
 function continueprompt {
