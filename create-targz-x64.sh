@@ -21,6 +21,7 @@ sudo cdebootstrap -a $ARCH --include=sudo,locales,git,ssh,gnupg,apt-transport-ht
 
 # remove patched cdebootstrap and libdebian-installer4
 sudo apt --fix-broken install -y
+sudo apt autoremove -y
 
 # clean apt cache
 sudo chroot $DIST apt-get clean
