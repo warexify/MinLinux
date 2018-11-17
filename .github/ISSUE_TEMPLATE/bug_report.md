@@ -25,8 +25,8 @@ Add any other context about the problem here.
 
 **Basic Troubleshooting Checklist**
 
-[ ] I have confirmed WSL is enabled: https://docs.microsoft.com/en-us/windows/wsl/troubleshooting#confirm-wsl-is-enabled.
 [ ] I have searched Google for the error message.
+[ ] I have checked official WSL troubleshooting documentation: https://docs.microsoft.com/en-us/windows/wsl/troubleshooting#confirm-wsl-is-enabled.
 [ ] I have searched the official Microsoft WSL issues page: https://github.com/Microsoft/WSL/issues.
 [ ] I have searched the WLinux issues page: https://github.com/WhitewaterFoundry/WLinux/issues.
 [ ] I have reset WLinux: Settings->Apps->Apps & features->WLinux->Advanced Options->Reset. 
