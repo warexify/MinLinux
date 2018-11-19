@@ -904,7 +904,7 @@ fi
 ### databases
 
 function cassandrainstall {
-if (whiptail --title "CASSANDRA" --yesno "Would you like to download and install Cassandra?" 8 70) then
+if (whiptail --title "CASSANDRA" --yesno "Would you like to download and install Apache Cassandra?" 8 60) then
     echo "Installing CASSANDRA"
     createtmp
     curl https://dist.apache.org/repos/dist/release/cassandra/KEYS | gpg --dearmor > cassandra.gpg
@@ -920,7 +920,7 @@ if (whiptail --title "CASSANDRA" --yesno "Would you like to download and install
 
     whiptail --title "CASSANDRA" --msgbox "Cassandra must be run as user cassandra, $ sudo -u cassandra /usr/sbin/cassandra -f " 8 90
 
-    if (whiptail --title "CASSANDRA" --yesno "Would you like to store Cassandra configuration and logs in your Windows home folder?" 8 70) then
+    if (whiptail --title "CASSANDRA" --yesno "Would you like to store Cassandra configuration and logs in your Windows home folder?" 8 90) then
 
         if [ -d "$(wslupath -H)/cassandra" ]; then
             echo "Backing up existing Cassandra directony"
@@ -954,16 +954,18 @@ if (whiptail --title "CASSANDRA" --yesno "Would you like to download and install
         done
 
         echo "Creating Autorun .bat file on Windows Desktop"
-        sudo cat << EOF > $(wslupath -H)/cassandra/autorun.bat
+        cat << EOF > autorun.bat
 @echo off
 wlinux.exe run "echo '${passvar}' | sudo mount -t proc proc /proc ; sudo -u cassandra /usr/sbin/cassandra -f"
 EOF
+        sudo cp autorun.bat $(wslupath -H)/cassandra/
 
         echo "Creating Update .bat file on Windows Desktop"
-        sudo cat << EOF > $(wslupath -H)/cassandra/update.bat
+        sudo cat << EOF > update.bat
 @echo off
 wlinux.exe run "echo '${passvar}' | sudo apt update ; sudo apt upgrade -y ; sudo apt autoclean -y"
 EOF
+        sudo cp update.bat $(wslupath -H)/cassandra/
 
     fi
 
