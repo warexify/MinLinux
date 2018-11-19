@@ -47,7 +47,11 @@ fi
 }
 
 function securitypatches {
-echo "No WSL hotfixes required."
+echo "Applying Hotpatches"
+
+echo "1: Applying temporary workaround for bug #199"
+alias clear="clear -x"
+echo 'alias clear="clear -x"' | sudo tee -a /etc/profile
 
 }
 
