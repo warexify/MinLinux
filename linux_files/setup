@@ -1007,6 +1007,4 @@ securitypatches
 installmenu
 byemessage
 
-cassandrainstall
-
 exit 0
