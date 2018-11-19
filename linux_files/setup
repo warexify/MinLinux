@@ -98,7 +98,8 @@ whiptail --title "wlinux-setup" --checklist --separate-output "\nHand-curated ad
     "JAVA" "Install the Java OpenJDK and JRE" off \
     "POWERSHELL" "Install PowerShell for Linux and/or Azure CLI tools" off \
     "GUI" "Install the basics needed for most GUI apps and configure GUI options" off \
-    "DOCKER" "Install a secure bridge to Docker for Windows" off 3>&1 1>&2 2>&3
+    "DOCKER" "Install a secure bridge to Docker for Windows" off 
+    "CASSANDRA" "Install the NoSQL server Cassandra from Apache" off 3>&1 1>&2 2>&3
 )
 
 echo "Selected:" $CHOICE
@@ -167,6 +168,11 @@ fi
 if [[ $CHOICE == *"DOCKER"* ]] ; then
     echo "DOCKER"
     dockerinstall
+fi
+
+if [[ $CHOICE == *"CASSANDRA"* ]] ; then
+    echo "CASSANDRA"
+    cassandrainstall
 fi
 }
 
@@ -989,17 +995,17 @@ fi
 
 # main
 
-#if [ ! -f ~/.updated ]; then
-#    welcomeprompt
-#    continueprompt
-#    updatescriptprompt
-#else
-#    rm ~/.updated
-#fi
-#
-#securitypatches
-#installmenu
-#byemessage
+if [ ! -f ~/.updated ]; then
+    welcomeprompt
+    continueprompt
+    updatescriptprompt
+else
+    rm ~/.updated
+fi
+
+securitypatches
+installmenu
+byemessage
 
 cassandrainstall
 
