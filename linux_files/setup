@@ -228,7 +228,7 @@ shellmenu () {
     [[ "$msg" ]] && echo "$msg"; :
 }
 
-while clear && shellmenu && read -rp "$prompt" num && [[ "$num" ]]; do
+while clear -x && shellmenu && read -rp "$prompt" num && [[ "$num" ]]; do
     [[ "$num" != *[![:digit:]]* ]] &&
     (( num > 0 && num <= ${#options[@]} )) ||
     { msg="Invalid option: $num"; continue; }
