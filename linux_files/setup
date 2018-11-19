@@ -934,8 +934,8 @@ if (whiptail --title "CASSANDRA" --yesno "Would you like to download and install
         fi
 
         echo "Moving Cassandra configuration directory"
-        sudo mkdir /etc/cassandra # these clean up weird things from leftover installs
-        sudo unlink /etc/cassandra #
+        sudo unlink /etc/cassandra # these clean up from previous installs
+        sudo mkdir /etc/cassandra 
         sudo cp -r /etc/cassandra/ $(wslupath -H)
         sudo rm -r /etc/cassandra
         sudo ln -s $(wslupath -H)/cassandra /etc/cassandra
@@ -973,6 +973,7 @@ if (whiptail --title "CASSANDRA" --yesno "Would you like to download and install
 $write1"
 $write2"
 EOF
+        sudo mkdir $(wslupath -H)/cassandra/ # in case user opted to keep config on WSL
         sudo cp autorun.bat $(wslupath -H)/cassandra/
 
         echo "Creating Update .bat file on Windows Desktop"
