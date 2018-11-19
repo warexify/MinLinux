@@ -958,14 +958,14 @@ if (whiptail --title "CASSANDRA" --yesno "Would you like to download and install
         echo "Creating Autorun .bat file on Windows Desktop"
         cat << EOF > autorun.bat
 @echo off
-wlinux.exe run "echo ${passvar} | sudo mount -t proc proc /proc ; sudo -u cassandra /usr/sbin/cassandra -f"
+wlinux.exe run "echo $passvar | sudo mount -t proc proc /proc ; sudo -u cassandra /usr/sbin/cassandra -f"
 EOF
         sudo cp autorun.bat $(wslupath -H)/cassandra/
 
         echo "Creating Update .bat file on Windows Desktop"
         sudo cat << EOF > update.bat
 @echo off
-wlinux.exe run "echo ${passvar} | sudo apt update ; sudo apt upgrade -y ; sudo apt autoclean -y"
+wlinux.exe run "echo $passvar | sudo apt update ; sudo apt upgrade -y ; sudo apt autoclean -y"
 EOF
         sudo cp update.bat $(wslupath -H)/cassandra/
 
