@@ -98,7 +98,7 @@ whiptail --title "wlinux-setup" --checklist --separate-output "\nHand-curated ad
     "JAVA" "Install the Java OpenJDK and JRE" off \
     "POWERSHELL" "Install PowerShell for Linux and/or Azure CLI tools" off \
     "GUI" "Install the basics needed for most GUI apps and configure GUI options" off \
-    "DOCKER" "Install a secure bridge to Docker for Windows" off 
+    "DOCKER" "Install a secure bridge to Docker for Windows" off \
     "CASSANDRA" "Install the NoSQL server Cassandra from Apache" off 3>&1 1>&2 2>&3
 )
 
