@@ -958,7 +958,7 @@ if (whiptail --title "CASSANDRA" --yesno "Would you like to download and install
 
         echo "Creating Autorun .bat file on Windows Desktop"
         phrase1='wlinux.exe run "echo '
-        phrase2=' | sudo mount -t proc proc /proc ; sudo -u cassandra /usr/sbin/cassandra -f'
+        phrase2=' | sudo -S mount -t proc proc /proc ; sudo -Su cassandra /usr/sbin/cassandra -f'
         write="$phrase1$passvar$phrase2"
         cat << EOF > autorun.bat
 @echo off
@@ -968,7 +968,7 @@ EOF
 
         echo "Creating Update .bat file on Windows Desktop"
         phrase1='wlinux.exe run "echo '
-        phrase2=' | sudo apt update ; sudo apt upgrade -y ; sudo apt autoclean -y'
+        phrase2=' | sudo -S apt update ; sudo -S apt upgrade -y ; sudo -S apt autoclean -y'
         write="$phrase1$passvar$phrase2"
         sudo cat << EOF > update.bat
 @echo off
