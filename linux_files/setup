@@ -948,11 +948,12 @@ if (whiptail --title "CASSANDRA" --yesno "Would you like to download and install
     if (whiptail --title "CASSANDRA" --yesno "Would you like to create .bat files to run and update Cassandra?" 8 70) then
 
         echo "Enter your UNIX password below."
-        read -s -p "[sudo] password for $USER: " $passvar
+        passvar=0
+        read -s -p "[sudo] password for $USER: " passvar
         until (echo $sudo_pwd | sudo -S echo '' 2>/dev/null)
         do
             echo -e '\nSorry, try again.'
-            read -s -p "[sudo] password for $USER: " $passvar
+            read -s -p "[sudo] password for $USER: " passvar
         done
 
         echo "Creating Autorun .bat file on Windows Desktop"
