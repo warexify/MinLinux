@@ -928,6 +928,7 @@ if (whiptail --title "CASSANDRA" --yesno "Would you like to download and install
         fi
 
         echo "Moving Cassandra configuration directory"
+        sudo mkdir /etc/cassandra # workaround for testing
         sudo cp -r /etc/cassandra/ $(wslupath -H)
         sudo rm -r /etc/cassandra
         sudo ln -s $(wslupath -H)/cassandra /etc/cassandra
