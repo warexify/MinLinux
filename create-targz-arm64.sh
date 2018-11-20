@@ -6,7 +6,6 @@ BUILDIR=$(pwd)
 TMPDIR=$(mktemp -d)
 ARCH="arm64"
 DIST="testing"
-export GZIP=-9
 cd $TMPDIR
 
 # install script dependencies
@@ -75,5 +74,5 @@ sudo tar --ignore-failed-read -czvf $TMPDIR/install.tar.gz *
 
 # move into place in build folder
 cd $TMPDIR
-cp install.tar.gz $BUILDIR/arm64/
+cp install.tar.gz $BUILDIR/ARM64/
 cd $BUILDIR
