@@ -781,7 +781,7 @@ function dockerinstall_build_relay {
     cat << 'EOF' >> docker-relay
 #!/bin/bash
 
-connected=$(docker version 2>&1 | grep -c "daemon")
+connected=$(docker version 2>&1 | grep -c "daemon\|error")
 if [[ ${connected} != 0  ]]; then
 
     killall --quiet socat
