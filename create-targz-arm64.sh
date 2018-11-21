@@ -5,25 +5,35 @@ set -e
 BUILDIR=$(pwd)
 TMPDIR=$(mktemp -d)
 ARCH="arm64"
-DIST="testing"
+DIST="stable"
 cd $TMPDIR
 
 # install script dependencies
 sudo apt update
 sudo apt -y install curl gnupg cdebootstrap
 
+# the workaround below in the x86 version does not work when building the arm64 version because of a qemu dependency
+# so instead we are building as stable and then upgrading to testing
+
 # download and install patched libdebian-installer, see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=904699
-wget https://github.com/WhitewaterFoundry/WLinux/raw/master/libdebian-installer4_0.116_amd64.deb
-sudo dpkg -i libdebian-installer4_0.116_amd64.deb
+# wget https://github.com/WhitewaterFoundry/WLinux/raw/master/libdebian-installer4_0.116_amd64.deb
+# sudo dpkg -i libdebian-installer4_0.116_amd64.deb
 
 # bootstrap image
-sudo cdebootstrap -a $ARCH --include=sudo,locales,git,ssh,gnupg,apt-transport-https,wget,ca-certificates,man,less,curl $DIST $DIST http://deb.debian.org/debian
+sudo cdebootstrap -a $ARCH --foreign --include=sudo,locales,git,ssh,gnupg,apt-transport-https,wget,ca-certificates,man,less,curl $DIST $DIST http://deb.debian.org/debian
 
 # remove patched cdebootstrap and libdebian-installer4
-sudo apt --fix-broken install -y
+# sudo apt --fix-broken install -y
+# sudo apt autoremove -y
 
 # clean apt cache
-sudo chroot $DIST apt-get clean
+sudo chroot $DIST apt clean
+
+# upgrade to testing
+sudo chroot $DIST apt update
+sudo chroot $DIST apt upgrade -y
+sudo chroot $DIST apt dist-upgrade -y
+sudo chroot $DIST apt autoremove -y
 
 # configure bash
 sudo chroot $DIST /bin/bash -c "echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen && locale-gen"
@@ -73,5 +83,5 @@ sudo tar --ignore-failed-read -czvf $TMPDIR/install.tar.gz *
 
 # move into place in build folder
 cd $TMPDIR
-cp install.tar.gz $BUILDIR/arm64/
+cp install.tar.gz $BUILDIR/ARM64/
 cd $BUILDIR

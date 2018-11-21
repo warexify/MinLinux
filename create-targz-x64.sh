@@ -6,7 +6,6 @@ BUILDIR=$(pwd)
 TMPDIR=$(mktemp -d)
 ARCH="amd64"
 DIST="testing"
-export GZIP=-9
 cd $TMPDIR
 
 # install script dependencies
