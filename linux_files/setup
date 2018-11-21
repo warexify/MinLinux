@@ -738,7 +738,7 @@ function dockerinstall_build_relay {
     wHomeWinPath=$(cmd.exe /c 'echo %HOMEDRIVE%%HOMEPATH%' 2>&1 | tr -d '\r') #wslupath doesn't support root movement yet
     wHome=$(wslpath -u ${wHomeWinPath})
 
-    if [ ! -f ${wHome}/.npiperelay/npiperelay.exe ]; then
+    if [[ ! -f ${wHome}/.npiperelay/npiperelay.exe ]]; then
 
         echo "Checking for go"
         if ! (go version); then
@@ -777,7 +777,6 @@ function dockerinstall_build_relay {
         sudo cp npiperelay.exe ${wHome}/.npiperelay/npiperelay.exe
     fi
 
-    sudo ln --symbolic --force ${wHome}/.npiperelay/npiperelay.exe /usr/local/bin/npiperelay.exe
     sudo apt-get -y -q install socat
 
     cat << 'EOF' >> docker-relay
@@ -786,8 +785,12 @@ function dockerinstall_build_relay {
 connected=$(docker version 2>&1 | grep -c "daemon\|error")
 if [[ ${connected} != 0  ]]; then
 
+    PATH=${PATH}:$(wslpath "C:\Windows\System32")
+    wHomeWinPath=$(cmd.exe /c 'echo %HOMEDRIVE%%HOMEPATH%' 2>&1 | tr -d '\r') #wslupath doesn't support root movement yet
+    wHome=$(wslpath -u ${wHomeWinPath})
+
     killall --quiet socat
-    exec nohup socat UNIX-LISTEN:/var/run/docker.sock,fork,group=docker,umask=007 EXEC:"npiperelay.exe -ep -s //./pipe/docker_engine",nofork  </dev/null &>/dev/null &
+    exec nohup socat UNIX-LISTEN:/var/run/docker.sock,fork,group=docker,umask=007 EXEC:"${wHome}/.npiperelay/npiperelay.exe -ep -s //./pipe/docker_engine",nofork  </dev/null &>/dev/null &
 fi
 EOF
     sudo cp docker-relay /usr/bin/docker-relay
@@ -847,6 +850,8 @@ if (whiptail --title "DOCKER" --yesno "Would you like to install the bridge to D
 
     createtmp
 
+    export PATH=${PATH}:$(wslpath "C:\Windows\System32") #Be sure we can execute Windows commands
+
     wget -c https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKERVERSION}.tgz
     sudo tar -xzvf docker-${DOCKERVERSION}.tgz --overwrite --directory /usr/bin/ --strip-components 1 docker/docker
 
@@ -875,14 +880,16 @@ if (whiptail --title "DOCKER" --yesno "Would you like to install the bridge to D
 
     docker-compose version
 
-    if [[ $(wslpath 'C:\\') != '/c/' ]]; then
+    if [[ $(wslpath 'C:\\') = '/mnt/c/' ]]; then
 
         if (whiptail --title "DOCKER" --yesno "To correctly integrate the volume mounting between docker Linux and Windows, your root mount point must be changed from /mnt/c to /c. Continue?" 10 80); then
             echo "Changing the root from /mnt to /"
 
-            if [ $(grep -c "root" /etc/wsl.conf) -eq 0 ]; then
+            if [[ $(grep -c "root" /etc/wsl.conf) -eq 0 ]]; then
                 sudo sed -i 's$\[automount\]$\0\nroot=/$' /etc/wsl.conf
 
+            else
+                sudo sed -i 's$\(root=\)\(.*\)$\1/$' /etc/wsl.conf
             fi
         fi
     fi
