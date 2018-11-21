@@ -5,7 +5,8 @@ CURDUR=""
 TMPDIR=""
 VERSION="1.1.25"
 GOVERSION="1.11.2"
-DOCKERVERSION="18.06.1-ce"
+DOCKERVERSION="18.09.0"
+DOCKERCOMPOSEVERSION="1.23.1"
 
 # functions
 
@@ -737,7 +738,7 @@ function dockerinstall_build_relay {
     wHomeWinPath=$(cmd.exe /c 'echo %HOMEDRIVE%%HOMEPATH%' 2>&1 | tr -d '\r') #wslupath doesn't support root movement yet
     wHome=$(wslpath -u ${wHomeWinPath})
 
-    if [ ! -f ${wHome}/go/bin/npiperelay.exe ]; then
+    if [ ! -f ${wHome}/.npiperelay/npiperelay.exe ]; then
 
         echo "Checking for go"
         if ! (go version); then
@@ -771,11 +772,12 @@ function dockerinstall_build_relay {
         fi
 
         GOOS=windows go build -o npiperelay.exe github.com/jstarks/npiperelay
-        sudo mkdir -p ${wHome}/go/bin
-        sudo cp npiperelay.exe ${wHome}/go/bin/npiperelay.exe
+        sudo mkdir -p ${wHome}/.npiperelay
+        cmd.exe /c 'attrib +h %HOMEDRIVE%%HOMEPATH%\.npiperelay'
+        sudo cp npiperelay.exe ${wHome}/.npiperelay/npiperelay.exe
     fi
 
-    sudo ln --symbolic --force ${wHome}/go/bin/npiperelay.exe /usr/local/bin/npiperelay.exe
+    sudo ln --symbolic --force ${wHome}/.npiperelay/npiperelay.exe /usr/local/bin/npiperelay.exe
     sudo apt-get -y -q install socat
 
     cat << 'EOF' >> docker-relay
@@ -866,7 +868,7 @@ if (whiptail --title "DOCKER" --yesno "Would you like to install the bridge to D
     sudo sh -c 'curl -L https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker > /etc/bash_completion.d/docker'
 
     echo "Installing docker-compose"
-    sudo sh -c 'curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m` > /usr/bin/docker-compose'
+    sudo sh -c "curl -L https://github.com/docker/compose/releases/download/${DOCKERCOMPOSEVERSION}/docker-compose-`uname -s`-`uname -m` > /usr/bin/docker-compose"
     sudo chmod +x /usr/bin/docker-compose
 
     sudo sh -c 'curl -L https://raw.githubusercontent.com/docker/compose/$(docker-compose version --short)/contrib/completion/bash/docker-compose > /etc/bash_completion.d/docker-compose'
