@@ -89,7 +89,7 @@ fi
 function installmenu {
 
 CHOICE=$(
-whiptail --title "wlinux-setup" --checklist --separate-output "\nHand-curated add-ons [SPACE to select, ENTER to confirm]:" 21 98 13 \
+whiptail --title "wlinux-setup" --checklist --separate-output "\nHand-curated add-ons [SPACE to select, ENTER to confirm]:" 22 99 14 \
     "LANGUAGE" "Change default language and keyboard setting in WLinux" off \
     "EXPLORER" "Enable right-click on folders in Windows Explorer to open them in WLinux  " off \
     "SHELLS" "Install and configure zsh, csh, and fish" off \
@@ -932,7 +932,7 @@ if (whiptail --title "CASSANDRA" --yesno "Would you like to download and install
 
     whiptail --title "CASSANDRA" --msgbox "Cassandra must be run as user cassandra, $ sudo -u cassandra /usr/sbin/cassandra -f " 8 90
 
-    if (whiptail --title "CASSANDRA" --yesno "Would you like to store Cassandra configuration and logs in your Windows home folder?" 8 90) then
+    if (whiptail --title "CASSANDRA" --yesno "Would you like to store Cassandra configuration and logs in your Windows user home folder?" 8 95) then
 
         if [ -d "$(wslupath -H)/cassandra" ]; then
             echo "Backing up existing Cassandra directony"
@@ -957,7 +957,7 @@ if (whiptail --title "CASSANDRA" --yesno "Would you like to download and install
         sudo chown -R cassandra:cassandra /var/log/cassandra/
     fi
 
-    if (whiptail --title "CASSANDRA" --yesno "Would you like to create .bat files to run and update Cassandra?" 8 70) then
+    if (whiptail --title "CASSANDRA" --yesno "Would you like to create .bat files to run and update Cassandra in your Windows user home folder?" 8 102) then
 
         echo "Enter your UNIX password below."
         passvar=0
@@ -968,7 +968,9 @@ if (whiptail --title "CASSANDRA" --yesno "Would you like to download and install
             read -s -p "[sudo] password for $USER: " passvar
         done
 
-        echo "Creating Autorun .bat file on Windows Desktop"
+        sudo mkdir $(wslupath -H)/cassandra/ # in case user opted to keep config on WSL
+
+        echo "Creating autorun.bat file in home folder"
         phrase1='wlinux.exe run "echo '
         phrase2=" | sudo -Su root mount -t proc proc /proc"
         phrase3=" | sudo -Su cassandra /usr/sbin/cassandra -f"
@@ -979,10 +981,9 @@ if (whiptail --title "CASSANDRA" --yesno "Would you like to download and install
 $write1"
 $write2"
 EOF
-        sudo mkdir $(wslupath -H)/cassandra/ # in case user opted to keep config on WSL
         sudo cp autorun.bat $(wslupath -H)/cassandra/
 
-        echo "Creating Update .bat file on Windows Desktop"
+        echo "Creating update.bat file on Windows Desktop"
         phrase1='wlinux.exe run "echo '
         phrase2=' | sudo -S apt update ; sudo -S apt upgrade -y ; sudo -S apt autoclean -y"'
         write="$phrase1$passvar$phrase2"
@@ -991,6 +992,16 @@ EOF
 $write
 EOF
         sudo cp update.bat $(wslupath -H)/cassandra/
+
+        echo "Creating installservice .bat file on Windows Desktop"
+        phrase1='sc create NewService binpath= '
+        phrase2='/cassandra/autorun.bat type= share start= auto displayname= Cassandra'
+        write="$phrase1$(wslupath -H)$phrase2"
+        sudo cat << EOF > installservice.bat
+@echo off
+$write
+EOF
+        sudo cp installservice.bat $(wslupath -H)/cassandra/
 
     fi
 

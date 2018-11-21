@@ -65,7 +65,7 @@ Status: Released.
 
 # Release 1.1.25
 
-Status: Testing. Late November.
+Status: Released.
 
 - Secure bridge to Docker on Windows host. You should re-enable TLS.
 - Rebase to Debian testing. Newer packages. No more release mixing.
@@ -76,16 +76,17 @@ Status: Testing. Late November.
 
 ## Release 1.1.26
 
-Status: Early December.
+Status: Early December. Testing.
 
-- Optimized build of bash.
+- Initial ARM64 support.
+- Apache Cassandra inclusion.
+- Latest Debian build.
 - Minor fixes and improvements.
 
 ## Release 1.1.27
 
 Status: Mid December.
 
-- ARM64 support
 - Minor fixes and improvements.
 
 See https://github.com/WhitewaterFoundry/WLinux/pulls for features under testing/active developmment.
