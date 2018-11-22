@@ -896,6 +896,10 @@ if (whiptail --title "DOCKER" --yesno "Would you like to install the bridge to D
             else
                 sudo sed -i 's$\(root=\)\(.*\)$\1/$' /etc/wsl.conf
             fi
+
+	    # Temporary fix until WSLU fixes their path tool not updating when mount changed
+	    sudo rm -r /mnt/c
+	    sudo ln -s /c /mnt/c
         fi
     fi
 
