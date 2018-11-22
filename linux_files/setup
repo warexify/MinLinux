@@ -375,6 +375,7 @@ fi
 if (whiptail --title "GUI Libraries" --yesno "Would you like to install a base set of libraries for GUI applications?" 8 75) then
     echo "Installing GUILIB"
     echo "$ apt install xclip gnome-themes-standard gtk2-engines-murrine dbus dbus-x11 -y"
+    updateupgrade
     sudo apt install xclip gnome-themes-standard gtk2-engines-murrine dbus dbus-x11 -y
     echo "Configuring dbus if you already had it installed. If not, you might see some errors, and that is okay."
     #stretch
@@ -529,6 +530,7 @@ function nodeinstall {
 if (whiptail --title "NODE" --yesno "Would you like to download and install NodeJS using n and the npm package manager?" 8 88) then
     echo "Installing NODE"
     createtmp
+    updateupgrade
     sudo apt install n build-essential -y 
     sudo n latest
     curl -0 -L https://npmjs.com/install.sh | sudo sh
@@ -614,6 +616,7 @@ fi
 
 if (whiptail --title "RAILS" --yesno "Would you like to download and install Rails from RubyGems?" 8 65) then
     echo "Installing RAILS"
+    updateupgrade
     sudo apt -t testing install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev
     createtmp
     nodeinstall
@@ -654,6 +657,7 @@ function javainstall {
 
 if (whiptail --title "OpenJDK" --yesno "Would you like to Install OpenJDK 8?" 8 42) then
     echo "$ apt install openjdk-8-jre openjdk-8-jdk -y"
+    updateupgrade
     sudo apt install openjdk-8-jre openjdk-8-jdk -y
 else
     echo "Skipping OpenJDK"
@@ -730,7 +734,8 @@ function dockerinstall_build_relay {
     #Build the relay
     wHomeWinPath=$(cmd.exe /c 'echo %HOMEDRIVE%%HOMEPATH%' 2>&1 | tr -d '\r') #wslupath doesn't support root movement yet
     wHome=$(wslpath -u ${wHomeWinPath})
-
+    updateupgrade
+    
     if [ ! -f ${wHome}/go/bin/npiperelay.exe ]; then
 
         echo "Checking for go"
