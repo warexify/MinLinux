@@ -709,13 +709,13 @@ if (whiptail --title "EXPLORER" --yesno "Would you like to enable Windows Explor
     [HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\WLinux]
     @="Open with WLinux"
     [HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\WLinux\command]
-    @="wlinux.exe run \"cd \\\"$(wslupath \\\"%V\\\")\\\" && $(getent passwd $LOGNAME | cut -d: -f7)\""
+    @="wlinux.exe run \"cd \\\"$(wslpath \\\"%V\\\")\\\" && $(getent passwd $LOGNAME | cut -d: -f7)\""
     [HKEY_CURRENT_USER\Software\Classes\Directory\shell\WLinux]
     @="Open with WLinux"
     [HKEY_CURRENT_USER\Software\Classes\Directory\shell\WLinux\command]
-    @="wlinux.exe run \"cd \\\"$(wslupath \\\"%V\\\")\\\" && $(getent passwd $LOGNAME | cut -d: -f7)\""
+    @="wlinux.exe run \"cd \\\"$(wslpath \\\"%V\\\")\\\" && $(getent passwd $LOGNAME | cut -d: -f7)\""
 EOF
-    cp Install.reg $(wslupath -T)/Install.reg
+    cp Install.reg $(wslpath "$(cmd.exe /c 'echo %TEMP%')")/Install.reg
     cmd.exe /C "Reg import %TEMP%\Install.reg"
     cleantmp
  else
@@ -726,7 +726,7 @@ EOF
     [-HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\WLinux]
     [-HKEY_CURRENT_USER\Software\Classes\Directory\shell\WLinux]
 EOF
-    cp Install.reg $(wslupath -T)/Uninstall.reg
+    cp Install.reg $(wslpath "$(cmd.exe /c 'echo %TEMP%')")/Uninstall.reg
     cmd.exe /C "Reg import %TEMP%\Uninstall.reg"
     cleantmp
 fi
@@ -735,7 +735,7 @@ fi
 function dockerinstall_build_relay {
 
     #Build the relay
-    wHomeWinPath=$(cmd.exe /c 'echo %HOMEDRIVE%%HOMEPATH%' 2>&1 | tr -d '\r') #wslupath doesn't support root movement yet
+    wHomeWinPath=$(cmd.exe /c 'echo %HOMEDRIVE%%HOMEPATH%' 2>&1 | tr -d '\r')
     wHome=$(wslpath -u ${wHomeWinPath})
 
     if [[ ! -f ${wHome}/.npiperelay/npiperelay.exe ]]; then
