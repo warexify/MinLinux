@@ -860,7 +860,7 @@ if (whiptail --title "DOCKER" --yesno "Would you like to install the bridge to D
 
     #Checks if the Windows 10 version supports Unix Sockets and that the tcp port without TLS is not already open
     connected=$(env DOCKER_HOST=tcp://0.0.0.0:2375 docker version 2>&1 | grep -c "Cannot connect to the Docker daemon")
-    if [[ $(wslsys -B | cut -d ' ' -f 2) -gt 17063 && ${connected} != 0  ]]; then
+    if [[ $(reg.exe query "HKLM\Software\Microsoft\Windows NT\CurrentVersion" /v "CurrentBuild" 2>&1 | egrep -o '([0-9]{5})' | cut -d ' ' -f 2) -gt 17063 && ${connected} != 0  ]]; then
         #Connect via Unix Sockets
         dockerinstall_build_relay
     else
