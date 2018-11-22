@@ -382,6 +382,7 @@ fi
 if (whiptail --title "GUI Libraries" --yesno "Would you like to install a base set of libraries for GUI applications?" 8 75) then
     echo "Installing GUILIB"
     echo "$ apt install xclip gnome-themes-standard gtk2-engines-murrine dbus dbus-x11 -y"
+    updateupgrade
     sudo apt install xclip gnome-themes-standard gtk2-engines-murrine dbus dbus-x11 -y
     echo "Configuring dbus if you already had it installed. If not, you might see some errors, and that is okay."
     #stretch
@@ -405,7 +406,7 @@ if (whiptail --title "fcitx" --yesno "Would you like to install fcitx for improv
     updateupgrade
     sudo apt install fcitx fonts-noto-cjk fonts-noto-color-emoji dbus-x11 -y
 
-   FCCHOICE=$(whiptail --title "fcitx engines" --checklist --separate-output "Select fcitx engine:" 15 65 8 \
+    FCCHOICE=$(whiptail --title "fcitx engines" --checklist --separate-output "Select fcitx engine:" 15 65 8 \
     "sunpinyin" "Chinese sunpinyin" off \
     "libpinyin" "Chinese libpinyin" off \
     "rime" "Chinese rime" off \
@@ -419,88 +420,88 @@ if (whiptail --title "fcitx" --yesno "Would you like to install fcitx for improv
     "table" "Tables (Includes all available tables)" off 3>&1 1>&2 2>&3
 )
 
-if [[ $FCCHOICE == *"sunpinyin"* ]] ; then
-    sudo apt install fcitx-sunpinyin -y
-fi
+    if [[ $FCCHOICE == *"sunpinyin"* ]] ; then
+        sudo apt install fcitx-sunpinyin -y
+    fi
 
-if [[ $FCCHOICE == *"libpinyin"* ]] ; then
-    sudo apt install fcitx-libpinyin -y
-fi
+    if [[ $FCCHOICE == *"libpinyin"* ]] ; then
+        sudo apt install fcitx-libpinyin -y
+    fi
 
-if [[ $FCCHOICE == *"rime"* ]] ; then
-    sudo apt install fcitx-rime -y
-fi
+    if [[ $FCCHOICE == *"rime"* ]] ; then
+        sudo apt install fcitx-rime -y
+    fi
 
-if [[ $FCCHOICE == *"googlepinyin"* ]] ; then
-    sudo apt install fcitx-googlepinyin -y
-fi
+    if [[ $FCCHOICE == *"googlepinyin"* ]] ; then
+        sudo apt install fcitx-googlepinyin -y
+    fi
 
-if [[ $FCCHOICE == *"chewing"* ]] ; then
-    sudo apt install fcitx-chewing -y
-fi
+    if [[ $FCCHOICE == *"chewing"* ]] ; then
+        sudo apt install fcitx-chewing -y
+    fi
 
-if [[ $FCCHOICE == *"mozc"* ]] ; then
-    sudo apt install fcitx-mozc -y
-fi
+    if [[ $FCCHOICE == *"mozc"* ]] ; then
+        sudo apt install fcitx-mozc -y
+    fi
 
-if [[ $FCCHOICE == *"kkc"* ]] ; then
-    sudo apt install fcitx-kkc fcitx-kkc-dev -y
-fi
+    if [[ $FCCHOICE == *"kkc"* ]] ; then
+        sudo apt install fcitx-kkc fcitx-kkc-dev -y
+    fi
 
-if [[ $FCCHOICE == *"hangul"* ]] ; then
-    sudo apt install fcitx-hangul -y
-fi
+    if [[ $FCCHOICE == *"hangul"* ]] ; then
+        sudo apt install fcitx-hangul -y
+    fi
 
-if [[ $FCCHOICE == *"unikey"* ]] ; then
-    sudo apt install fcitx-unikey -y
-fi
+    if [[ $FCCHOICE == *"unikey"* ]] ; then
+        sudo apt install fcitx-unikey -y
+    fi
 
-if [[ $FCCHOICE == *"sayura"* ]] ; then
-    sudo apt install fcitx-sayura -y
-fi
+    if [[ $FCCHOICE == *"sayura"* ]] ; then
+        sudo apt install fcitx-sayura -y
+    fi
 
-if [[ $FCCHOICE == *"tables"* ]] ; then
-    sudo apt install fcitx-table fcitx-table-all -y
-fi
+    if [[ $FCCHOICE == *"tables"* ]] ; then
+        sudo apt install fcitx-table fcitx-table-all -y
+    fi
 
-  if (whiptail --title "fcitx-autostart" --yesno "Would you like fcitx-autostart to run each time you open WLinux? WARNING: Requires an X server to be running or it will generate errors." 8 70) then
-    echo "Placing fcitx-autostart in /etc/profile"
-    sudo sh -c 'echo "fcitx-autostart" >> /etc/profile'
-   else
-    echo "Skipping fcitx-autostart"
-    whiptail --title "Note about fcitx-autostart" --msgbox "You will need to run $ fcitx-autostart to enable fcitx before running GUI apps." 8 85
-   fi
+    echo "Setting environmental variables"
+    export GTK_IM_MODULE=fcitx
+    export QT_IM_MODULE=fcitx
+    export XMODIFIERS=@im=fcitx
+    export DefaultIMModule=fcitx
 
-   echo "Configuring dbus machine id"
-   sudo sh -c "dbus-uuidgen > /var/lib/dbus/machine-id"
+    echo "Saving environmental variables to /etc/profile"
+    sudo sh -c 'echo "export QT_IM_MODULE=fcitx" >> /etc/profile'
+    sudo sh -c 'echo "export GTK_IM_MODULE=fcitx" >> /etc/profile'
+    sudo sh -c 'echo "export XMODIFIERS=@im=fcitx" >> /etc/profile'
+    sudo sh -c 'echo "export DefaultIMModule=fcitx" >> /etc/profile'
 
-   echo "Setting environmental variables"
-   export GTK_IM_MODULE=fcitx
-   export QT_IM_MODULE=fcitx
-   export XMODIFIERS=@im=fcitx
-   export DefaultIMModule=fcitx
+    if (whiptail --title "fcitx-autostart" --yesno "Would you like fcitx-autostart to run each time you open WLinux? WARNING: Requires an X server to be running or it will generate errors." 8 70) then
+        echo "Placing fcitx-autostart in /etc/profile"
+        sudo sh -c 'echo "fcitx-autostart &>/dev/null" >> /etc/profile'
+    else
+        echo "Skipping fcitx-autostart"
+        whiptail --title "Note about fcitx-autostart" --msgbox "You will need to run $ fcitx-autostart to enable fcitx before running GUI apps." 8 85
+    fi
 
-   echo "Saving environmental variables to /etc/profile"
-   sudo sh -c 'echo "QT_IM_MODULE=fcitx" >> /etc/profile'
-   sudo sh -c 'echo "GTK_IM_MODULE=fcitx" >> /etc/profile'
-   sudo sh -c 'echo "XMODIFIERS=@im=fcitx" >> /etc/profile'
-   sudo sh -c 'echo "DefaultIMModule=fcitx" >> /etc/profile'
+    echo "Configuring dbus machine id"
+    sudo sh -c "dbus-uuidgen > /var/lib/dbus/machine-id"
 
-   if (whiptail --title "fcitx-autostart" --yesno "Would you like to run fcitx-autostart now? Requires an X server to be running." 8 85) then
-    echo "Starting fcitx-autostart"
-    fcitx-autostart
-   else
-    echo "Skipping fcitx-config-gtk3"
-   fi
+    if (whiptail --title "fcitx-autostart" --yesno "Would you like to run fcitx-autostart now? Requires an X server to be running." 8 85) then
+        echo "Starting fcitx-autostart"
+        fcitx-autostart
+    else
+        echo "Skipping fcitx-config-gtk3"
+    fi
    
-   if (whiptail --title "fcitx-config-gtk3" --yesno "Would you like to configure fcitx now? Requires an X server to be running." 8 80) then
-    echo "Running fcitx-config-gtk3"
-    fcitx-config-gtk3
-   else
-    echo "Skipping fcitx-config-gtk3"
-   fi
+    if (whiptail --title "fcitx-config-gtk3" --yesno "Would you like to configure fcitx now? Requires an X server to be running." 8 80) then
+        echo "Running fcitx-config-gtk3"
+        fcitx-config-gtk3
+    else
+        echo "Skipping fcitx-config-gtk3"
+    fi
 
-   whiptail --title "Note about fcitx-config-gtk3" --msgbox "You can configure fcitx later by running $ fcitx-config-gtk3" 8 70
+    whiptail --title "Note about fcitx-config-gtk3" --msgbox "You can configure fcitx later by running $ fcitx-config-gtk3" 8 70
 
 else
     echo "Skipping fcitx"
@@ -510,8 +511,8 @@ if (whiptail --title "HiDPI" --yesno "Would you like to configure Qt and GDK for
     echo "Installing HiDPI"
     export QT_SCALE_FACTOR=2
     export GDK_SCALE=2
-    sudo sh -c 'echo "QT_SCALE_FACTOR=2" >> /etc/profile'
-    sudo sh -c 'echo "GDK_SCALE=2" >> /etc/profile'
+    sudo sh -c 'echo "export QT_SCALE_FACTOR=2" >> /etc/profile'
+    sudo sh -c 'echo "export GDK_SCALE=2" >> /etc/profile'
 else
     echo "Skipping HiDPI"
 fi
@@ -536,6 +537,7 @@ function nodeinstall {
 if (whiptail --title "NODE" --yesno "Would you like to download and install NodeJS using n and the npm package manager?" 8 88) then
     echo "Installing NODE"
     createtmp
+    updateupgrade
     sudo apt install n build-essential -y 
     sudo n latest
     curl -0 -L https://npmjs.com/install.sh | sudo sh
@@ -621,6 +623,7 @@ fi
 
 if (whiptail --title "RAILS" --yesno "Would you like to download and install Rails from RubyGems?" 8 65) then
     echo "Installing RAILS"
+    updateupgrade
     sudo apt -t testing install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev
     createtmp
     nodeinstall
@@ -661,6 +664,7 @@ function javainstall {
 
 if (whiptail --title "OpenJDK" --yesno "Would you like to Install OpenJDK 8?" 8 42) then
     echo "$ apt install openjdk-8-jre openjdk-8-jdk -y"
+    updateupgrade
     sudo apt install openjdk-8-jre openjdk-8-jdk -y
 else
     echo "Skipping OpenJDK"
@@ -737,7 +741,8 @@ function dockerinstall_build_relay {
     #Build the relay
     wHomeWinPath=$(cmd.exe /c 'echo %HOMEDRIVE%%HOMEPATH%' 2>&1 | tr -d '\r')
     wHome=$(wslpath -u ${wHomeWinPath})
-
+    
+    updateupgrade
     if [[ ! -f ${wHome}/.npiperelay/npiperelay.exe ]]; then
 
         echo "Checking for go"
