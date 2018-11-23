@@ -7,6 +7,8 @@ VERSION="1.1.25"
 GOVERSION="1.11.2"
 DOCKERVERSION="18.09.0"
 DOCKERCOMPOSEVERSION="1.23.1"
+wHomeWinPath=$(cmd.exe /c 'echo %HOMEDRIVE%%HOMEPATH%' 2>&1 | tr -d '\r')
+wHome=$(wslpath -u ${wHomeWinPath})
 
 # functions
 
@@ -470,15 +472,15 @@ if (whiptail --title "fcitx" --yesno "Would you like to install fcitx for improv
     export XMODIFIERS=@im=fcitx
     export DefaultIMModule=fcitx
 
-    echo "Saving environmental variables to /etc/profile"
-    sudo sh -c 'echo "export QT_IM_MODULE=fcitx" >> /etc/profile'
-    sudo sh -c 'echo "export GTK_IM_MODULE=fcitx" >> /etc/profile'
-    sudo sh -c 'echo "export XMODIFIERS=@im=fcitx" >> /etc/profile'
-    sudo sh -c 'echo "export DefaultIMModule=fcitx" >> /etc/profile'
+    echo "Saving environmental variables to /etc/profile.d/fcitx"
+    sudo sh -c 'echo "export QT_IM_MODULE=fcitx" >> /etc/profile.d/fcitx'
+    sudo sh -c 'echo "export GTK_IM_MODULE=fcitx" >> /etc/profile.d/fcitx'
+    sudo sh -c 'echo "export XMODIFIERS=@im=fcitx" >> /etc/profile.d/fcitx'
+    sudo sh -c 'echo "export DefaultIMModule=fcitx" >> /etc/profile.d/fcitx'
 
     if (whiptail --title "fcitx-autostart" --yesno "Would you like fcitx-autostart to run each time you open WLinux? WARNING: Requires an X server to be running or it will generate errors." 8 70) then
-        echo "Placing fcitx-autostart in /etc/profile"
-        sudo sh -c 'echo "fcitx-autostart &>/dev/null" >> /etc/profile'
+        echo "Placing fcitx-autostart in /etc/profile.d/fcitx"
+        sudo sh -c 'echo "fcitx-autostart &>/dev/null" >> /etc/profile.d/fcitx'
     else
         echo "Skipping fcitx-autostart"
         whiptail --title "Note about fcitx-autostart" --msgbox "You will need to run $ fcitx-autostart to enable fcitx before running GUI apps." 8 85
@@ -511,8 +513,8 @@ if (whiptail --title "HiDPI" --yesno "Would you like to configure Qt and GDK for
     echo "Installing HiDPI"
     export QT_SCALE_FACTOR=2
     export GDK_SCALE=2
-    sudo sh -c 'echo "export QT_SCALE_FACTOR=2" >> /etc/profile'
-    sudo sh -c 'echo "export GDK_SCALE=2" >> /etc/profile'
+    sudo sh -c 'echo "export QT_SCALE_FACTOR=2" >> /etc/profile.d/hidpi'
+    sudo sh -c 'echo "export GDK_SCALE=2" >> /etc/profile.d/hidpi'
 else
     echo "Skipping HiDPI"
 fi
@@ -719,7 +721,7 @@ if (whiptail --title "EXPLORER" --yesno "Would you like to enable Windows Explor
     [HKEY_CURRENT_USER\Software\Classes\Directory\shell\WLinux\command]
     @="wlinux.exe run \"cd \\\"$(wslpath \\\"%V\\\")\\\" && $(getent passwd $LOGNAME | cut -d: -f7)\""
 EOF
-    cp Install.reg $(wslpath "$(cmd.exe /c 'echo %TEMP%')")/Install.reg
+    cp Install.reg $(wslpath "$(cmd.exe /c 'echo %TEMP%' 2>&1 | tr -d '\r')")/Install.reg
     cmd.exe /C "Reg import %TEMP%\Install.reg"
     cleantmp
  else
@@ -730,7 +732,7 @@ EOF
     [-HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\WLinux]
     [-HKEY_CURRENT_USER\Software\Classes\Directory\shell\WLinux]
 EOF
-    cp Install.reg $(wslpath "$(cmd.exe /c 'echo %TEMP%')")/Uninstall.reg
+    cp Install.reg $(wslpath "$(cmd.exe /c 'echo %TEMP%' 2>&1 | tr -d '\r')")/Uninstall.reg
     cmd.exe /C "Reg import %TEMP%\Uninstall.reg"
     cleantmp
 fi
@@ -739,10 +741,6 @@ fi
 function dockerinstall_build_relay {
 
     #Build the relay
-    wHomeWinPath=$(cmd.exe /c 'echo %HOMEDRIVE%%HOMEPATH%' 2>&1 | tr -d '\r')
-    wHome=$(wslpath -u ${wHomeWinPath})
-    
-    updateupgrade
     if [[ ! -f ${wHome}/.npiperelay/npiperelay.exe ]]; then
 
         echo "Checking for go"
@@ -949,22 +947,22 @@ if (whiptail --title "CASSANDRA" --yesno "Would you like to download and install
 
     if (whiptail --title "CASSANDRA" --yesno "Would you like to store Cassandra configuration and logs in your Windows user home folder?" 8 95) then
 
-        if [ -d "$(wslupath -H)/cassandra" ]; then
+        if [ -d "${wHome}/cassandra" ]; then
             echo "Backing up existing Cassandra directony"
-            sudo cp -r $(wslupath -H)/cassandra $(wslupath -H)/cassandra.old
+            sudo cp -r ${wHome}/cassandra ${wHome}/cassandra.old
         fi
 
         echo "Moving Cassandra configuration directory"
         sudo unlink /etc/cassandra # these clean up from previous installs
         sudo mkdir /etc/cassandra 
-        sudo cp -r /etc/cassandra/ $(wslupath -H)
+        sudo cp -r /etc/cassandra/ ${wHome}
         sudo rm -r /etc/cassandra
-        sudo ln -s $(wslupath -H)/cassandra /etc/cassandra
+        sudo ln -s ${wHome}/cassandra /etc/cassandra
 
         echo "Moving Cassandra log directory"
-        sudo mkdir $(wslupath -H)/cassandra/logs
+        sudo mkdir ${wHome}/cassandra/logs
         sudo rm -r /var/log/cassandra
-        sudo ln -s $(wslupath -H)/cassandra/logs /var/log/cassandra
+        sudo ln -s ${wHome}/cassandra/logs /var/log/cassandra
 
         echo "Setting permissions"
         sudo chown -R cassandra:cassandra /etc/cassandra
@@ -983,7 +981,7 @@ if (whiptail --title "CASSANDRA" --yesno "Would you like to download and install
             read -s -p "[sudo] password for $USER: " passvar
         done
 
-        sudo mkdir $(wslupath -H)/cassandra/ # in case user opted to keep config on WSL
+        sudo mkdir ${wHome}/cassandra/ # in case user opted to keep config on WSL
 
         echo "Creating autorun.bat file in home folder"
         phrase1='wlinux.exe run "echo '
@@ -996,7 +994,7 @@ if (whiptail --title "CASSANDRA" --yesno "Would you like to download and install
 $write1"
 $write2"
 EOF
-        sudo cp autorun.bat $(wslupath -H)/cassandra/
+        sudo cp autorun.bat ${wHome}/cassandra/
 
         echo "Creating update.bat file on Windows Desktop"
         phrase1='wlinux.exe run "echo '
@@ -1006,17 +1004,17 @@ EOF
 @echo off
 $write
 EOF
-        sudo cp update.bat $(wslupath -H)/cassandra/
+        sudo cp update.bat ${wHome}/cassandra/
 
         echo "Creating installservice .bat file on Windows Desktop"
         phrase1='sc create NewService binpath= '
         phrase2='/cassandra/autorun.bat type= share start= auto displayname= Cassandra'
-        write="$phrase1$(wslupath -H)$phrase2"
+        write="$phrase1${wHome}$phrase2"
         sudo cat << EOF > installservice.bat
 @echo off
 $write
 EOF
-        sudo cp installservice.bat $(wslupath -H)/cassandra/
+        sudo cp installservice.bat ${wHome}/cassandra/
 
     fi
 
