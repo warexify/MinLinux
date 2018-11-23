@@ -721,7 +721,7 @@ if (whiptail --title "EXPLORER" --yesno "Would you like to enable Windows Explor
     [HKEY_CURRENT_USER\Software\Classes\Directory\shell\WLinux\command]
     @="wlinux.exe run \"cd \\\"$(wslpath \\\"%V\\\")\\\" && $(getent passwd $LOGNAME | cut -d: -f7)\""
 EOF
-    cp Install.reg $(wslpath "$(cmd.exe /c 'echo %TEMP%')")/Install.reg
+    cp Install.reg $(wslpath "$(cmd.exe /c 'echo %TEMP%' 2>&1 | tr -d '\r')")/Install.reg
     cmd.exe /C "Reg import %TEMP%\Install.reg"
     cleantmp
  else
@@ -732,7 +732,7 @@ EOF
     [-HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\WLinux]
     [-HKEY_CURRENT_USER\Software\Classes\Directory\shell\WLinux]
 EOF
-    cp Install.reg $(wslpath "$(cmd.exe /c 'echo %TEMP%')")/Uninstall.reg
+    cp Install.reg $(wslpath "$(cmd.exe /c 'echo %TEMP%' 2>&1 | tr -d '\r')")/Uninstall.reg
     cmd.exe /C "Reg import %TEMP%\Uninstall.reg"
     cleantmp
 fi
