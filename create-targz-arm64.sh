@@ -30,6 +30,7 @@ sudo cdebootstrap -a $ARCH --foreign --include=sudo,locales,git,ssh,gnupg,apt-tr
 sudo chroot $DIST apt clean
 
 # upgrade to testing
+sudo cp $BUILDIR/linux_files/sources.list $TMPDIR/$DIST/etc/apt/sources.list
 sudo chroot $DIST apt update
 sudo chroot $DIST apt upgrade -y
 sudo chroot $DIST apt dist-upgrade -y
@@ -48,7 +49,6 @@ rm $BUILDIR/wslu.gpg
 sudo cp $BUILDIR/linux_files/profile $TMPDIR/$DIST/etc/profile
 sudo cp $BUILDIR/linux_files/environment $TMPDIR/$DIST/etc/environment
 sudo cp $BUILDIR/linux_files/os-release $TMPDIR/$DIST/etc/os-release
-sudo cp $BUILDIR/linux_files/sources.list $TMPDIR/$DIST/etc/apt/sources.list
 sudo cp $BUILDIR/linux_files/preferences $TMPDIR/$DIST/etc/apt/preferences
 sudo cp $BUILDIR/linux_files/wsl.conf $TMPDIR/$DIST/etc/wsl.conf
 sudo cp $BUILDIR/linux_files/default $TMPDIR/$DIST/etc/dpkg/origins/default
