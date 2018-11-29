@@ -8,7 +8,7 @@ GOVERSION="1.11.2"
 DOCKERVERSION="18.09.0"
 DOCKERCOMPOSEVERSION="1.23.1"
 wHomeWinPath=$(cmd.exe /c 'echo %HOMEDRIVE%%HOMEPATH%' 2>&1 | tr -d '\r')
-wHome=$(wslpath -u ${wHomeWinPath})
+wHome=$(wslpath -u "${wHomeWinPath}")
 
 # functions
 
@@ -741,16 +741,16 @@ fi
 function dockerinstall_build_relay {
 
     #Build the relay
-    if [[ ! -f ${wHome}/.npiperelay/npiperelay.exe ]]; then
+    if [[ ! -f "${wHome}/.npiperelay/npiperelay.exe" ]]; then
 
         echo "Checking for go"
         if ! (go version); then
             echo "Downloading Go using wget."
-	        wget -c https://dl.google.com/go/go${GOVERSION}.linux-amd64.tar.gz
+	        wget -c "https://dl.google.com/go/go${GOVERSION}.linux-amd64.tar.gz"
             tar -xzf go*.linux-amd64.tar.gz
 
             export GOROOT=$(pwd)/go
-            export PATH=${GOROOT}/bin:$PATH
+            export PATH="${GOROOT}/bin:$PATH"
 
         fi
 
@@ -775,10 +775,12 @@ function dockerinstall_build_relay {
         fi
 
         GOOS=windows go build -o npiperelay.exe github.com/jstarks/npiperelay
-        sudo mkdir -p ${wHome}/.npiperelay
+        sudo mkdir -p "${wHome}/.npiperelay"
         cmd.exe /c 'attrib +h %HOMEDRIVE%%HOMEPATH%\.npiperelay'
-        sudo cp npiperelay.exe ${wHome}/.npiperelay/npiperelay.exe
+        sudo cp npiperelay.exe "${wHome}/.npiperelay/npiperelay.exe"
     fi
+
+    ln -s "${wHome}/.npiperelay/npiperelay.exe" /usr/local/bin/npiperelay.exe
 
     sudo apt-get -y -q install socat
 
@@ -789,11 +791,9 @@ connected=$(docker version 2>&1 | grep -c "daemon\|error")
 if [[ ${connected} != 0  ]]; then
 
     PATH=${PATH}:$(wslpath "C:\Windows\System32")
-    wHomeWinPath=$(cmd.exe /c 'echo %HOMEDRIVE%%HOMEPATH%' 2>&1 | tr -d '\r') #wslupath doesn't support root movement yet
-    wHome=$(wslpath -u ${wHomeWinPath})
 
     killall --quiet socat
-    exec nohup socat UNIX-LISTEN:/var/run/docker.sock,fork,group=docker,umask=007 EXEC:"${wHome}/.npiperelay/npiperelay.exe -ep -s //./pipe/docker_engine",nofork  </dev/null &>/dev/null &
+    exec nohup socat UNIX-LISTEN:/var/run/docker.sock,fork,group=docker,umask=007 EXEC:"/usr/local/bin/npiperelay.exe -ep -s //./pipe/docker_engine",nofork  </dev/null &>/dev/null &
 fi
 EOF
     sudo cp docker-relay /usr/bin/docker-relay
@@ -949,20 +949,20 @@ if (whiptail --title "CASSANDRA" --yesno "Would you like to download and install
 
         if [ -d "${wHome}/cassandra" ]; then
             echo "Backing up existing Cassandra directony"
-            sudo cp -r ${wHome}/cassandra ${wHome}/cassandra.old
+            sudo cp -r "${wHome}/cassandra" "${wHome}/cassandra.old"
         fi
 
         echo "Moving Cassandra configuration directory"
         sudo unlink /etc/cassandra # these clean up from previous installs
-        sudo mkdir /etc/cassandra 
-        sudo cp -r /etc/cassandra/ ${wHome}
+        sudo mkdir /etc/cassandra
+        sudo cp -r /etc/cassandra/ "${wHome}"
         sudo rm -r /etc/cassandra
-        sudo ln -s ${wHome}/cassandra /etc/cassandra
+        sudo ln -s "${wHome}/cassandra" /etc/cassandra
 
         echo "Moving Cassandra log directory"
-        sudo mkdir ${wHome}/cassandra/logs
+        sudo mkdir "${wHome}/cassandra/logs"
         sudo rm -r /var/log/cassandra
-        sudo ln -s ${wHome}/cassandra/logs /var/log/cassandra
+        sudo ln -s "${wHome}/cassandra/logs" /var/log/cassandra
 
         echo "Setting permissions"
         sudo chown -R cassandra:cassandra /etc/cassandra
@@ -981,7 +981,7 @@ if (whiptail --title "CASSANDRA" --yesno "Would you like to download and install
             read -s -p "[sudo] password for $USER: " passvar
         done
 
-        sudo mkdir ${wHome}/cassandra/ # in case user opted to keep config on WSL
+        sudo mkdir "${wHome}/cassandra/" # in case user opted to keep config on WSL
 
         echo "Creating autorun.bat file in home folder"
         phrase1='wlinux.exe run "echo '
@@ -994,7 +994,7 @@ if (whiptail --title "CASSANDRA" --yesno "Would you like to download and install
 $write1"
 $write2"
 EOF
-        sudo cp autorun.bat ${wHome}/cassandra/
+        sudo cp autorun.bat "${wHome}/cassandra/"
 
         echo "Creating update.bat file on Windows Desktop"
         phrase1='wlinux.exe run "echo '
@@ -1004,7 +1004,7 @@ EOF
 @echo off
 $write
 EOF
-        sudo cp update.bat ${wHome}/cassandra/
+        sudo cp update.bat "${wHome}/cassandra/"
 
         echo "Creating installservice .bat file on Windows Desktop"
         phrase1='sc create NewService binpath= '
@@ -1014,7 +1014,7 @@ EOF
 @echo off
 $write
 EOF
-        sudo cp installservice.bat ${wHome}/cassandra/
+        sudo cp installservice.bat "${wHome}/cassandra/"
 
     fi
 
