@@ -790,6 +790,7 @@ if [[ ${connected} != 0  ]]; then
 
     PATH=${PATH}:$(wslpath "C:\Windows\System32")
     wHomeWinPath=$(cmd.exe /c 'echo %HOMEDRIVE%%HOMEPATH%' 2>&1 | tr -d '\r') #wslupath doesn't support root movement yet
+    wHome=$(wslpath -u ${wHomeWinPath})
 
     killall --quiet socat
     exec nohup socat UNIX-LISTEN:/var/run/docker.sock,fork,group=docker,umask=007 EXEC:"${wHome}/.npiperelay/npiperelay.exe -ep -s //./pipe/docker_engine",nofork  </dev/null &>/dev/null &    
