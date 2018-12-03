@@ -10,7 +10,7 @@ cd $TMPDIR
 
 # install script dependencies
 sudo apt update
-sudo apt -y install curl gnupg cdebootstrap
+sudo apt -y install curl gnupg cdebootstrap qemu-user-static
 
 # the workaround below in the x86 version does not work when building the arm64 version because of a qemu dependency
 # so instead we are building as stable and then upgrading to testing
