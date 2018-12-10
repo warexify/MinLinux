@@ -76,7 +76,7 @@ Status: Released.
 
 ## Release 1.1.26
 
-Status: Early December. Testing.
+Status: Released.
 
 - Apache Cassandra inclusion.
 - Latest Debian build.
@@ -84,10 +84,17 @@ Status: Early December. Testing.
 
 ## Release 1.1.27
 
-Status: Mid December.
+Status: Released.
 
-- Initial ARM64 support.
-- Minor fixes and improvements.
+- Minor fix to UWP app.
+
+## Release 1.1.28
+
+Status: Late December.
+
+https://github.com/WhitewaterFoundry/WLinux/milestone/11
+
+================
 
 See https://github.com/WhitewaterFoundry/WLinux/pulls for features under testing/active developmment.
 
