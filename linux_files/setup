@@ -254,34 +254,34 @@ for i in ${!options[@]}; do
         echo "Installing ${options[i]}..."
         sudo apt install ${options[i]} -y	
 	
-	if [ ${options[i]} = "zsh" ]
-	then
+        if [ ${options[i]} = "zsh" ]
+        then
 
-	# Backup old zshrc if existent (e.g. wlinux-setup being re-run)
-	if [ ! -d "/etc/zsh/zshrc" ] ; then
-		echo "Old zshrc found. Backing up and replacing"
-		sudo mv /etc/zsh/zshrc /etc/zsh/zshrc.old
-	fi
+        # Backup old zshrc if existent (e.g. wlinux-setup being re-run)
+        if [ ! -d "/etc/zsh/zshrc" ] ; then
+                echo "Old zshrc found. Backing up and replacing"
+                sudo mv /etc/zsh/zshrc /etc/zsh/zshrc.old
+        fi
       
         # Need to "unsetopt no_match" to stop line31 in /etc/profile failing on not finding anything under /etc/profile.d/*
-	# Reset after to prevent any unforeseen consequences
-	# ALTERNATIVE: "shopt -s failglob" in /etc/profile fixes bash to act more similarly to zsh (we're currently doing reverse)
-	# This might help if other alternative shells run into same issue
-	sudo touch /etc/zsh/zshrc
-	echo "unsetopt no_match" | sudo tee -a /etc/zsh/zshrc
-	echo "source /etc/profile" | sudo tee -a /etc/zsh/zshrc
-	echo "setopt no_match" | sudo tee -a /etc/zsh/zshrc
+        # Reset after to prevent any unforeseen consequences
+        # ALTERNATIVE: "shopt -s failglob" in /etc/profile fixes bash to act more similarly to zsh (we're currently doing reverse)
+        # This might help if other alternative shells run into same issue
+        sudo touch /etc/zsh/zshrc
+        echo "unsetopt no_match" | sudo tee -a /etc/zsh/zshrc
+        echo "source /etc/profile" | sudo tee -a /etc/zsh/zshrc
+        echo "setopt no_match" | sudo tee -a /etc/zsh/zshrc
       
         if (whiptail --title "zsh" --yesno "Would you like to download and install oh-my-zsh? This is a framework for managing your zsh installation" 8 95) then
             createtmp
-            whiptail --title "zsh" --msgbox "After oh my zsh is installed and launched, type 'exit' and ENTER to return to wlinux-setup" 8 95
+            whiptail --title "zsh" --msgbox "After oh-my-zsh is installed and launched, type 'exit' and ENTER to return to wlinux-setup" 8 95
             mkdir "Type exit to return to wlinux-setup" 
             cd "Type exit to return to wlinux-setup" 
-	        sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-	        cd ..
+	    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	    cd ..
             cleantmp
         else
-            echo "Skipping Oh My Zsh"
+            echo "Skipping oh-my-zsh"
         fi
 	fi
 	
@@ -289,10 +289,10 @@ for i in ${!options[@]}; do
 	then
         if (whiptail --title "fish" --yesno "Would you like to download and install oh-my-fish?" 8 55) then
             createtmp
-	        whiptail --title "fish" --msgbox "After oh my fish is installed and launched, type 'exit' and ENTER to return to wlinux-setup" 8 95
+	    whiptail --title "fish" --msgbox "After oh my fish is installed and launched, type 'exit' and ENTER to return to wlinux-setup" 8 95
             mkdir "Type exit to return to wlinux-setup" 
             cd "Type exit to return to wlinux-setup" 
-	        curl -L https://get.oh-my.fish | fish
+	    curl -L https://get.oh-my.fish | fish
             cd ..
             cleantmp
         else
