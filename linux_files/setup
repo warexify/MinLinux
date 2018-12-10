@@ -256,6 +256,12 @@ for i in ${!options[@]}; do
 	
 	if [ ${options[i]} = "zsh" ]
 	then
+
+	# Backup old zshrc if existent (e.g. wlinux-setup being re-run)
+	if [ ! -d "/etc/zsh/zshrc" ] ; then
+		echo "Old zshrc found. Backing up and replacing"
+		sudo mv /etc/zsh/zshrc /etc/zsh/zshrc.old
+	fi
       
         createtmp  
         at << 'EOF' >> zshrc
