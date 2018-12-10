@@ -259,15 +259,15 @@ for i in ${!options[@]}; do
 
         # Backup old zshrc if existent (e.g. wlinux-setup being re-run)
         if [ ! -d "/etc/zsh/zshrc" ] ; then
-                echo "Old zshrc found. Backing up and replacing"
-                sudo mv /etc/zsh/zshrc /etc/zsh/zshrc.old
+                echo "Old zshrc found. Backing up"
+                sudo cp /etc/zsh/zshrc /etc/zsh/zshrc.old
         fi
       
         # Need to "unsetopt no_match" to stop line31 in /etc/profile failing on not finding anything under /etc/profile.d/*
         # Reset after to prevent any unforeseen consequences
         # ALTERNATIVE: "shopt -s failglob" in /etc/profile fixes bash to act more similarly to zsh (we're currently doing reverse)
         # This might help if other alternative shells run into same issue
-        sudo touch /etc/zsh/zshrc
+	echo "" | sudo tee -a /etc/zsh/zshrc
         echo "unsetopt no_match" | sudo tee -a /etc/zsh/zshrc
         echo "source /etc/profile" | sudo tee -a /etc/zsh/zshrc
         echo "setopt no_match" | sudo tee -a /etc/zsh/zshrc
