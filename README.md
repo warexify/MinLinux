@@ -67,6 +67,7 @@ Purchases of WLinux in the Microsoft Store pay for a team of open source indie d
 - [Hayden Barnes](https://github.com/sirredbeard)
 - [Patrick Wu](https://github.com/patrick330602)
 - [Carlos Rafael Ramirez](https://github.com/crramirez)
+- [Kim](https://github.com/grufwub)
 
 ### Contributors
 
