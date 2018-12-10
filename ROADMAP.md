@@ -78,7 +78,6 @@ Status: Released.
 
 Status: Early December. Testing.
 
-- Initial ARM64 support.
 - Apache Cassandra inclusion.
 - Latest Debian build.
 - Minor fixes and improvements.
@@ -87,6 +86,7 @@ Status: Early December. Testing.
 
 Status: Mid December.
 
+- Initial ARM64 support.
 - Minor fixes and improvements.
 
 See https://github.com/WhitewaterFoundry/WLinux/pulls for features under testing/active developmment.
