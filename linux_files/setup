@@ -263,17 +263,23 @@ for i in ${!options[@]}; do
         if [ -f "/etc/zsh/zshrc" ] ; then
                 if [ -f "/etc/zsh/"$ZSH_SETUP ] ; then
                         echo "wlinux-setup has already modified zshrc"
-                        echo "run 'sudo rm /etc/zsh/" $ZSH_INSTALLED " && wlinux-setup' to re-create config file"
+                        echo "run 'sudo rm /etc/zsh/$ZSH_INSTALLED && wlinux-setup' to re-create config file"
                 else
                         echo "Old zshrc found & not edited before --> backing up"
-                        sudo cp /etc/zsh/zshrc /etc/zsh/zshrc.old
+                        
+                        # Get current date-time
+                        dt=$(date '+%d/%m/%Y %H:%M:%S')
+                        # Save backup with date-time
+                        sudo cp /etc/zsh/zshrc /etc/zsh/zshrc_$dt.old
+                        # Delete old  zshrc so we can start fresh
+                        sudo rm /etc/zsh/zshrc
 
                         # Need to "unsetopt no_match" to stop line31 in /etc/profile failing on not finding anything under /etc/profile.d/*
                         # Reset after to prevent any unforeseen consequences.
                         # ALTERNATIVE: "shopt -s failglob" in /etc/profile fixes bash to act more like zsh (we're currently doing reverse)
                         # This would prevent issues in other shell alternatives if they appear.
-                        echo "Modifying zshrc to source /etc/profile"
-                        echo "" | sudo tee -a /etc/zsh/zshrc
+                        echo "Creating fresh zshrc and modifying to source /etc/profile"
+                        sudo touch /etc/zsh/zshrc
                         echo "unsetopt no_match" | sudo tee -a /etc/zsh/zshrc
                         echo "source /etc/profile" | sudo tee -a /etc/zsh/zshrc
                         echo "setopt no_match" | sudo tee -a /etc/zsh/zshrc
