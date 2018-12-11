@@ -401,6 +401,52 @@ else
     echo "Skipping GUILIB"
 fi
 
+
+if (whiptail --title "Win10 GTK Theme" --yesno "Would you like to install a Windows 10 GTK theme?" 8 70) then
+	echo "Installing Windows 10 GTK themes (light & dark)"
+
+    # Source files locations
+    W10GTK_LIGHT="https://github.com/B00merang-Project/Windows-10/archive/master.zip"
+    W10GTK_DARK="https://github.com/B00merang-Project/Windows-10-Dark/archive/master.zip"
+
+    # Need to make sure we have unzip installed
+    updateupgrade
+    sudo apt install unzip -y
+
+    # Download themes to temporary folder (sub folders for light & dark) then unzip
+    echo "Downloading themes to temporary folder"
+    createtmp
+
+    wget $W10GTK_LIGHT -O master_light.zip
+    unzip -qq master_light.zip
+
+    wget $W10GTK_DARK -O master_dark.zip
+    unzip -qq master_dark.zip
+
+    echo "Creating user .themes directory if not exist"
+    # Create .themes if not exist
+    if [ ! -d "$HOME/.themes" ] ; then
+        mkdir $HOME/.themes
+    else
+        echo "Directory already exists"
+    fi
+
+    # Move folders to user themes directory
+    echo "Moving downloaded directory to user .themes directory"
+    mv Windows-10-master $HOME/.themes/windows-10-light
+    mv Windows-10-Dark-master $HOME/.themes/windows-10-dark
+
+    # Cleanup
+    echo "Cleaning up temporary folder"
+    cleantmp
+
+    # TODO: automatically set up theme
+
+    # TODO: add light dark theme setup choice here
+else
+    echo "Skipping Windows 10 GTK themes install"
+fi
+
 if (whiptail --title "fcitx" --yesno "Would you like to install fcitx for improved non-Latin input?" 8 65) then
     echo "Installing fcitx"
 
