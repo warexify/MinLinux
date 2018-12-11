@@ -268,7 +268,7 @@ for i in ${!options[@]}; do
                         echo "Old zshrc found & not edited before --> backing up"
                         
                         # Get current date-time
-                        dt=$(date '+%d/%m/%Y %H:%M:%S')
+                        dt=$(date '+%d%m%Y-%H%M')
                         # Save backup with date-time
                         sudo cp /etc/zsh/zshrc /etc/zsh/zshrc_$dt.old
                         # Delete old  zshrc so we can start fresh
