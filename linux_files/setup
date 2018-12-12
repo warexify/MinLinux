@@ -92,7 +92,7 @@ fi
 function installmenu {
 
 CHOICE=$(
-whiptail --title "wlinux-setup" --checklist --separate-output "\nHand-curated add-ons [SPACE to select, ENTER to confirm]:" 22 99 14 \
+whiptail --title "wlinux-setup" --checklist --separate-output "\nHand-curated add-ons [SPACE to select, ENTER to confirm]:" 22 99 15 \
     "LANGUAGE" "Change default language and keyboard setting in WLinux" off \
     "EXPLORER" "Enable right-click on folders in Windows Explorer to open them in WLinux  " off \
     "SHELLS" "Install and configure zsh, csh, and fish" off \
@@ -101,6 +101,7 @@ whiptail --title "wlinux-setup" --checklist --separate-output "\nHand-curated ad
     "NODEJS" "Install Node.js and npm" off \
     "GO" "Install the latest Go from Google" off \
     "RUBY" "Install Ruby using rbenv and optionally install Rails" off \
+    "RUST" "Install latest version of Rust via rustup installer" off \
     "DOTNET" "Install .NET Core SDK from Microsoft and optionally install NuGet" off \
     "JAVA" "Install the Java OpenJDK and JRE" off \
     "POWERSHELL" "Install PowerShell for Linux and/or Azure CLI tools" off \
@@ -149,6 +150,11 @@ fi
 if [[ $CHOICE == *"RUBY"* ]] ; then
   echo "RUBY"
   rubyinstall
+fi
+
+if [[ $CHOICE == *"RUST"* ]] ; then
+    echo "RUST"
+    rustlanginstall
 fi
 
 if [[ $CHOICE == *"DOTNET"* ]] ; then
@@ -655,6 +661,25 @@ if (whiptail --title "RAILS" --yesno "Would you like to download and install Rai
     cleantmp
 else
     echo "Skipping RAILS"
+fi
+}
+
+function rustlanginstall {
+if (whiptail --title "RUST" --yesno "Would you like to download and install the latest version of Rust from the rust-lang website?" 8 85) then
+    echo "Installing rust"
+
+    # Create temp directory and download rustup installer here
+    createtmp
+    echo "Downloading and latest version of rustup installer"
+    wget https://sh.rustup.rs -O rustup.rs
+
+    echo "Executing..."
+    chmod +x rustup.rs
+    sh rustup.rs -y
+
+    # Cleanup
+    echo "Cleaning up rustup temporary folder"
+    cleantmp
 fi
 }
 
