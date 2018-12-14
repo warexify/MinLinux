@@ -402,47 +402,63 @@ else
 fi
 
 
-if (whiptail --title "Win10 GTK Theme" --yesno "Would you like to install a Windows 10 GTK theme?" 8 70) then
-	echo "Installing Windows 10 GTK themes (light & dark)"
-
+if (whiptail --title "Windows 10 Theme" --yesno "Would you like to install a Windows 10 theme? (Experimental)" 8 70) then
+	echo "Installing Windows 10 theme"
     # Source files locations
-    W10GTK_LIGHT="https://github.com/B00merang-Project/Windows-10/archive/master.zip"
-    W10GTK_DARK="https://github.com/B00merang-Project/Windows-10-Dark/archive/master.zip"
+    W10LIGHT_URL="https://github.com/B00merang-Project/Windows-10/archive/master.zip"
+    W10DARK_URL="https://github.com/B00merang-Project/Windows-10-Dark/archive/master.zip"
+    INSTALLDIR="/usr/share/themes"
+    LIGHTDIR="windows-10-light"
+    DARKDIR="windows-10-dark"
 
-    # Need to make sure we have unzip installed
     updateupgrade
+
+    echo "$ sudo apt install unzip -y"
     sudo apt install unzip -y
 
     # Download themes to temporary folder (sub folders for light & dark) then unzip
     echo "Downloading themes to temporary folder"
     createtmp
 
-    wget $W10GTK_LIGHT -O master_light.zip
-    unzip -qq master_light.zip
+    wget $W10LIGHT_URL -O master-light.zip -q --show-progress
+    echo "Unzipping master-light.zip..."
+    unzip -qq master-light.zip
 
-    wget $W10GTK_DARK -O master_dark.zip
-    unzip -qq master_dark.zip
+    wget $W10DARK_URL -O master-dark.zip -q --show-progress
+    echo "Unzipping master-dark.zip..."
+    unzip -qq master-dark.zip
 
-    echo "Creating user .themes directory if not exist"
-    # Create .themes if not exist
-    if [ ! -d "$HOME/.themes" ] ; then
-        mkdir $HOME/.themes
-    else
-        echo "Directory already exists"
+    if [ ! -d $INSTALLDIR ] ; then
+    	echo "$INSTALLDIR does not exist, creating"
+    	sudo mkdir -p $INSTALLDIR
     fi
 
-    # Move folders to user themes directory
-    echo "Moving downloaded directory to user .themes directory"
-    mv Windows-10-master $HOME/.themes/windows-10-light
-    mv Windows-10-Dark-master $HOME/.themes/windows-10-dark
+    if [ -d "$INSTALLDIR/$LIGHTDIR" ] ; then
+    	echo "$INSTALLDIR/$LIGHTDIR already exists, removing old"
+    	sudo rm -r $INSTALLDIR/$LIGHTDIR
+    fi
+
+    if [ -d "$INSTALLDIR/$DARKDIR" ] ; then
+    	echo "$INSTALLDIR/$DARKDIR already exists, removing old"
+    	sudo rm -r $INSTALLDIR/$DARKDIR
+    fi
+
+    # Move to themes folder
+    echo "Moving themes to $INSTALLDIR"
+    sudo mv Windows-10-master "$INSTALLDIR/$LIGHTDIR"
+    sudo mv Windows-10-Dark-master "$INSTALLDIR/$DARKDIR"
+
+    # Set correct permissions
+    echo "Setting correct theme folder permissions"
+    sudo chown -R root:root $INSTALLDIR/windows-10-light
+    sudo chown -R root:root $INSTALLDIR/windows-10-dark
+    sudo chmod -R 0755 $INSTALLDIR/windows-10-light
+    sudo chmod -R 0755 $INSTALLDIR/windows-10-dark
 
     # Cleanup
-    echo "Cleaning up temporary folder"
     cleantmp
 
-    # TODO: automatically set up theme
-
-    # TODO: add light dark theme setup choice here
+    whiptail --title "How to set Windows 10 theme" --msgbox "Download a Linux desktop environment of your choice and these themes will show up under themes / appearance settings. In the future we plan on setting this theme for Linux GUI applications even without a full desktop environment installed" 9 90
 else
     echo "Skipping Windows 10 GTK themes install"
 fi
