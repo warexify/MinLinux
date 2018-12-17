@@ -35,7 +35,7 @@ The first Linux® distribution optimized for WSL. Based on Debian®. From open-s
 - A handful of unnecessary packages, such as systemd, have been removed from the base image to reduce image size and increase stability.
 - New features are [actively developed](https://github.com/WhitewaterFoundry/WLinux/pulls) based on [community input](https://github.com/WhitewaterFoundry/WLinux/issues). Learn how you can [earn paid grants](CONTRIBUTING.md) improving WLinux. 
 
-Note: The features above refer to the version slated for release as 1.1.25 on the Microsoft Store in late November. Build WLinux yourself and help us test and debug new features. 
+Note: The features above refer to release version 1.1.27 currently on the Microsoft Store. Build WLinux yourself and help us test and debug new features. 
 
 ## Obtaining Support
 
