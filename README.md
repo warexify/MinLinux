@@ -2,7 +2,7 @@
 
 The first Linux® distribution optimized for WSL. Based on Debian®. From open-source software startup [Whitewater Foundry](https://whitewaterfoundry.com).
 
-(if you are an enterprise customer, you may like to check out our enterprise-focused distribution, [WLE](https://github.com/WhitewaterFoundry/WLE))
+(if you are an enterprise customer, you may like to check out our enterprise-focused distribution, [WLinux Enterprise](https://github.com/WhitewaterFoundry/WLE))
 
 <img src='https://github.com/WhitewaterFoundry/Screenshots/raw/master/ezgif.com-gif-maker.gif'>
 
