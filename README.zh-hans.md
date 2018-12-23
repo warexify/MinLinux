@@ -2,11 +2,20 @@
 
 专门为 Windows 10 Linux® 子系统调整的 Linux® 发行版，基于 Debian®，由 [Whitewater Foundry](https://whitewaterfoundry.com) 出品。
 
+（如果你是企业用户，你也许会对我们专门针对企业用户开发的 [WLinux 企业版](https://github.com/WhitewaterFoundry/WLE)感兴趣）
+
+<img src='https://github.com/WhitewaterFoundry/Screenshots/raw/master/ezgif.com-gif-maker.gif'>
+
 <a href='//www.microsoft.com/store/apps/9NV1GV1PXZ6P?ocid=badge'><img src='https://assets.windowsphone.com/42e5aa4a-f19a-4205-9191-a97105ed7663/Chinese_Simplified_get-it-from-MS_InvariantCulture_Default.png' alt='Chinese badge' height=50/></a>
 
 - [English](EADME.md)
 - [繁體中文](README.zh-hant.md)
 - [日本語](README.ja.md)
+
+[![Twitter Follow](https://img.shields.io/twitter/follow/espadrine.svg?label=Follow&style=social)](https://twitter.com/WLinuxApp)
+[![VK Follow](https://img.shields.io/badge/VK-WLinux-4c75a3.svg)](https://vk.com/wlinux)
+[![LINE Follow](https://img.shields.io/badge/LINE-WLinux-00c300.svg)](https://line.me/R/ti/p/%40yck9322o)
+[![Telegram](https://img.shields.io/badge/Telegram-wslinux-0088cc.svg)](https://t.me/wslinux)
 
 ## 功能
 
@@ -69,3 +78,5 @@ WLinux 在商店的购买可以是独立的开源开发者们能够持续的开�
 
 - [Jack Mangano](https://thechipcollective.com/)
 - [Nuno do Carmo](http://wslcorsair.blogspot.com/)
+
+<a href='//www.microsoft.com/store/apps/9NV1GV1PXZ6P?ocid=badge'><img src='https://assets.windowsphone.com/42e5aa4a-f19a-4205-9191-a97105ed7663/Chinese_Simplified_get-it-from-MS_InvariantCulture_Default.png' alt='Chinese badge' height=50/></a>
