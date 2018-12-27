@@ -14,6 +14,23 @@ wHome=$(wslpath -u "${wHomeWinPath}")
 
 ## core functions
 
+function processarguments {
+
+while [[ $# -gt 0 ]]
+do
+  case "$1" in
+    --debug|-d|--verbose|-v)
+      echo "Running in Debug mode"
+      set -x
+      shift
+    ;;
+    *)
+      shift
+    esac
+done
+
+}
+
 function welcomeprompt {
 whiptail --title "Welcome to WLinux" --msgbox "Thank you for supporting sustainable independent open source development.\n
 WLinux comes with a core set of useful packages pre-installed, such as curl, git, and wslu. \n
@@ -1143,6 +1160,7 @@ fi
 }
 
 # main
+processarguments  "$@"
 
 if [ ! -f ~/.updated ]; then
     welcomeprompt
