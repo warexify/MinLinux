@@ -90,7 +90,7 @@ Status: Released.
 
 ## Release 1.1.28
 
-Status: Late December.
+Status: Mid January.
 
 https://github.com/WhitewaterFoundry/WLinux/milestone/11
 
