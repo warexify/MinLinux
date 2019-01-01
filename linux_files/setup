@@ -3,8 +3,8 @@
 RESPONSE=""
 CURDUR=""
 TMPDIR=""
-VERSION="1.1.26a"
-GOVERSION="1.11.2"
+VERSION="1.1.28a"
+GOVERSION="1.11.4"
 DOCKERVERSION="18.09.0"
 DOCKERCOMPOSEVERSION="1.23.1"
 wHomeWinPath=$(cmd.exe /c 'echo %HOMEDRIVE%%HOMEPATH%' 2>&1 | tr -d '\r')
@@ -13,6 +13,23 @@ wHome=$(wslpath -u "${wHomeWinPath}")
 # functions
 
 ## core functions
+
+function processarguments {
+
+while [[ $# -gt 0 ]]
+do
+  case "$1" in
+    --debug|-d|--verbose|-v)
+      echo "Running in Debug mode"
+      set -x
+      shift
+    ;;
+    *)
+      shift
+    esac
+done
+
+}
 
 function welcomeprompt {
 whiptail --title "Welcome to WLinux" --msgbox "Thank you for supporting sustainable independent open source development.\n
@@ -92,7 +109,7 @@ fi
 function installmenu {
 
 CHOICE=$(
-whiptail --title "wlinux-setup" --checklist --separate-output "\nHand-curated add-ons [SPACE to select, ENTER to confirm]:" 22 99 14 \
+whiptail --title "wlinux-setup" --checklist --separate-output "\nHand-curated add-ons [SPACE to select, ENTER to confirm]:" 22 99 15 \
     "LANGUAGE" "Change default language and keyboard setting in WLinux" off \
     "EXPLORER" "Enable right-click on folders in Windows Explorer to open them in WLinux  " off \
     "SHELLS" "Install and configure zsh, csh, and fish" off \
@@ -101,12 +118,14 @@ whiptail --title "wlinux-setup" --checklist --separate-output "\nHand-curated ad
     "NODEJS" "Install Node.js and npm" off \
     "GO" "Install the latest Go from Google" off \
     "RUBY" "Install Ruby using rbenv and optionally install Rails" off \
+    "RUST" "Install latest version of Rust via rustup installer" off \
     "DOTNET" "Install .NET Core SDK from Microsoft and optionally install NuGet" off \
     "JAVA" "Install the Java OpenJDK and JRE" off \
     "POWERSHELL" "Install PowerShell for Linux and/or Azure CLI tools" off \
     "GUI" "Install the basics needed for most GUI apps and configure GUI options" off \
     "DOCKER" "Install a secure bridge to Docker for Windows" off \
-    "CASSANDRA" "Install the NoSQL server Cassandra from Apache" off 3>&1 1>&2 2>&3
+    "CASSANDRA" "Install the NoSQL server Cassandra from Apache" off \
+    "NONE" "" on 3>&1 1>&2 2>&3
 )
 
 echo "Selected:" $CHOICE
@@ -151,6 +170,11 @@ if [[ $CHOICE == *"RUBY"* ]] ; then
   rubyinstall
 fi
 
+if [[ $CHOICE == *"RUST"* ]] ; then
+    echo "RUST"
+    rustlanginstall
+fi
+
 if [[ $CHOICE == *"DOTNET"* ]] ; then
   echo "DOTNET"
   dotnetinstall
@@ -180,6 +204,12 @@ fi
 if [[ $CHOICE == *"CASSANDRA"* ]] ; then
     echo "CASSANDRA"
     cassandrainstall
+fi
+
+if [[ $CHOICE == "NONE" ]] ; then
+    echo "NONE"
+    whiptail --title "No selection" --msgbox "Please select your desired options using the SPACE bar and then hit ENTER to confirm." 8 80
+    installmenu
 fi
 }
 
@@ -223,107 +253,104 @@ fi
 
 ### shells
 
-function installandsetshell () {
-echo "Entering shell setup"
-options=("zsh" "fish" "csh")
-prompt="Check a shell by entering it's corresponding number (again to uncheck, ENTER when done): "
-msg=""
+function installandsetshell {
+    
+EDITORCHOICE=$(
+whiptail --title "Shell Menu" --checklist --separate-output "Custom shells (bash included)\n[SPACE to select, ENTER to confirm]:" 12 55 3 \
+    "ZSH" "zsh" off \
+    "FISH" "fish" off \
+    "CSH" "csh" off 3>&1 1>&2 2>&3
+)
 
-shellmenu () {
-    echo "bash is the default shell included in WLinux. You may select additional shells to install here."
-    for i in ${!options[@]}; do 
-        printf "%3d%s) %s\n" $((i+1)) "${choices[i]:- }" "${options[i]}"
-    done
-    [[ "$msg" ]] && echo "$msg"; :
+if [[ $EDITORCHOICE == *"ZSH"* ]] ; then
+    echo "Installing zsh..."
+    sudo apt install zsh -y
+    zshinstall
+fi
+
+if [[ $EDITORCHOICE == *"FISH"* ]] ; then
+    echo "Installing fish..."
+    sudo apt install fish -y
+    fishinstall
+fi
+
+if [[ $EDITORCHOICE == *"CSH"* ]] ; then
+    echo "Installing csh..."
+    sudo apt install csh -y
+    cshinstall
+fi
 }
 
-while clear -x && shellmenu && read -rp "$prompt" num && [[ "$num" ]]; do
-    [[ "$num" != *[![:digit:]]* ]] &&
-    (( num > 0 && num <= ${#options[@]} )) ||
-    { msg="Invalid option: $num"; continue; }
-    ((num--)); msg="${options[num]} was ${choices[num]:+un}checked"
-    [[ "${choices[num]}" ]] && choices[num]="" || choices[num]="+"
-done
+function zshinstall {
+ZSH_SETUP=".zsh_wlinux"
 
-toselect=("bash")
-msg="1"
-for i in ${!options[@]}; do 
-    if [[ "${choices[i]}" ]]
-    then
-        toselect+=("${options[i]}")
-        echo "Installing ${options[i]}..."
-        sudo apt install ${options[i]} -y	
-	
-	if [ ${options[i]} = "zsh" ]
-	then
-      
-        createtmp  
-        at << 'EOF' >> zshrc
-export DISPLAY=:0
-export LIBGL_ALWAYS_INDIRECT=1
-export NO_AT_BRIDGE=1
-alias wlinux-setup='bash /etc/setup'
-alias wlinux-help='bash /etc/helpme'
-EOF
-        sudo cp zshrc /etc/zsh/zshrc
-        cleantmp
-      
-        if (whiptail --title "zsh" --yesno "Would you like to download and install oh-my-zsh?" 8 55) then
-            createtmp
-            whiptail --title "zsh" --msgbox "After oh my zsh is installed and launched, type 'exit' and ENTER to return to wlinux-setup" 8 95
-            mkdir "Type exit to return to wlinux-setup" 
-            cd "Type exit to return to wlinux-setup" 
-	        sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-	        cd ..
-            cleantmp
-        else
-            echo "Skipping Oh My Zsh"
-        fi
-	fi
-	
-	if [ ${options[i]} = "fish" ]
-	then
-        if (whiptail --title "fish" --yesno "Would you like to download and install oh-my-fish?" 8 55) then
-            createtmp
-	        whiptail --title "fish" --msgbox "After oh my fish is installed and launched, type 'exit' and ENTER to return to wlinux-setup" 8 95
-            mkdir "Type exit to return to wlinux-setup" 
-            cd "Type exit to return to wlinux-setup" 
-	        curl -L https://get.oh-my.fish | fish
-            cd ..
-            cleantmp
-        else
-            echo "Skipping Oh My Fish"
-        fi
-        
-    fi    
-            
-    msg="0"
+# Backup old zshrc if existent (e.g. wlinux-setup being re-run)
+if [ -f "/etc/zsh/zshrc" ] ; then
+    if [ -f "/etc/zsh/"$ZSH_SETUP ] ; then
+        echo "wlinux-setup has already modified zshrc"
+        echo "run 'sudo rm /etc/zsh/$ZSH_INSTALLED && wlinux-setup' to re-create config file"
+    else
+        echo "Old zshrc found & not edited before --> backing up"
+                 
+        # Get current date-time
+        dt=$(date '+%d%m%Y-%H%M')
+        # Save backup with date-time
+        sudo cp /etc/zsh/zshrc /etc/zsh/zshrc_$dt.old
+        # Delete old  zshrc so we can start fresh
+        sudo rm /etc/zsh/zshrc
+
+        # Need to "unsetopt no_match" to stop line31 in /etc/profile failing on not finding anything under /etc/profile.d/*
+        # Reset after to prevent any unforeseen consequences.
+        # ALTERNATIVE: "shopt -s failglob" in /etc/profile fixes bash to act more like zsh (we're currently doing reverse)
+        # This would prevent issues in other shell alternatives if they appear.
+        echo "Creating fresh zshrc and modifying to source /etc/profile"
+        sudo touch /etc/zsh/zshrc
+        echo "unsetopt no_match" | sudo tee -a /etc/zsh/zshrc
+        echo "source /etc/profile" | sudo tee -a /etc/zsh/zshrc
+        echo "setopt no_match" | sudo tee -a /etc/zsh/zshrc
+        # Create .zsh_wlinux file to let future runs know zshrc has been modified by wlinux-setup
+        sudo touch /etc/zsh/$ZSH_SETUP
     fi
-done
-if [[ "$msg" == "1" ]]
-then
-    echo "No additional shell(s) selected, continuing setup..."
+fi
+
+if (whiptail --title "zsh" --yesno "Would you like to download and install oh-my-zsh? This is a framework for managing your zsh installation" 8 95) then
+    createtmp
+    whiptail --title "zsh" --msgbox "After oh-my-zsh is installed and launched, type 'exit' and ENTER to return to wlinux-setup" 8 95
+    mkdir "Type exit to return to wlinux-setup" 
+    cd "Type exit to return to wlinux-setup" 
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    cd ..
+    cleantmp
 else
-    echo "Set default shell:"
-    for i in ${!toselect[@]}; do 
-        printf "%3d) %s\n" $((i)) "${toselect[i]}"
-    done
-    passed="1"
-    while [[ "$passed" == "1" ]]
-    do
-        read -rp "Type a number and enter: " opt
-        if [[ "$opt" != *[![:digit:]]* ]] && (( opt < 0 && opt >= ${#toselect[@]} ))
-        then
-            echo "Invalid option: $opt"
-        elif [[ "$opt" == "" ]]
-        then
-            echo "You must select a default shell."
-        else
-            passed="0"
-        fi
-    done
-    echo "Setting ${toselect[$opt]} as default using chsh."
-    chsh -s $(which ${toselect[$opt]})
+    echo "Skipping oh-my-zsh"
+fi
+
+if (whiptail --title "zsh" --yesno "Would you like to set zsh as the default shell?" 8 55) then
+    chsh -s $(which zsh)
+fi
+}
+
+function fishinstall {
+if (whiptail --title "fish" --yesno "Would you like to download and install oh-my-fish?" 8 55) then
+    createtmp
+    whiptail --title "fish" --msgbox "After oh my fish is installed and launched, type 'exit' and ENTER to return to wlinux-setup" 8 95
+    mkdir "Type exit to return to wlinux-setup" 
+    cd "Type exit to return to wlinux-setup" 
+    curl -L https://get.oh-my.fish | fish
+    cd ..
+    cleantmp
+else
+    echo "Skipping Oh My Fish"
+fi
+
+if (whiptail --title "fish" --yesno "Would you like to set fish as the default shell?" 8 55) then
+    chsh -s $(which fish)
+fi
+}
+
+function cshinstall {
+if (whiptail --title "csh" --yesno "Would you like to set csh as the default shell?" 8 55) then
+    chsh -s $(which csh)
 fi
 }
 
@@ -399,6 +426,68 @@ if (whiptail --title "GUI Libraries" --yesno "Would you like to install a base s
     sudo sed -i 's$</busconfig>$<allow_anonymous/></busconfig>$' /usr/share/dbus-1/session.conf
 else
     echo "Skipping GUILIB"
+fi
+
+
+if (whiptail --title "Windows 10 Theme" --yesno "Would you like to install a Windows 10 theme? (Experimental)" 8 70) then
+	echo "Installing Windows 10 theme"
+    # Source files locations
+    W10LIGHT_URL="https://github.com/B00merang-Project/Windows-10/archive/master.zip"
+    W10DARK_URL="https://github.com/B00merang-Project/Windows-10-Dark/archive/master.zip"
+    INSTALLDIR="/usr/share/themes"
+    LIGHTDIR="windows-10-light"
+    DARKDIR="windows-10-dark"
+
+    updateupgrade
+
+    echo "$ sudo apt install unzip -y"
+    sudo apt install unzip -y
+
+    # Download themes to temporary folder (sub folders for light & dark) then unzip
+    echo "Downloading themes to temporary folder"
+    createtmp
+
+    wget ${W10LIGHT_URL} -O master-light.zip -q --show-progress
+    echo "Unzipping master-light.zip..."
+    unzip -qq master-light.zip
+
+    wget ${W10DARK_URL} -O master-dark.zip -q --show-progress
+    echo "Unzipping master-dark.zip..."
+    unzip -qq master-dark.zip
+
+    if [[ ! -d "${INSTALLDIR}" ]] ; then
+    	echo "${INSTALLDIR} does not exist, creating"
+    	sudo mkdir -p $INSTALLDIR
+    fi
+
+    if [[ -d "${INSTALLDIR}/${LIGHTDIR}" ]] ; then
+    	echo "${INSTALLDIR}/${LIGHTDIR} already exists, removing old"
+    	sudo rm -r $INSTALLDIR/$LIGHTDIR
+    fi
+
+    if [[ -d "${INSTALLDIR}/${DARKDIR}" ]] ; then
+    	echo "${INSTALLDIR}/${DARKDIR} already exists, removing old"
+    	sudo rm -r $INSTALLDIR/$DARKDIR
+    fi
+
+    # Move to themes folder
+    echo "Moving themes to ${INSTALLDIR}"
+    sudo mv Windows-10-master "${INSTALLDIR}/${LIGHTDIR}"
+    sudo mv Windows-10-Dark-master "${INSTALLDIR}/${DARKDIR}"
+
+    # Set correct permissions
+    echo "Setting correct theme folder permissions"
+    sudo chown -R root:root ${INSTALLDIR}/windows-10-light
+    sudo chown -R root:root ${INSTALLDIR}/windows-10-dark
+    sudo chmod -R 0755 ${INSTALLDIR}/windows-10-light
+    sudo chmod -R 0755 ${INSTALLDIR}/windows-10-dark
+
+    # Cleanup
+    cleantmp
+
+    whiptail --title "How to set Windows 10 theme" --msgbox "Download a Linux desktop environment of your choice and these themes will show up under themes / appearance settings. In the future we plan on setting this theme for Linux GUI applications even without a full desktop environment installed" 9 90
+else
+    echo "Skipping Windows 10 theme install"
 fi
 
 if (whiptail --title "fcitx" --yesno "Would you like to install fcitx for improved non-Latin input?" 8 65) then
@@ -637,6 +726,25 @@ else
 fi
 }
 
+function rustlanginstall {
+if (whiptail --title "RUST" --yesno "Would you like to download and install the latest version of Rust from the rust-lang website?" 8 85) then
+    echo "Installing rust"
+
+    # Create temp directory and download rustup installer here
+    createtmp
+    echo "Downloading and latest version of rustup installer"
+    wget https://sh.rustup.rs -O rustup.rs
+
+    echo "Executing..."
+    chmod +x rustup.rs
+    sh rustup.rs -y
+
+    # Cleanup
+    echo "Cleaning up rustup temporary folder"
+    cleantmp
+fi
+}
+
 function dotnetinstall {
 
 if (whiptail --title "DOTNET" --yesno "Would you like to download and install the .NET Core SDK for Linux?" 8 75) then
@@ -707,7 +815,7 @@ fi
 }
 
 function explorerintegration {
-if (whiptail --title "EXPLORER" --yesno "Would you like to enable Windows Explorer shell integration?" 8 65) then
+if (whiptail --title "EXPLORER" --yesno "Would you like to enable Windows Explorer shell integration?" 8 65); then
     echo "Enabling Windows Explorer shell integration."
     createtmp
     cat << 'EOF' >> Install.reg
@@ -715,12 +823,14 @@ if (whiptail --title "EXPLORER" --yesno "Would you like to enable Windows Explor
     [HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\WLinux]
     @="Open with WLinux"
     [HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\WLinux\command]
-    @="wlinux.exe run \"cd \\\"$(wslpath \\\"%V\\\")\\\" && $(getent passwd $LOGNAME | cut -d: -f7)\""
+    @="_wlinuxPath_ run \"cd \\\"$(wslpath \\\"%V\\\")\\\" && $(getent passwd $LOGNAME | cut -d: -f7)\""
     [HKEY_CURRENT_USER\Software\Classes\Directory\shell\WLinux]
     @="Open with WLinux"
     [HKEY_CURRENT_USER\Software\Classes\Directory\shell\WLinux\command]
-    @="wlinux.exe run \"cd \\\"$(wslpath \\\"%V\\\")\\\" && $(getent passwd $LOGNAME | cut -d: -f7)\""
+    @="_wlinuxPath_ run \"cd \\\"$(wslpath \\\"%V\\\")\\\" && $(getent passwd $LOGNAME | cut -d: -f7)\""
 EOF
+    wlinuxPath=$(wslpath -m "$(whereis wlinux.exe | cut --delimiter=' ' -f2)" | sed 's$/$\\\\\\\\$g')
+    sed -i "s/_wlinuxPath_/${wlinuxPath}/g" Install.reg
     cp Install.reg $(wslpath "$(cmd.exe /c 'echo %TEMP%' 2>&1 | tr -d '\r')")/Install.reg
     cmd.exe /C "Reg import %TEMP%\Install.reg"
     cleantmp
@@ -732,7 +842,7 @@ EOF
     [-HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\WLinux]
     [-HKEY_CURRENT_USER\Software\Classes\Directory\shell\WLinux]
 EOF
-    cp Install.reg $(wslpath "$(cmd.exe /c 'echo %TEMP%' 2>&1 | tr -d '\r')")/Uninstall.reg
+    cp Uninstall.reg $(wslpath "$(cmd.exe /c 'echo %TEMP%' 2>&1 | tr -d '\r')")/Uninstall.reg
     cmd.exe /C "Reg import %TEMP%\Uninstall.reg"
     cleantmp
 fi
@@ -840,14 +950,14 @@ function dockerinstall {
 if (whiptail --title "DOCKER" --yesno "Would you like to install the bridge to Docker?" 8 55); then
     echo "Installing the bridge to Docker."
 
-    connected=$(docker.exe version 2>&1 | grep -c "docker daemon is not running.")
+    connected=$(docker.exe version 2>&1 | grep -c "docker daemon is not running.\|docker.exe: command not found")
     while [[ ${connected} != 0  ]]; do
-        if ! (whiptail --title "DOCKER" --yesno "Docker for Windows appears not to be running, please check it and ensure that it is running correctly. Would you like to try again?" 9 75); then
+        if ! (whiptail --title "DOCKER" --yesno "Docker Desktop appears not to be running, please check it and ensure that it is running correctly. Would you like to try again?" 9 75); then
             return
 
         fi
 
-        connected=$(docker.exe version 2>&1 | grep -c "docker daemon is not running.")
+        connected=$(docker.exe version 2>&1 | grep -c "docker daemon is not running.\|docker.exe: command not found")
 
     done
 
@@ -1026,6 +1136,7 @@ fi
 }
 
 # main
+processarguments  "$@"
 
 if [ ! -f ~/.updated ]; then
     welcomeprompt
