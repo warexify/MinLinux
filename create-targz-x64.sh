@@ -23,6 +23,11 @@ sudo cdebootstrap -a $ARCH --include=sudo,locales,git,ssh,gnupg,apt-transport-ht
 sudo apt --fix-broken install -y
 sudo apt autoremove -y
 
+
+###############################################################################################################
+# MOVE TO WLINUX-BASE
+###############################################################################################################
+
 # clean apt cache
 sudo chroot $DIST apt-get clean
 
@@ -61,6 +66,11 @@ sudo chroot $DIST apt -y install wslu
 
 sudo chroot $DIST /bin/bash -c "echo 'Defaults lecture_file = /etc/sudoers.lecture' >> /etc/sudoers"
 sudo chroot $DIST /bin/bash -c "echo 'Enter your UNIX password below. This is not your Windows password.' >> /etc/sudoers.lecture"
+
+###############################################################################################################
+
+
+# NOTE: PROBABLY CAN'T MOVE BELOW TO WLINUX-BASE BECAUSE WOULD CONFLICT IF USER HAD SYSTEMD DEPENDENT PACKAGES
 
 # remove unnecessary apt packages
 sudo chroot $DIST apt remove systemd dmidecode -y --allow-remove-essential
