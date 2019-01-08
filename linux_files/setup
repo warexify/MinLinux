@@ -823,11 +823,11 @@ if (whiptail --title "EXPLORER" --yesno "Would you like to enable Windows Explor
     [HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\WLinux]
     @="Open with WLinux"
     [HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\WLinux\command]
-    @="_wlinuxPath_ run \"cd \\\"$(wslpath \\\"%V\\\")\\\" && $(getent passwd $LOGNAME | cut -d: -f7)\""
+    @="_wlinuxPath_ run \"cd \\\"$(wslpath '%V')\\\" && $(getent passwd $LOGNAME | cut -d: -f7)\""
     [HKEY_CURRENT_USER\Software\Classes\Directory\shell\WLinux]
     @="Open with WLinux"
     [HKEY_CURRENT_USER\Software\Classes\Directory\shell\WLinux\command]
-    @="_wlinuxPath_ run \"cd \\\"$(wslpath \\\"%V\\\")\\\" && $(getent passwd $LOGNAME | cut -d: -f7)\""
+    @="_wlinuxPath_ run \"cd \\\"$(wslpath '%V')\\\" && $(getent passwd $LOGNAME | cut -d: -f7)\""
 EOF
     wlinuxPath=$(wslpath -m "$(whereis wlinux.exe | cut --delimiter=' ' -f2)" | sed 's$/$\\\\\\\\$g')
     sed -i "s/_wlinuxPath_/${wlinuxPath}/g" Install.reg
