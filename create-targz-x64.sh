@@ -28,6 +28,8 @@ sudo apt autoremove -y
 # Dpkg::Options::="--force-overwrite"
 # to ensure that it installs correctly since we over-write base-files' os-release
 
+# Hold base-files to prevent version changes affecting our wlinux-base situation
+sudo chroot $DIST /bin/bash -c "apt-mark hold base-files"
 
 # configure initial language settings
 sudo chroot $DIST /bin/bash -c "echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen && locale-gen"
