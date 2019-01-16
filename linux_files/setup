@@ -5,8 +5,8 @@ CURDUR=""
 TMPDIR=""
 VERSION="1.1.28a"
 GOVERSION="1.11.4"
-DOCKERVERSION="18.09.0"
-DOCKERCOMPOSEVERSION="1.23.1"
+DOCKERVERSION="18.09.1"
+DOCKERCOMPOSEVERSION="1.23.2"
 wHomeWinPath=$(cmd.exe /c 'echo %HOMEDRIVE%%HOMEPATH%' 2>&1 | tr -d '\r')
 wHome=$(wslpath -u "${wHomeWinPath}")
 
