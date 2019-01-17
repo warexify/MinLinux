@@ -571,15 +571,15 @@ if (whiptail --title "fcitx" --yesno "Would you like to install fcitx for improv
     export XMODIFIERS=@im=fcitx
     export DefaultIMModule=fcitx
 
-    echo "Saving environmental variables to /etc/profile.d/fcitx"
-    sudo sh -c 'echo "export QT_IM_MODULE=fcitx" >> /etc/profile.d/fcitx'
-    sudo sh -c 'echo "export GTK_IM_MODULE=fcitx" >> /etc/profile.d/fcitx'
-    sudo sh -c 'echo "export XMODIFIERS=@im=fcitx" >> /etc/profile.d/fcitx'
-    sudo sh -c 'echo "export DefaultIMModule=fcitx" >> /etc/profile.d/fcitx'
+    echo "Saving environmental variables to /etc/profile.d/fcitx.sh"
+    sudo sh -c 'echo "export QT_IM_MODULE=fcitx" >> /etc/profile.d/fcitx.sh'
+    sudo sh -c 'echo "export GTK_IM_MODULE=fcitx" >> /etc/profile.d/fcitx.sh'
+    sudo sh -c 'echo "export XMODIFIERS=@im=fcitx" >> /etc/profile.d/fcitx.sh'
+    sudo sh -c 'echo "export DefaultIMModule=fcitx" >> /etc/profile.d/fcitx.sh'
 
     if (whiptail --title "fcitx-autostart" --yesno "Would you like fcitx-autostart to run each time you open WLinux? WARNING: Requires an X server to be running or it will generate errors." 8 70) then
-        echo "Placing fcitx-autostart in /etc/profile.d/fcitx"
-        sudo sh -c 'echo "fcitx-autostart &>/dev/null" >> /etc/profile.d/fcitx'
+        echo "Placing fcitx-autostart in /etc/profile.d/fcitx.sh"
+        sudo sh -c 'echo "fcitx-autostart &>/dev/null" >> /etc/profile.d/fcitx.sh'
     else
         echo "Skipping fcitx-autostart"
         whiptail --title "Note about fcitx-autostart" --msgbox "You will need to run $ fcitx-autostart to enable fcitx before running GUI apps." 8 85
@@ -612,8 +612,8 @@ if (whiptail --title "HiDPI" --yesno "Would you like to configure Qt and GDK for
     echo "Installing HiDPI"
     export QT_SCALE_FACTOR=2
     export GDK_SCALE=2
-    sudo sh -c 'echo "export QT_SCALE_FACTOR=2" >> /etc/profile.d/hidpi'
-    sudo sh -c 'echo "export GDK_SCALE=2" >> /etc/profile.d/hidpi'
+    sudo sh -c 'echo "export QT_SCALE_FACTOR=2" >> /etc/profile.d/hidpi.sh'
+    sudo sh -c 'echo "export GDK_SCALE=2" >> /etc/profile.d/hidpi.sh'
 else
     echo "Skipping HiDPI"
 fi
@@ -684,29 +684,30 @@ fi
 
 function rubyinstall {
 
-if (whiptail --title "RUBY" --yesno "Would you like to download and install Ruby using rbenv?" 8 65) then
+if (whiptail --title "RUBY" --yesno "Would you like to download and install Ruby using rbenv?" 8 65); then
     echo "Installing RUBY"
     echo "Installing Ruby dependencies"
-    sudo apt -t testing install git-core curl zlib1g-dev build-essential libssl-dev libssl1.0-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev -y
+
+    updateupgrade
+    sudo apt-get -y -t testing install git-core curl zlib1g-dev build-essential libssl-dev libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev
     createtmp
 
     echo "Getting rbenv"
     git clone https://github.com/rbenv/rbenv.git ~/.rbenv
 
     echo "Configuring rbenv"
-    export PATH="$HOME/.rbenv/bin:$PATH"
-    eval "$(rbenv init -)"
-    echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-    echo 'eval "$(rbenv init -)"' >> ~/.bashrc
-    source ~/.bashrc
+
+    conf_path='/etc/profile.d/ruby.sh'
+
+    echo 'export PATH="${HOME}/.rbenv/bin:${PATH}"' | sudo tee "${conf_path}"
+    echo 'eval "$(rbenv init -)"' | sudo tee -a "${conf_path}"
 
     echo "Getting ruby-build"
     git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 
     echo "Configuring ruby-build"
-    export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
-    echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
-    source ~/.bashrc
+    echo 'export PATH="${HOME}/.rbenv/plugins/ruby-build/bin:${PATH}"' | sudo tee -a "${conf_path}"
+    source "${conf_path}"
 
     echo "Installing Ruby using rbenv"
     rbenv install 2.5.3 --verbose
@@ -714,7 +715,7 @@ if (whiptail --title "RUBY" --yesno "Would you like to download and install Ruby
     echo "Checking ruby version"
     ruby -v
     echo "Installing bundler using gem"
-    gem install bundler
+    gem install bundler -v 1.17.3
     echo "Rehashing rbenv"
     rbenv rehash
     cleantmp
@@ -722,12 +723,12 @@ else
     echo "Skipping RUBY"
 fi
 
-if (whiptail --title "RAILS" --yesno "Would you like to download and install Rails from RubyGems?" 8 65) then
+if (whiptail --title "RAILS" --yesno "Would you like to download and install Rails from RubyGems?" 8 65); then
     echo "Installing RAILS"
-    updateupgrade
-    sudo apt -t testing install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev
-    createtmp
     nodeinstall
+    updateupgrade
+    sudo apt-get -y -t testing install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev
+    createtmp
     gem install rails -v 5.2.0
     rbenv rehash
     cleantmp
