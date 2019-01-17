@@ -2,6 +2,7 @@
 
 # add wf repos
 # update
-# install wlinux-base
+# install wlinux-base (with force flag set to allow install with base-files installed)
 # install wlinux-setup 
+# apt-mark hold base-files
 # clean up
