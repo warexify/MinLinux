@@ -18,10 +18,6 @@ sudo apt -y install curl gnupg cdebootstrap qemu-user-static
 # bootstrap image
 sudo cdebootstrap -a $ARCH --foreign --include=sudo,locales,git,ssh,gnupg,apt-transport-https,wget,ca-certificates,man,less,curl $DIST $DIST http://deb.debian.org/debian
 
-# remove patched cdebootstrap and libdebian-installer4
-# sudo apt --fix-broken install -y
-# sudo apt autoremove -y
-
 # clean apt cache
 sudo chroot $DIST apt clean
 
