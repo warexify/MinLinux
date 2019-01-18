@@ -29,21 +29,22 @@ sudo cdebootstrap -a $ARCH --foreign --include=sudo,locales,git,ssh,gnupg,apt-tr
 # clean apt cache
 sudo chroot $DIST apt clean
 
-# upgrade to testing
-sudo cp $BUILDIR/linux_files/sources.list $TMPDIR/$DIST/etc/apt/sources.list
-sudo chroot $DIST apt update
-sudo chroot $DIST apt upgrade -y
-sudo chroot $DIST apt dist-upgrade -y
-sudo chroot $DIST apt autoremove -y
+# install public key for wslutilities
+curl https://api.patrickwu.ml/public.key | gpg --dearmor > $BUILDIR/wslu.gpg
+sudo cp $BUILDIR/wslu.gpg $TMPDIR/$DIST/etc/apt/trusted.gpg.d/wslu.gpg
+sudo chroot $DIST chmod 644 /etc/apt/trusted.gpg.d/wslu.gpg
+rm $BUILDIR/wslu.gpg
 
-# configure bash
+# configure locales
 sudo chroot $DIST /bin/bash -c "echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen && locale-gen"
 sudo chroot $DIST /bin/bash -c "update-locale LANGUAGE=en_US.UTF-8 LC_ALL=C"
 
-# download and copy latest wslu repo key
-curl https://api.patrickwu.ml/public.key | gpg --dearmor > $BUILDIR/wslu.gpg
-sudo cp $BUILDIR/wslu.gpg $TMPDIR/$DIST/etc/apt/trusted.gpg.d/wslu.gpg
-rm $BUILDIR/wslu.gpg
+# install custom sources.list and upgrade to testing
+sudo cp $BUILDIR/linux_files/sources.list $TMPDIR/$DIST/etc/apt/sources.list
+sudo chroot $DIST apt update
+sudo chroot $DIST apt dist-upgrade -y
+sudo chroot $DIST apt autoremove -y
+sudo chroot $DIST apt clean
 
 # copy custom files to image
 sudo cp $BUILDIR/linux_files/profile $TMPDIR/$DIST/etc/profile
@@ -62,7 +63,6 @@ sudo chroot $DIST chmod 755 /etc/helpme
 sudo chroot $DIST chmod 755 /etc/setup
 
 # set up the latest wslu app
-sudo chroot $DIST chmod 644 /etc/apt/trusted.gpg.d/wslu.gpg
 sudo chroot $DIST apt update
 sudo chroot $DIST apt -y install wslu
 
