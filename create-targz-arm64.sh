@@ -15,10 +15,6 @@ sudo apt -y install curl gnupg cdebootstrap qemu-user-static
 # the workaround below in the x86 version does not work when building the arm64 version because of a qemu dependency
 # so instead we are building as stable and then upgrading to testing
 
-# download and install patched libdebian-installer, see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=904699
-# wget https://github.com/WhitewaterFoundry/WLinux/raw/master/libdebian-installer4_0.116_amd64.deb
-# sudo dpkg -i libdebian-installer4_0.116_amd64.deb
-
 # bootstrap image
 sudo cdebootstrap -a $ARCH --foreign --include=sudo,locales,git,ssh,gnupg,apt-transport-https,wget,ca-certificates,man,less,curl $DIST $DIST http://deb.debian.org/debian
 
