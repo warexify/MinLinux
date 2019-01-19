@@ -1,6 +1,6 @@
 ## WLinux Roadmap
 
-See https://github.com/WhitewaterFoundry/WLinux/milestone/
+See https://github.com/WhitewaterFoundry/WLinux/milestones/
 
 See https://github.com/WhitewaterFoundry/WLinux/pulls for features under testing/active developmment.
 
