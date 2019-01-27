@@ -2,8 +2,6 @@
 
 The first Linux® distribution optimized for WSL. Based on Debian®. From open-source software startup [Whitewater Foundry](https://whitewaterfoundry.com).
 
-(if you are an enterprise customer, you may like to check out our enterprise-focused distribution, [WLinux Enterprise](https://github.com/WhitewaterFoundry/WLE))
-
 <img src='https://github.com/WhitewaterFoundry/Screenshots/raw/master/ezgif.com-gif-maker.gif'>
 
 <a href='//www.microsoft.com/store/apps/9NV1GV1PXZ6P?ocid=badge'><img src='https://assets.windowsphone.com/85864462-9c82-451e-9355-a3d5f874397a/English_get-it-from-MS_InvariantCulture_Default.png' alt='Store badge' height=50/></a>
@@ -11,6 +9,8 @@ The first Linux® distribution optimized for WSL. Based on Debian®. From open-s
 - [日本語](README.ja.md)
 - [简体中文](README.zh-hans.md)
 - [繁體中文](README.zh-hant.md)
+
+If you are an enterprise customer, you may like to check out our enterprise-focused distribution, [WLinux Enterprise](https://github.com/WhitewaterFoundry/WLE).
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/espadrine.svg?label=Follow&style=social)](https://twitter.com/WLinuxApp)
 [![VK Follow](https://img.shields.io/badge/VK-WLinux-4c75a3.svg)](https://vk.com/wlinux)
