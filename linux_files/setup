@@ -59,6 +59,7 @@ if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and re
     sudo cp setup /etc/setup
     echo "Running updated wlinux-setup"
     touch ~/.updated
+    chmod 755 ~/.wget-hsts
     bash /etc/setup
     exit 0
 else
