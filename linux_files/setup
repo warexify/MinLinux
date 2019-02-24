@@ -5,7 +5,7 @@ CURDUR=""
 TMPDIR=""
 VERSION="1.1.28a"
 GOVERSION="1.11.4"
-DOCKERVERSION="18.09.1"
+DOCKERVERSION="18.09.2"
 DOCKERCOMPOSEVERSION="1.23.2"
 wHomeWinPath=$(cmd.exe /c 'echo %HOMEDRIVE%%HOMEPATH%' 2>&1 | tr -d '\r')
 wHome=$(wslpath -u "${wHomeWinPath}")
@@ -262,6 +262,9 @@ whiptail --title "Shell Menu" --checklist --separate-output "Custom shells (bash
     "FISH" "fish" off \
     "CSH" "csh" off 3>&1 1>&2 2>&3
 )
+
+# Ensure we're up to date
+updateupgrade
 
 if [[ $EDITORCHOICE == *"ZSH"* ]] ; then
     echo "Installing zsh..."
@@ -708,6 +711,15 @@ if (whiptail --title "RUBY" --yesno "Would you like to download and install Ruby
 
     echo "Configuring ruby-build"
     echo 'export PATH="${HOME}/.rbenv/plugins/ruby-build/bin:${PATH}"' | sudo tee -a "${conf_path}"
+
+    #Copy configuration to  fish
+    sudo mkdir -p "${__fish_sysconf_dir:=/etc/fish/conf.d}"
+    conf_path_fish="${__fish_sysconf_dir}/ruby.fish"
+
+    echo 'set PATH $HOME/.rbenv/bin $PATH' | sudo tee "${conf_path_fish}"
+    echo 'set PATH $HOME/.rbenv/shims $PATH' | sudo tee -a "${conf_path_fish}"
+    echo 'rbenv rehash >/dev/null ^&1' | sudo tee -a "${conf_path_fish}"
+
     source "${conf_path}"
 
     echo "Installing Ruby using rbenv"
