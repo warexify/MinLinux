@@ -402,7 +402,7 @@ if (whiptail --title "CODE" --yesno "Would you like to download and install Code
     sudo apt-mark hold udev libudev1
 
     echo "Installing code with dependencies: $ sudo apt install code libxss1 libasound2 -y"
-    sudo apt install code libxss1 libasound2 libx11-xcb-dev -y
+    sudo apt install code libxss1 libasound2 libx11-xcb-dev libssl1.0.2 -y
     cleantmp
 else
     echo "Skipping CODE"
