@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function install_repositories {
+function install_repositories() {
 
   sudo apt-get -y -q update
   sudo apt-get -y -q install curl
@@ -11,7 +11,7 @@ function install_repositories {
 
 }
 
-function install_packages {
+function install_packages() {
 
   sudo apt-get -y -q install wlinux-base wslu wlinux-setup
 
@@ -24,13 +24,14 @@ function install_packages {
   sudo apt-get -y -q update
 }
 
-function invoke_setup {
+function invoke_setup() {
+  sudo ln -s /usr/local/bin/wlinux-setup /etc/setup
   /usr/local/bin/wlinux-setup
 
 }
 
 
-function main {
+function main() {
 
   if [[ ! -f /usr/local/bin/wlinux-setup ]]; then
     install_repositories
@@ -42,6 +43,6 @@ function main {
 }
 
 
-main
+main "$@"
 
 exit 0
