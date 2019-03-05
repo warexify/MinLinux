@@ -1,5 +1,25 @@
 #!/bin/bash
 
+function process_arguments() {
+    while [[ $# -gt 0 ]]
+    do
+      case "$1" in
+        --debug|-d|--verbose|-v)
+          echo "Running in debug/verbose mode"
+          set -x
+          shift
+        ;;
+        --silent)
+          echo "Silent installation"
+          SILENT=1
+          shift
+        ;;
+        *)
+          shift
+        esac
+    done
+}
+
 function install_repositories() {
 
   sudo apt-get -y -q update
@@ -13,7 +33,7 @@ function install_repositories() {
 
 function install_packages() {
 
-  sudo apt-get -y -q install wlinux-base wslu wlinux-setup
+  sudo apt-get -y -q install -o Dpkg::Options::="--force-overwrite" wlinux-base wslu wlinux-setup
 
   #Remove packagecloud repository definitions
   sudo rm /etc/apt/sources.list.d/whitewaterfoundry_*.list
@@ -22,6 +42,14 @@ function install_packages() {
   curl -s https://packagecloud.io/install/repositories/whitewaterfoundry/wslu/script.deb.sh | sudo bash
 
   sudo apt-get -y -q update
+
+  # Check for .dist-upgrade file in /etc/apt and inform user dist-upgrade available if so
+  if [[ -f "/etc/apt/.dist-upgrade" ]] ; then
+
+    sudo rm /etc/apt/.dist-upgrade
+    sudo apt-get -y -q dist-upgrade
+  fi
+
 }
 
 function invoke_setup() {
@@ -33,12 +61,15 @@ function invoke_setup() {
 
 function main() {
 
+  process_arguments "$@"
   if [[ ! -f /usr/local/bin/wlinux-setup ]]; then
     install_repositories
     install_packages
   fi
 
-  invoke_setup
+  if [[ ! ${SILENT} ]]; then
+    invoke_setup
+  fi
 
 }
 
