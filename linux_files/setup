@@ -33,7 +33,7 @@ function install_repositories() {
 
 function install_packages() {
 
-  sudo apt-get -y -q install -o Dpkg::Options::="--force-overwrite" wlinux-base wslu wlinux-setup
+  sudo apt-get -y -q install wlinux-base wslu wlinux-setup
 
   #Remove packagecloud repository definitions
   sudo rm /etc/apt/sources.list.d/whitewaterfoundry_*.list

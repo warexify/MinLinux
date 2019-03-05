@@ -23,9 +23,6 @@ sudo cdebootstrap -a $ARCH --include=sudo,locales,git,ssh,gnupg,apt-transport-ht
 sudo apt-get -y -q --fix-broken install
 sudo apt-get -y -q autoremove
 
-# Hold base-files to prevent version changes affecting our wlinux-base situation
-sudo chroot $DIST /bin/bash -c "apt-mark hold base-files"
-
 # download and install wlinux-base and wlinux-setup
 sudo curl "https://salsa.debian.org/rhaist-guest/WSL/raw/master/linux_files/profile" -so "${TMPDIR}/${DIST}/etc/profile"
 sudo cp $BUILDIR/linux_files/setup $TMPDIR/$DIST/etc/setup
