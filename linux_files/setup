@@ -38,9 +38,6 @@ function install_packages() {
   #Remove packagecloud repository definitions
   sudo rm /etc/apt/sources.list.d/whitewaterfoundry_*.list
 
-  #Update packagecloud repository definition for wslu
-  curl -s https://packagecloud.io/install/repositories/whitewaterfoundry/wslu/script.deb.sh | sudo bash
-
   sudo apt-get -y -q update
 
   # Check for .dist-upgrade file in /etc/apt and inform user dist-upgrade available if so
