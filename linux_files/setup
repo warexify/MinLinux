@@ -391,19 +391,25 @@ if (whiptail --title "CODE" --yesno "Would you like to download and install Code
     echo "Adding Microsoft apt repo to /etc/apt/sources.list.d/vscode.list with echo"
     sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
     
+    cleantmp
+
     #Temporary: Fix issue with udev
-    echo 'deb https://deb.debian.org/debian stretch-backports main' | sudo tee /etc/apt/sources.list.d/stretch-backports.list
+    echo 'deb https://deb.debian.org/debian stable main' | sudo tee /etc/apt/sources.list.d/stable.list
     sudo apt-mark hold udev libudev1
 
     updateupgrade
 
     #Temporary: Fix issue with udev
-    sudo apt-get install -y --allow-downgrades --allow-change-held-packages -t stretch-backports udev=239-12~bpo9+1 libudev1=239-12~bpo9+1
+    sudo apt-get install -y -q --allow-downgrades --allow-change-held-packages -t stable udev=232-25+deb9u8 libudev1=232-25+deb9u8
     sudo apt-mark hold udev libudev1
 
-    echo "Installing code with dependencies: $ sudo apt install code libxss1 libasound2 -y"
-    sudo apt install code libxss1 libasound2 libx11-xcb-dev libssl1.0.2 -y
-    cleantmp
+    echo "Installing code with dependencies: $ sudo apt-get install -y -q code libxss1 libasound2 libx11-xcb-dev"
+    sudo apt-get install -y -q code libxss1 libasound2 libx11-xcb-dev
+
+    #Temporary: Fix issue with Python Extention of VSCode
+    #Assuming that the stable repository is there by the udev fix
+    sudo apt-get install -y -q  -t stable libssl1.0.2
+
 else
     echo "Skipping CODE"
 fi  
@@ -777,7 +783,10 @@ if (whiptail --title "DOTNET" --yesno "Would you like to download and install th
     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
     sudo cp microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
     rm microsoft.gpg
-    sudo sh -c 'echo "deb https://packages.microsoft.com/repos/microsoft-debian-stretch-prod stretch main" > /etc/apt/sources.list.d/microsoft.list' 
+    sudo sh -c 'echo "deb https://packages.microsoft.com/repos/microsoft-debian-stretch-prod stretch main" > /etc/apt/sources.list.d/microsoft.list'
+    #Temporary: Fix issue with libssl1.0.2
+    echo 'deb https://deb.debian.org/debian stable main' | sudo tee /etc/apt/sources.list.d/stable.list
+
     updateupgrade
     sudo apt install dotnet-sdk-2.1 -y
     cleantmp
