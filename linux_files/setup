@@ -1,13 +1,41 @@
 #!/bin/bash
 
+function process_arguments() {
+    while [[ $# -gt 0 ]]
+    do
+      case "$1" in
+        --debug|-d|--verbose|-v)
+          echo "Running in debug/verbose mode"
+          set -x
+          shift
+        ;;
+        --silent)
+          echo "Silent installation"
+          SILENT=1
+          shift
+        ;;
+        *)
+          shift
+        esac
+    done
+}
+
 function install_repositories() {
 
   sudo apt-get -y -q update
   sudo apt-get -y -q install curl
 
   curl -s https://packagecloud.io/install/repositories/whitewaterfoundry/wlinux-base/script.deb.sh | sudo bash
+  sudo sed -i 's/stretch/buster/g' /etc/apt/sources.list.d/whitewaterfoundry_wlinux-base.list
+
   curl -s https://packagecloud.io/install/repositories/whitewaterfoundry/wlinux-setup/script.deb.sh | sudo bash
+  sudo sed -i 's/stretch/buster/g' /etc/apt/sources.list.d/whitewaterfoundry_wlinux-setup.list
+
   curl -s https://packagecloud.io/install/repositories/whitewaterfoundry/wslu/script.deb.sh | sudo bash
+  sudo sed -i 's/stretch/buster/g' /etc/apt/sources.list.d/whitewaterfoundry_wslu.list
+
+  sudo apt-get update -y -q
+  exit 0
 
 }
 
@@ -18,10 +46,15 @@ function install_packages() {
   #Remove packagecloud repository definitions
   sudo rm /etc/apt/sources.list.d/whitewaterfoundry_*.list
 
-  #Update packagecloud repository definition for wslu
-  curl -s https://packagecloud.io/install/repositories/whitewaterfoundry/wslu/script.deb.sh | sudo bash
-
   sudo apt-get -y -q update
+
+  # Check for .dist-upgrade file in /etc/apt and inform user dist-upgrade available if so
+  if [[ -f "/etc/apt/.dist-upgrade" ]] ; then
+
+    sudo rm /etc/apt/.dist-upgrade
+    sudo apt-get -y -q dist-upgrade
+  fi
+
 }
 
 function invoke_setup() {
@@ -33,12 +66,15 @@ function invoke_setup() {
 
 function main() {
 
+  process_arguments "$@"
   if [[ ! -f /usr/local/bin/wlinux-setup ]]; then
     install_repositories
     install_packages
   fi
 
-  invoke_setup
+  if [[ ! ${SILENT} ]]; then
+    invoke_setup
+  fi
 
 }
 

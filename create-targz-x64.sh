@@ -9,41 +9,37 @@ DIST="testing"
 cd $TMPDIR
 
 # install script dependencies
-sudo apt update
-sudo apt -y install curl gnupg cdebootstrap
+sudo apt-get -y -q update
+sudo apt-get -y -q install curl gnupg cdebootstrap
 
 # download and install patched libdebian-installer, see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=904699
 wget https://github.com/WhitewaterFoundry/WLinux/raw/master/libdebian-installer4_0.116_amd64.deb
 sudo dpkg -i libdebian-installer4_0.116_amd64.deb
 
 # bootstrap image
-sudo cdebootstrap -a $ARCH --include=sudo,locales,git,ssh,gnupg,apt-transport-https,wget,ca-certificates,man,less,curl $DIST $DIST http://deb.debian.org/debian
+sudo cdebootstrap -a $ARCH --include=sudo,locales,git,ssh,gnupg,apt-transport-https,wget,ca-certificates,man,less,curl,bash-completion,vim $DIST $DIST http://deb.debian.org/debian
 
 # remove patched cdebootstrap and libdebian-installer4
-sudo apt --fix-broken install -y
-sudo apt autoremove -y
+sudo apt-get -y -q --fix-broken install
+sudo apt-get -y -q autoremove
 
 # download and install wlinux-base and wlinux-setup
-# wlinx-base needs to be installed with:
-# Dpkg::Options::="--force-overwrite"
-# to ensure that it installs correctly since we over-write base-files' os-release
-sudo apt-get install ./wlinux-base.deb -o Dpkg::Options::="--force-overwrite" # assuming local .deb file
-
-# Hold base-files to prevent version changes affecting our wlinux-base situation
-sudo chroot $DIST /bin/bash -c "apt-mark hold base-files"
+sudo curl "https://salsa.debian.org/rhaist-guest/WSL/raw/master/linux_files/profile" -so "${TMPDIR}/${DIST}/etc/profile"
+sudo cp $BUILDIR/linux_files/setup $TMPDIR/$DIST/etc/setup
+sudo chroot $DIST /bin/bash -c "bash /etc/setup --silent"
 
 # configure initial language settings
 sudo chroot $DIST /bin/bash -c "echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen && locale-gen"
 sudo chroot $DIST /bin/bash -c "update-locale LANGUAGE=en_US.UTF-8 LC_ALL=C"
 
 # remove unnecessary packages in initial image
-sudo chroot $DIST apt remove systemd dmidecode -y --allow-remove-essential
+sudo chroot $DIST apt-get -y -q remove systemd dmidecode --allow-remove-essential
 
 # clean up any orphaned apt dependencies
-sudo chroot $DIST apt-get autoremove -y
+sudo chroot $DIST apt-get -y -q autoremove
 
 # clean apt cache
-sudo chroot $DIST apt-get clean
+sudo chroot $DIST apt-get -y -q clean
 
 # create tar
 cd $DIST
