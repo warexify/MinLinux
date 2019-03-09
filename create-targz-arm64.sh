@@ -30,6 +30,10 @@ sudo chroot $DIST /bin/bash -c "bash /etc/setup --silent"
 sudo chroot $DIST /bin/bash -c "echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen && locale-gen"
 sudo chroot $DIST /bin/bash -c "update-locale LANGUAGE=en_US.UTF-8 LC_ALL=C"
 
+# configure sudo lecture
+sudo chroot $DIST /bin/bash -c "echo 'Defaults lecture_file = /etc/sudoers.lecture' >> /etc/sudoers"
+sudo chroot $DIST /bin/bash -c "echo 'Enter your UNIX password below. This is not your Windows password.' >> /etc/sudoers.lecture"
+
 # remove unnecessary packages in initial image
 sudo chroot $DIST apt-get -y -q remove systemd dmidecode --allow-remove-essential
 
