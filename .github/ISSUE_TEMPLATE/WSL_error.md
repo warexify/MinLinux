@@ -8,7 +8,7 @@ about: Report errors like 0x800320306 on launch.
 
 These WSL error messages occur from time to time and can tricky to troubleshoot short of reinstalling WSL.
 
-They are usually not an issue with WLinux itself but a glitch with the underlying Windows Subsystem for Linux in Windows 10.
+They are usually not an issue with Pengwin itself but a glitch with the underlying Windows Subsystem for Linux in Windows 10.
 
 You can help us help you and Microsoft improve WSL and address these if you can provide us some debugging information.
 
@@ -21,8 +21,8 @@ Please check:
 [ ] I have confirmed WSL is enabled: https://docs.microsoft.com/en-us/windows/wsl/troubleshooting#confirm-wsl-is-enabled.
 [ ] I have searched Google for the error message.
 [ ] I have searched the official Microsoft WSL issues page: https://github.com/Microsoft/WSL/issues.
-[ ] I have searched the WLinux issues page: https://github.com/WhitewaterFoundry/WLinux/issues.
-[ ] I have reset WLinux: Settings->Apps->Apps & features->WLinux->Advanced Options->Reset. 
+[ ] I have searched the Pengwin issues page: https://github.com/WhitewaterFoundry/Pengwin/issues.
+[ ] I have reset Pengwin: Settings->Apps->Apps & features->Pengwin->Advanced Options->Reset. 
 [ ] I have disabled and re-enabled WSL in Windows Features.
 [ ] I have run Windows 10 updates and restarted.
 
@@ -42,7 +42,7 @@ Known Error Codes
 
 **Version**
 
-Find: Settings->Apps->Apps & features->WLinux->Advanced Options->Version.
+Find: Settings->Apps->Apps & features->Pengwin->Advanced Options->Version.
 
 Insert here:
 

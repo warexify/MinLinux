@@ -28,8 +28,8 @@ Add any other context about the problem here.
 [ ] I have searched Google for the error message.
 [ ] I have checked official WSL troubleshooting documentation: https://docs.microsoft.com/en-us/windows/wsl/troubleshooting#confirm-wsl-is-enabled.
 [ ] I have searched the official Microsoft WSL issues page: https://github.com/Microsoft/WSL/issues.
-[ ] I have searched the WLinux issues page: https://github.com/WhitewaterFoundry/WLinux/issues.
-[ ] I have reset WLinux: Settings->Apps->Apps & features->WLinux->Advanced Options->Reset. 
+[ ] I have searched the Pengwin issues page: https://github.com/WhitewaterFoundry/Pengwin/issues.
+[ ] I have reset Pengwin: Settings->Apps->Apps & features->Pengwin->Advanced Options->Reset. 
 [ ] I have disabled and re-enabled WSL in Windows Features.
 [ ] I have run Windows 10 updates and restarted.
 
@@ -37,9 +37,9 @@ What other troubleshooting have you attempted?
 
 Insert here:
 
-**WLinux Version**
+**Pengwin Version**
 
-Find: Settings->Apps->Apps & features->WLinux->Advanced Options->Version.
+Find: Settings->Apps->Apps & features->Pengwin->Advanced Options->Version.
 
 Insert here:
 

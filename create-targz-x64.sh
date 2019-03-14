@@ -13,7 +13,7 @@ sudo apt-get -y -q update
 sudo apt-get -y -q install curl gnupg cdebootstrap
 
 # download and install patched libdebian-installer, see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=904699
-wget https://github.com/WhitewaterFoundry/WLinux/raw/master/libdebian-installer4_0.116_amd64.deb
+wget https://github.com/WhitewaterFoundry/Pengwin/raw/master/libdebian-installer4_0.116_amd64.deb
 sudo dpkg -i libdebian-installer4_0.116_amd64.deb
 
 # bootstrap image
@@ -23,7 +23,7 @@ sudo cdebootstrap -a $ARCH --include=sudo,locales,git,ssh,gnupg,apt-transport-ht
 sudo apt-get -y -q --fix-broken install
 sudo apt-get -y -q autoremove
 
-# download and install wlinux-base and wlinux-setup
+# download and install pengwin-base and pengwin-setup
 sudo curl "https://salsa.debian.org/rhaist-guest/WSL/raw/master/linux_files/profile" -so "${TMPDIR}/${DIST}/etc/profile"
 sudo cp $BUILDIR/linux_files/setup $TMPDIR/$DIST/etc/setup
 sudo chroot $DIST /bin/bash -c "bash /etc/setup --silent"
