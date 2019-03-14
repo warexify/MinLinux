@@ -1,13 +1,11 @@
 
 # Artwork
 
-- [Icons](https://www.iconfinder.com/icons/652577/linux_os_penguin_platform_server_system_icon) are by [Erik Ragnar Eliasson](https://www.iconfinder.com/Sennerstad) and used under an attribution license. 
-
-- "Tux" the Penguin is an image created by Larry Ewing and is [used with permission](http://isc.tamu.edu/~lewing/linux/).
+- Artwork was designed by [Dennis Bednarz](https://twitter.com/DennisBednarz).
 
 # Trademarks
 
-- WLinux and Whitewater Foundry are trademarks of Whitewater Foundry, Ltd. Co. You may use the WLinux and Whitewater Foundry trademark in any lawful manner in compliance with your local trademark laws.
+- Pengwin, WLinux, and Whitewater Foundry are trademarks of Whitewater Foundry, Ltd. Co.
 
 - Debian® is a registered trademark of Software in the Public Interest, Inc. and is used in compliance with the [Debian Trademark Policy](https://www.debian.org/trademark).
 
@@ -17,15 +15,15 @@
 
 # Copyright and Licenses Covering GNU/linux Debian distribution components
 
-As a derivative distribution of the GNU/Linux Debian distribution, WLinux contains thousands of open source programs developed by thousands of programmers, students, professors, professionals, hobbyists, and volunteer teams.
+As a derivative distribution of the GNU/Linux Debian distribution, Pengwin contains thousands of open source programs developed by thousands of programmers, students, professors, professionals, hobbyists, and volunteer teams.
 
-Each program has it's own respective copyright and license. The most common licenses applied to these packages are found in /licenses/ of this repository. Copies of applicable licenses can also be found installed at /usr/share/common-licenses/ on WLinux.
+Each program has it's own respective copyright and license. The most common licenses applied to these packages are found in /licenses/ of this repository. Copies of applicable licenses can also be found installed at /usr/share/common-licenses/ on Pengwin.
 
 Many of these licenses require that the source code of the programs be made available. For access to the source code of any Debian package, uncomment the deb-src lines in /etc/apt/sources.list, run `$ sudo apt-get update`, and install sources using `$ sudo apt-get source <package name>`.
 
-# Copyright and Licenses Covering WLinux-Specific Code
+# Copyright and Licenses Covering Pengwin-Specific Code
 
-WLinux original modifications on https://github.com/WhitewaterFoundry/WLinux:
+Pengwin original modifications on https://github.com/WhitewaterFoundry/Pengwin:
 
         MIT License
 

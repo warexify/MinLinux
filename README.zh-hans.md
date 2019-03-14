@@ -1,8 +1,8 @@
-# WLinux
+# Pengwin
 
 专门为 Windows 10 Linux® 子系统调整的 Linux® 发行版，基于 Debian®，由 [Whitewater Foundry](https://whitewaterfoundry.com) 出品。
 
-（如果你是企业用户，你也许会对我们专门针对企业用户开发的 [WLinux 企业版](https://github.com/WhitewaterFoundry/WLE)感兴趣）
+（如果你是企业用户，你也许会对我们专门针对企业用户开发的 [Pengwin 企业版](https://github.com/WhitewaterFoundry/WLE)感兴趣）
 
 <img src='https://github.com/WhitewaterFoundry/Screenshots/raw/master/ezgif.com-gif-maker.gif'>
 
@@ -12,18 +12,15 @@
 - [繁體中文](README.zh-hant.md)
 - [日本語](README.ja.md)
 
-[![Twitter Follow](https://img.shields.io/twitter/follow/espadrine.svg?label=Follow&style=social)](https://twitter.com/WLinuxApp)
-[![VK Follow](https://img.shields.io/badge/VK-WLinux-4c75a3.svg)](https://vk.com/wlinux)
-[![LINE Follow](https://img.shields.io/badge/LINE-WLinux-00c300.svg)](https://line.me/R/ti/p/%40yck9322o)
-[![Telegram](https://img.shields.io/badge/Telegram-wslinux-0088cc.svg)](https://t.me/wslinux)
+[![Twitter Follow](https://img.shields.io/twitter/follow/espadrine.svg?label=Follow&style=social)](https://twitter.com/pengwinlinux)
 
 ## 功能
 
-- WLinux 是第一款使用 Microsoft Research 开源技术基于 Debian 发行版的 Windows 10 Linux 子系统发行版。
-- WLinux 是第一款专门为开发者和资深用户设计的在 [Windows 10 Linux 子系统](https://github.com/sirredbeard/Awesome-WSL)(WSL) 上运行的 Linux 开发环境。
+- Pengwin 是第一款使用 Microsoft Research 开源技术基于 Debian 发行版的 Windows 10 Linux 子系统发行版。
+- Pengwin 是第一款专门为开发者和资深用户设计的在 [Windows 10 Linux 子系统](https://github.com/sirredbeard/Awesome-WSL)(WSL) 上运行的 Linux 开发环境。
 - 预装 [wslu](https://github.com/wslutilities/wslu), 一款专门为WSL而设计的工具组。
-- `$ wlinux-setup`协助你配置你的 Linux 到你最喜欢的样子：
-    - 修改你的 WLinux 语言设置。
+- `$ pengwin-setup`协助你配置你的 Linux 到你最喜欢的样子：
+    - 修改你的 Pengwin 语言设置。
     - 可选的 terminal shells: csh, zsh (带 [oh-my-zsh](https://ohmyz.sh/))或者 [fish](https://fishshell.com/) (带 [oh-my-fish](https://github.com/oh-my-fish/oh-my-fish))。
     - 可选的文字编辑器: [emacs](https://www.gnu.org/software/emacs/), [neovim](https://neovim.io/) 或者 [Visual Studio Code](https://code.visualstudio.com/)。
     - 安装你最喜爱的开发环境: [NodeJS](https://nodejs.org/) (n，npm和/或yarn), Python 3.7 (带pip), [Ruby](http://www.ruby-lang.org/) (通过rbenv )与 [Go](https://golang.org/)。
@@ -32,20 +29,20 @@
     - 配置 WSL 的 GUI 设置，包括高分辨率支持和 CJK 输入法支持。
     - 支持 Docker 桥的创建。
 - 支持大部分的 [GUI 应用](https://github.com/ethanhs/WSL-Programs)! 注：需要安装 Windows 下的X服务器，如 [X410](http://afflnk.microsoft.com/c/1291904/459838/7593?prodsku=9NLP712ZMN9Q&u=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fstore%2Fp%2Fx410%2F9NLP712ZMN9Q)。
-- WLinux 提供与其他 WSL 支持的发行版相比更快的 Bug 修复。
+- Pengwin 提供与其他 WSL 支持的发行版相比更快的 Bug 修复。
 - 一些不必要或者不支持的应用如`systemd`已被移除。
-- 我们会基于[社区反馈](https://github.com/WhitewaterFoundry/WLinux/issues)不断的开发[新功能](https://github.com/WhitewaterFoundry/WLinux/pulls)。还有，[我们的 WLinux 赏金计划](CONTRIBUTING.md)了解一下。
+- 我们会基于[社区反馈](https://github.com/WhitewaterFoundry/Pengwin/issues)不断的开发[新功能](https://github.com/WhitewaterFoundry/Pengwin/pulls)。还有，[我们的 Pengwin 赏金计划](CONTRIBUTING.md)了解一下。
 
-注：以上功能为最新的商店版本更新内容。你也可以自行编译WLinux来帮我们测试新功能。
+注：以上功能为最新的商店版本更新内容。你也可以自行编译Pengwin来帮我们测试新功能。
 
 ## 支持
 
-WLinux 在商店的购买可以是独立的开源开发者们能够持续的开发，测试和调整 WLinux。我们尝试为您提供最好的用户服务。大部分问题可以通过以下方法解决。
+Pengwin 在商店的购买可以是独立的开源开发者们能够持续的开发，测试和调整 Pengwin。我们尝试为您提供最好的用户服务。大部分问题可以通过以下方法解决。
 
-- 请先[在此](https://github.com/sirredbeard/WLinux/issues)搜索你的问题。
+- 请先[在此](https://github.com/sirredbeard/Pengwin/issues)搜索你的问题。
 - 如果找不到，请在[ WSL 反馈页](https://github.com/Microsoft/WSL/issues)搜索你的问题。
 - 你也可以查看微软官方的[ WSL 故障排除](https://docs.microsoft.com/en-us/windows/wsl/troubleshooting)档案。
-- 如果你无法找到你的问题，请[开一个新的 issue](https://github.com/WhitewaterFoundry/WLinux/issues/new?template=bug_report.md). 我们通常会在几个小时内回复你，请您耐心等待。
+- 如果你无法找到你的问题，请[开一个新的 issue](https://github.com/WhitewaterFoundry/Pengwin/issues/new?template=bug_report.md). 我们通常会在几个小时内回复你，请您耐心等待。
 
 ## 其他文档
 
