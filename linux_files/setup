@@ -58,6 +58,11 @@ function install_packages() {
 
 }
 
+function remove_legacy() {
+  sudo sed -i -e 's|deb https://apt.patrickwu.space/ stable main|# deb https://apt.patrickwu.space/ stable main|g' /etc/apt/sources.list
+
+}
+
 function invoke_setup() {
   sudo ln -s /usr/local/bin/pengwin-setup /etc/setup
   /usr/local/bin/pengwin-setup
@@ -70,6 +75,7 @@ function main() {
   if [[ ! -f /usr/local/bin/pengwin-setup ]]; then
     install_repositories
     install_packages
+    remove_legacy
   fi
 
   if [[ ! ${SILENT} ]]; then
