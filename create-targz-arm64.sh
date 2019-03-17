@@ -18,7 +18,7 @@ sudo cdebootstrap -a $ARCH --foreign --include=sudo,locales,git,ssh,gnupg,apt-tr
 # clean apt cache
 sudo chroot $DIST apt clean
 
-# download and install wlinux-base and wlinux-setup
+# download and install pengwin-base and pengwin-setup
 sudo curl "https://salsa.debian.org/rhaist-guest/WSL/raw/master/linux_files/profile" -so "${TMPDIR}/${DIST}/etc/profile"
 sudo cp $BUILDIR/linux_files/setup $TMPDIR/$DIST/etc/setup
 sudo chroot $DIST /bin/bash -c "bash /etc/setup --silent"
