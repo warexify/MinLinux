@@ -35,7 +35,6 @@ function install_repositories() {
   sudo sed -i 's/stretch/buster/g' /etc/apt/sources.list.d/whitewaterfoundry_wslu.list
 
   sudo apt-get update -y -q
-  exit 0
 
 }
 
