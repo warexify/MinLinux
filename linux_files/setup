@@ -60,6 +60,7 @@ function install_packages() {
 function remove_legacy() {
   sudo sed -i -e 's|deb https://apt.patrickwu.space/ stable main|# deb https://apt.patrickwu.space/ stable main|g' /etc/apt/sources.list
 
+  bash /usr/local/pengwin-setup.d/explorer.sh --upgrade --yes
 }
 
 function invoke_setup() {
