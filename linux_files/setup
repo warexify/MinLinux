@@ -73,7 +73,15 @@ function main() {
 
   process_arguments "$@"
   if [[ ! -f /usr/local/bin/pengwin-setup ]]; then
-    install_repositories "$@"
+
+    local dev=""
+    if [[ "$1" == "-dev" ]]; then
+
+      dev="-dev"
+    fi
+
+    install_repositories "${dev}"
+
     install_packages
     remove_legacy
   fi
