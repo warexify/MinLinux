@@ -57,10 +57,15 @@ function install_packages() {
 
 }
 
-function remove_legacy() {
+function remove_legacy_repo() {
   sudo sed -i -e 's|deb https://apt.patrickwu.space/ stable main|# deb https://apt.patrickwu.space/ stable main|g' /etc/apt/sources.list
-
   bash /usr/local/pengwin-setup.d/explorer.sh --upgrade --yes
+  
+}
+
+function remove_legacy_regkeys() {
+  bash /usr/local/pengwin-setup.d/explorer.sh --upgrade --yes
+  
 }
 
 function invoke_setup() {
@@ -80,10 +85,10 @@ function main() {
       dev="-dev"
     fi
 
+    remove_legacy_repo
     install_repositories "${dev}"
-
     install_packages
-    remove_legacy
+    remove_legacy_regkeys
   fi
 
   if [[ ! ${SILENT} ]]; then
