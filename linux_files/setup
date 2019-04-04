@@ -25,10 +25,10 @@ function install_repositories() {
   sudo apt-get -y -q update
   sudo apt-get -y -q install curl
 
-  curl -s https://packagecloud.io/install/repositories/whitewaterfoundry/pengwin-base/script.deb.sh | sudo bash
+  curl -s https://packagecloud.io/install/repositories/whitewaterfoundry/pengwin-base$1/script.deb.sh | sudo bash
   sudo sed -i 's/stretch/buster/g' /etc/apt/sources.list.d/whitewaterfoundry_pengwin-base.list
 
-  curl -s https://packagecloud.io/install/repositories/whitewaterfoundry/pengwin-setup/script.deb.sh | sudo bash
+  curl -s https://packagecloud.io/install/repositories/whitewaterfoundry/pengwin-setup$1/script.deb.sh | sudo bash
   sudo sed -i 's/stretch/buster/g' /etc/apt/sources.list.d/whitewaterfoundry_pengwin-setup.list
 
   curl -s https://packagecloud.io/install/repositories/whitewaterfoundry/wslu/script.deb.sh | sudo bash
@@ -60,6 +60,7 @@ function install_packages() {
 function remove_legacy() {
   sudo sed -i -e 's|deb https://apt.patrickwu.space/ stable main|# deb https://apt.patrickwu.space/ stable main|g' /etc/apt/sources.list
 
+  bash /usr/local/pengwin-setup.d/explorer.sh --upgrade --yes
 }
 
 function invoke_setup() {
@@ -72,7 +73,15 @@ function main() {
 
   process_arguments "$@"
   if [[ ! -f /usr/local/bin/pengwin-setup ]]; then
-    install_repositories
+
+    local dev=""
+    if [[ "$1" == "-dev" ]]; then
+
+      dev="-dev"
+    fi
+
+    install_repositories "${dev}"
+
     install_packages
     remove_legacy
   fi
