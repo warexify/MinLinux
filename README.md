@@ -1,6 +1,6 @@
-# WLinux
+# Pengwin
 
-The first Linux® distribution optimized for WSL. Based on Debian®. From open-source software startup [Whitewater Foundry](https://whitewaterfoundry.com).
+The first Linux® distribution optimized for WSL. Based on Debian®. From open-source software startup [Whitewater Foundry](https://whitewaterfoundry.com). Formerly WLinux.
 
 <img src='https://github.com/WhitewaterFoundry/Screenshots/raw/master/ezgif.com-gif-maker.gif'>
 
@@ -10,19 +10,16 @@ The first Linux® distribution optimized for WSL. Based on Debian®. From open-s
 - [简体中文](README.zh-hans.md)
 - [繁體中文](README.zh-hant.md)
 
-If you are an enterprise customer, you may like to check out our enterprise-focused distribution, [WLinux Enterprise](https://github.com/WhitewaterFoundry/WLE).
+If you are an enterprise customer, you may like to check out our enterprise-focused distribution, [Pengwin Enterprise](https://github.com/WhitewaterFoundry/WLE).
 
-[![Twitter Follow](https://img.shields.io/twitter/follow/espadrine.svg?label=Follow&style=social)](https://twitter.com/WLinuxApp)
-[![VK Follow](https://img.shields.io/badge/VK-WLinux-4c75a3.svg)](https://vk.com/wlinux)
-[![LINE Follow](https://img.shields.io/badge/LINE-WLinux-00c300.svg)](https://line.me/R/ti/p/%40yck9322o)
-[![Telegram](https://img.shields.io/badge/Telegram-wslinux-0088cc.svg)](https://t.me/wslinux)
+[![Twitter Follow](https://img.shields.io/twitter/follow/espadrine.svg?label=Follow&style=social)](https://twitter.com/PengwinLinux)
 
 ## Features
 
-- WLinux is a Linux environment for Windows 10 built on open-source technology concieved by Microsoft Research and the Linux ecosystem curated by the Debian project.
-- WLinux is also the first Linux distribution pre-configured and optimized to run specifically on [Windows® Subsystem for Linux](https://github.com/sirredbeard/Awesome-WSL), a Microsoft-supported feature of Windows 10 and Windows Server 2019.
-- WLinux includes [wslu](https://github.com/wslutilities/wslu), a set of useful open-source utilities for interacting between WSL and Windows 10.
-- A custom wlinux-setup tool, accessible via `$ wlinux-setup` allows new WLinux users to get started on Linux immediately:
+- Pengwin is a Linux environment for Windows 10 built on open-source technology concieved by Microsoft Research and the Linux ecosystem curated by the Debian project.
+- Pengwin is also the first Linux distribution pre-configured and optimized to run specifically on [Windows® Subsystem for Linux](https://github.com/sirredbeard/Awesome-WSL), a Microsoft-supported feature of Windows 10 and Windows Server 2019.
+- Pengwin includes [wslu](https://github.com/wslutilities/wslu), a set of useful open-source utilities for interacting between WSL and Windows 10.
+- A custom Pengwin-setup tool, accessible via `$ pengwin-setup` allows new Pengwin users to get started on Linux immediately:
     - Change language and keyboard settings.
     - Select optional shells: csh, zsh (with [oh-my-zsh](https://ohmyz.sh/)), and [fish](https://fishshell.com/) (with [oh-my-fish](https://github.com/oh-my-fish/oh-my-fish)).
     - Choose text editors: [emacs](https://www.gnu.org/software/emacs/), [neovim](https://neovim.io/), and [Visual Studio Code](https://code.visualstudio.com/).
@@ -31,24 +28,22 @@ If you are an enterprise customer, you may like to check out our enterprise-focu
     - Enable/disable Windows Explorer shell integration.
     - Configure experimental GUI settings, including a [Windows 10 theme](https://github.com/B00merang-Project/Windows-10) for your Linux applications, HiDPI support and international input methods.
     - Create a secure bridge to Docker running on Windows.
-- Support for [many Linux graphical applications](https://github.com/ethanhs/WSL-Programs) with no need to configure display or libGL in Wlinux. (Requires a Windows-based X client, such as [X410](http://afflnk.microsoft.com/c/1291904/459838/7593?prodsku=9NLP712ZMN9Q&u=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fstore%2Fp%2Fx410%2F9NLP712ZMN9Q).)
+- Support for [many Linux graphical applications](https://github.com/ethanhs/WSL-Programs) with no need to configure display or libGL in Pengwin. (Requires a Windows-based X server, such as [X410](http://afflnk.microsoft.com/c/1291904/459838/7593?prodsku=9NLP712ZMN9Q&u=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fstore%2Fp%2Fx410%2F9NLP712ZMN9Q).)
 - Install over 27,790 open source packages via the apt package management system from the [expansive Debian repositories](https://packages.debian.org/testing/) and any third-party Debian-compatible repositories from outside projects.
-- WLinux provides faster patching for WSL-specific bugs than any upstream Linux distro available on WSL.
+- Pengwin provides faster patching for WSL-specific bugs than any upstream Linux distro available on WSL.
 - A handful of unnecessary packages, such as systemd, have been removed from the base image to reduce image size and increase stability.
-- New features are [actively developed](https://github.com/WhitewaterFoundry/WLinux/pulls) based on [community input](https://github.com/WhitewaterFoundry/WLinux/issues). Learn how you can [earn paid grants](CONTRIBUTING.md) improving WLinux. 
-
-Note: The features above refer to release version 1.1.28 currently on the Microsoft Store. Build WLinux yourself and help us test and debug new features. 
+- New features are [actively developed](https://github.com/WhitewaterFoundry/Pengwin/pulls) based on [community input](https://github.com/WhitewaterFoundry/Pengwin/issues). Learn how you can [earn paid grants](CONTRIBUTING.md) improving Pengwin. 
 
 ## Obtaining Support
 
-Purchases of WLinux in the Microsoft Store pay for a team of open source indie developers to add new features, test and release builds, evaluate WSL-related CVEs, and provide user support. User support is provided on a best effort basis. Most issues can be resolved by following the steps below. 
+Purchases of Pengwin in the Microsoft Store pay for a team of open source indie developers to add new features, test and release builds, evaluate WSL-related CVEs, and provide user support. User support is provided on a best effort basis. Most issues can be resolved by following the steps below. 
 
-- First, search for your issue on the WLinux Issues page [here](https://github.com/whitewaterfoundry/WLinux/issues).
+- First, search for your issue on the Pengwin Issues page [here](https://github.com/whitewaterfoundry/Pengwin/issues).
 - Next, search for your issue on the general WSL Issues page [here](https://github.com/Microsoft/WSL/issues).
 - Then consult the official [Troubleshooting Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/troubleshooting) documentation from Microsoft.
-- Finally, if you are still unable to resolve your issue, please submit a bug report [here](https://github.com/WhitewaterFoundry/WLinux/issues/new?template=bug_report.md) and we will do our best to help you. We usually respond to most Issues within a few hours. Thank you for your patience.
+- Finally, if you are still unable to resolve your issue, please submit a bug report [here](https://github.com/WhitewaterFoundry/Pengwin/issues/new?template=bug_report.md) and we will do our best to help you. We usually respond to most Issues within a few hours. Thank you for your patience.
 
-## Additional WLinux Documentation
+## Additional Pengwin Documentation
 
 - [LICENSE.md](LICENSE.md)
 - [BUILDING.md](BUILDING.md)

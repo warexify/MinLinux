@@ -1,7 +1,7 @@
-## WLinux Roadmap
+## Pengwin Roadmap
 
-See https://github.com/WhitewaterFoundry/WLinux/milestones/
+See https://github.com/WhitewaterFoundry/Pengwin/milestones/
 
-See https://github.com/WhitewaterFoundry/WLinux/pulls for features under testing/active developmment.
+See https://github.com/WhitewaterFoundry/Pengwin/pulls for features under testing/active developmment.
 
-See https://github.com/WhitewaterFoundry/WLinux/issues to suggest new features.
+See https://github.com/WhitewaterFoundry/Pengwin/issues to suggest new features.
