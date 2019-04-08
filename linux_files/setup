@@ -35,7 +35,6 @@ function install_repositories() {
   sudo sed -i 's/stretch/buster/g' /etc/apt/sources.list.d/whitewaterfoundry_wslu.list
 
   sudo apt-get update -y -q
-
 }
 
 function install_packages() {
@@ -48,9 +47,9 @@ function install_packages() {
   # Update apt repositories
   sudo apt-get -y -q update
 
+
   # Check for .dist-upgrade file in /etc/apt and inform user dist-upgrade available if so
   if [[ -f "/etc/apt/.dist-upgrade" ]] ; then
-
     sudo rm /etc/apt/.dist-upgrade
     sudo apt-get -y -q dist-upgrade
   fi
