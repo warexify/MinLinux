@@ -25,14 +25,12 @@ function install_repositories() {
   sudo apt-get -y -q update
   sudo apt-get -y -q install curl
 
-  curl -s https://packagecloud.io/install/repositories/whitewaterfoundry/pengwin-base$1/script.deb.sh | sudo bash
-  sudo sed -i 's/stretch/buster/g' /etc/apt/sources.list.d/whitewaterfoundry_pengwin-base.list
+  export os=debian
+  export dist=buster 
 
-  curl -s https://packagecloud.io/install/repositories/whitewaterfoundry/pengwin-setup$1/script.deb.sh | sudo bash
-  sudo sed -i 's/stretch/buster/g' /etc/apt/sources.list.d/whitewaterfoundry_pengwin-setup.list
-
-  curl -s https://packagecloud.io/install/repositories/whitewaterfoundry/wslu/script.deb.sh | sudo bash
-  sudo sed -i 's/stretch/buster/g' /etc/apt/sources.list.d/whitewaterfoundry_wslu.list
+  curl -s https://packagecloud.io/install/repositories/whitewaterfoundry/pengwin-base$1/script.deb.sh | sudo -E bash
+  curl -s https://packagecloud.io/install/repositories/whitewaterfoundry/pengwin-setup$1/script.deb.sh | sudo -E bash
+  curl -s https://packagecloud.io/install/repositories/whitewaterfoundry/wslu/script.deb.sh | sudo -E bash
 
   sudo apt-get update -y -q
 }
