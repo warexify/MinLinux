@@ -10,9 +10,11 @@ The first Linux® distribution optimized for WSL. Based on Debian®. From open-s
 - [简体中文](README.zh-hans.md)
 - [繁體中文](README.zh-hant.md)
 
-If you are an enterprise customer, you may like to check out our enterprise-focused distribution, [Pengwin Enterprise](https://github.com/WhitewaterFoundry/Pengwin-Enterprise).
+See the [Pengwin blog](https://www.pengwin.dev/blog) and [@PengwinLinux](https://twitter.com/PengwinLinux) for up-to-date news about Pengwin. 
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/espadrine.svg?label=Follow&style=social)](https://twitter.com/PengwinLinux)
+
+If you are a commercial, government, or educational institution, you may like to check out our enterprise-focused distribution, [Pengwin Enterprise](https://github.com/WhitewaterFoundry/Pengwin-Enterprise).
 
 ## Features
 
@@ -53,6 +55,10 @@ Purchases of Pengwin in the Microsoft Store pay for a team of open source indie 
 - Next, search for your issue on the general WSL Issues page [here](https://github.com/Microsoft/WSL/issues).
 - Then consult the official [Troubleshooting Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/troubleshooting) documentation from Microsoft.
 - Finally, if you are still unable to resolve your issue, please submit a bug report [here](https://github.com/WhitewaterFoundry/Pengwin/issues/new?template=bug_report.md) and we will do our best to help you. We usually respond to most Issues within a few hours. Thank you for your patience.
+
+## Versioning
+
+Pengwin is rolling release. Debian packages, pengwin-base, and pengwin-setup recieve ongoing updates. Versions are used to track long-term progress on bugs and features, e.g. 1.2, and new versions are released every 2-3 months. New builds are regularly built and uploaded to the Store. The third build uploaded during 1.2.x development will be marked 1.2.3.
 
 ## Additional Pengwin Documentation
 
