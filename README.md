@@ -58,7 +58,7 @@ Purchases of Pengwin in the Microsoft Store pay for a team of open source indie 
 
 ## Versioning
 
-Pengwin is rolling release. Debian packages, pengwin-base, and pengwin-setup recieve ongoing updates. Versions are used to track long-term progress on bugs and features, e.g. 1.2, and new versions are released every 2-3 months. New builds are regularly built and uploaded to the Store. The third build uploaded during 1.2.x development will be marked 1.2.3.
+Pengwin is rolling release. Debian packages, pengwin-base, and pengwin-setup recieve ongoing updates. Version numbers are used to track long-term progress on bugs and features, e.g. 1.2, and new versions are released every 2-3 months. New builds are regularly built and uploaded to the Store. The third build uploaded during 1.2.x window will be marked 1.2.3.
 
 ## Additional Pengwin Documentation
 
