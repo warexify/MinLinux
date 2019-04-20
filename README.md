@@ -38,14 +38,29 @@ If you are a commercial, government, or educational institution, you may like to
 
 ## Requirements
 
-Windows 10 1803 (Build 17134)
-Windows Subsystem for Linux Enabled
+- Windows 10
+    - Minimum 1709/16299
+    - Recommended 1809/17763
+- Windows Subsystem for Linux Enabled
+    - To enable Windows Subsystem for Linux open PowerShell as Administrator and run:
+        ```
+        Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+        ```
+        
+## Updates
 
-To enable Windows Subsystem for Linux open PowerShell as Administrator and run:
+To check for updates, use the apt package management system.
 
-```
-Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
-```
+1. Check for the latest updates: `$ sudo apt-get update`
+2. Apply the latest updates: `$ sudo apt-get upgrade`
+
+## Versioning
+
+Pengwin is rolling release. Debian packages, pengwin-base, and pengwin-setup receive ongoing updates. Version numbers are used to track long-term progress on bugs and features, e.g. 1.2, and new versions are released every 2-3 months. New builds are regularly built and uploaded to the Store. The third build uploaded during 1.2.x window will be marked 1.2.3.
+
+To check your version of pengwin-setup: `$ apt-cache policy pengwin-setup`
+
+To check your verison of pengwin-base: `$ apt-cache policy pengwin-base`
 
 ## Obtaining Support
 
@@ -55,10 +70,6 @@ Purchases of Pengwin in the Microsoft Store pay for a team of open source indie 
 - Next, search for your issue on the general WSL Issues page [here](https://github.com/Microsoft/WSL/issues).
 - Then consult the official [Troubleshooting Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/troubleshooting) documentation from Microsoft.
 - Finally, if you are still unable to resolve your issue, please submit a bug report [here](https://github.com/WhitewaterFoundry/Pengwin/issues/new?template=bug_report.md) and we will do our best to help you. We usually respond to most Issues within a few hours. Thank you for your patience.
-
-## Versioning
-
-Pengwin is rolling release. Debian packages, pengwin-base, and pengwin-setup receive ongoing updates. Version numbers are used to track long-term progress on bugs and features, e.g. 1.2, and new versions are released every 2-3 months. New builds are regularly built and uploaded to the Store. The third build uploaded during 1.2.x window will be marked 1.2.3.
 
 ## Additional Pengwin Documentation
 
