@@ -109,7 +109,7 @@ goto :ARGS_LOOP
 
 if (%ERRORLEVEL%) == (0) (
     echo.
-    echo Created appx in %~dp0x64\%_MSBUILD_CONFIG%\DistroLauncher-Appx\
+    echo Created appx in %~dp0AppPackages\DistroLauncher-Appx\
     echo.
 )
 
