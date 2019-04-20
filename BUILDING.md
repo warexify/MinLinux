@@ -7,10 +7,10 @@
 Read more about the components from the upstream template by Microsoft [here](https://github.com/Microsoft/WSL-DistroLauncher). 
 
 ## Building Requirements
-1. [Visual Studio Community 2017](https://visualstudio.microsoft.com/vs/community/). (Free)
+1. [Visual Studio Community 2019](https://visualstudio.microsoft.com/vs/community/). (Free)
 	- The "Universal Windows Platform development" Workload is required, along with the following Individual components:
-		- `C++ Universal Windows Platform tools`
-		- `Windows 10 SDK (10.0.15063.0) for UWP: C#, VB, JS`
+		- `C++ (v142) Universal Windows Platform tools`
+		- `Windows 10 SDK (10.0.17134.0) for UWP: C#, VB, JS`
 1. Developer Mode
 	- Windows 10 must be in Developer mode, which can be enabled in Start -> Settings -> Update & Security -> For developers.
 1. Enable WSL
@@ -19,7 +19,7 @@ Read more about the components from the upstream template by Microsoft [here](ht
         - Open PowerShell as Administrator, type `Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux`, and restart as required.
 
 ## Build Process
-1. Open DistroLauncher.sln in Visual Studio Community 2017.
+1. Open DistroLauncher.sln in Visual Studio Community 2019.
 2. Generate a test certificate:
     1. In the Solution Explorer, open `DistroLauncher-Appx\MyDistro.appxmanifest`
     1. Select the Packaging tab
@@ -37,11 +37,22 @@ Read more about the components from the upstream template by Microsoft [here](ht
         - ` $ cd Pengwin`
         - ` $ chmod u+x create-targz-x64.sh`
         - ` $ ./create-targz-x64.sh`
-    1. You should find an install.tar.gz in the /x64/ directory of your build directory. (When we get ARM64 support working there will also be an install.tar.gz in a /ARM64/ directory.)
+    1. You should find an install.tar.gz in the /x64/ directory of your build directory.
+        - If you are targeting ARM64, you'll also need repeat the last two steps for `create-targz-arm64.sh`.
 1. Build the solution to make sure you have everything you need. Fix any build dependencies you are missing.
 1. Build the Windows UWP package:
-    1. Open a `Developer Command Prompt for VS 2019` as an administrator and change directory to your build directory.
-    1. Run `build.bat`
+    The package can be built in Visual Studio or via command line
+    - For a UI guided build
+        1. Open `DistroLauncher.sln` in Visual Studio Community 2019.
+        1. Follow the instructions [here](https://docs.microsoft.com/en-us/windows/uwp/packaging/packaging-uwp-apps#create-an-app-package-upload-file)
+    - To build from the command line
+        1. Open a `Developer Command Prompt for VS 2019` as an administrator and change directory to your build directory.
+        1. Run `build.bat`
+            - By default, this generates the debug appxbundle targeting both x64 and ARM64
+            - To only target Debug|x64, run `built.bat x64`
+            - To only target Debug|ARM64 run `build.bat ARM64`
+            - To build Releases instead of Debug appxbundles, include the `rel` option (e.g. `build.bat rel`, `build.bat rel x64`)
+            - For a clean build, include the `clean` option (e.g. `build.bat clean`, `build.bat clean rel ARM64`)
 
 1. If everything has gone correctly, you should find your app package in a subfolder under the `AppPackages\DistroLauncher-Appx` folder.
     1. First, install the certificate:
