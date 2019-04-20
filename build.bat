@@ -93,7 +93,7 @@ if (%1) == (x64) (
     set _MSBUILD_PLATFORM=x64
     set _MSBUILD_APPX_BUNDLE_PLATFORMS=x64
 )
-if (%1) == (arm64) (
+if (%1) == (ARM64) (
     set _MSBUILD_PLATFORM=ARM64
     set _MSBUILD_APPX_BUNDLE_PLATFORMS=ARM64
 )
