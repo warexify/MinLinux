@@ -37,11 +37,17 @@ Read more about the components from the upstream template by Microsoft [here](ht
         - ` $ cd Pengwin`
         - ` $ chmod u+x create-targz-x64.sh`
         - ` $ ./create-targz-x64.sh`
-    1. You should find an install.tar.gz in the /x64/ directory of your build directory. (When we get ARM64 support working there will also be an install.tar.gz in a /ARM64/ directory.)
+    1. You should find an install.tar.gz in the /x64/ directory of your build directory.
+        - If you are targeting ARM64, you'll also need repeat the last two steps for `create-targz-arm64.sh`.
 1. Build the solution to make sure you have everything you need. Fix any build dependencies you are missing.
 1. Build the Windows UWP package:
     1. Open a `Developer Command Prompt for VS 2019` as an administrator and change directory to your build directory.
     1. Run `build.bat`
+        - By default, this generates the debug appxbundle targeting both x64 and ARM64
+        - To only target Debug|x64, run `built.bat x64`
+        - To only target Debug|ARM64 run `build.bat ARM64`
+        - To build Releases instead of Debug appxbundles, include the `rel` option (e.g. `build.bat rel`, `build.bat rel x64`)
+        - For a clean build, include the `clean` option (e.g. `build.bat clean`, `build.bat clean rel ARM64`)
 
 1. If everything has gone correctly, you should find your app package in a subfolder under the `AppPackages\DistroLauncher-Appx` folder.
     1. First, install the certificate:
