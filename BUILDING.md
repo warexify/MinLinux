@@ -41,13 +41,18 @@ Read more about the components from the upstream template by Microsoft [here](ht
         - If you are targeting ARM64, you'll also need repeat the last two steps for `create-targz-arm64.sh`.
 1. Build the solution to make sure you have everything you need. Fix any build dependencies you are missing.
 1. Build the Windows UWP package:
-    1. Open a `Developer Command Prompt for VS 2019` as an administrator and change directory to your build directory.
-    1. Run `build.bat`
-        - By default, this generates the debug appxbundle targeting both x64 and ARM64
-        - To only target Debug|x64, run `built.bat x64`
-        - To only target Debug|ARM64 run `build.bat ARM64`
-        - To build Releases instead of Debug appxbundles, include the `rel` option (e.g. `build.bat rel`, `build.bat rel x64`)
-        - For a clean build, include the `clean` option (e.g. `build.bat clean`, `build.bat clean rel ARM64`)
+    The package can be built in Visual Studio or via command line
+    - For a UI guided build
+        1. Open `DistroLauncher.sln` in Visual Studio Community 2019.
+        1. Follow the instructions [here](https://docs.microsoft.com/en-us/windows/uwp/packaging/packaging-uwp-apps#create-an-app-package-upload-file)
+    - To build from the command line
+        1. Open a `Developer Command Prompt for VS 2019` as an administrator and change directory to your build directory.
+        1. Run `build.bat`
+            - By default, this generates the debug appxbundle targeting both x64 and ARM64
+            - To only target Debug|x64, run `built.bat x64`
+            - To only target Debug|ARM64 run `build.bat ARM64`
+            - To build Releases instead of Debug appxbundles, include the `rel` option (e.g. `build.bat rel`, `build.bat rel x64`)
+            - For a clean build, include the `clean` option (e.g. `build.bat clean`, `build.bat clean rel ARM64`)
 
 1. If everything has gone correctly, you should find your app package in a subfolder under the `AppPackages\DistroLauncher-Appx` folder.
     1. First, install the certificate:
