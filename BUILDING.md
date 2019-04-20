@@ -7,10 +7,10 @@
 Read more about the components from the upstream template by Microsoft [here](https://github.com/Microsoft/WSL-DistroLauncher). 
 
 ## Building Requirements
-1. [Visual Studio Community 2017](https://visualstudio.microsoft.com/vs/community/). (Free)
+1. [Visual Studio Community 2019](https://visualstudio.microsoft.com/vs/community/). (Free)
 	- The "Universal Windows Platform development" Workload is required, along with the following Individual components:
-		- `C++ Universal Windows Platform tools`
-		- `Windows 10 SDK (10.0.15063.0) for UWP: C#, VB, JS`
+		- `C++ (v142) Universal Windows Platform tools`
+		- `Windows 10 SDK (10.0.17134.0) for UWP: C#, VB, JS`
 1. Developer Mode
 	- Windows 10 must be in Developer mode, which can be enabled in Start -> Settings -> Update & Security -> For developers.
 1. Enable WSL
@@ -19,7 +19,7 @@ Read more about the components from the upstream template by Microsoft [here](ht
         - Open PowerShell as Administrator, type `Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux`, and restart as required.
 
 ## Build Process
-1. Open DistroLauncher.sln in Visual Studio Community 2017.
+1. Open DistroLauncher.sln in Visual Studio Community 2019.
 2. Generate a test certificate:
     1. In the Solution Explorer, open `DistroLauncher-Appx\MyDistro.appxmanifest`
     1. Select the Packaging tab
