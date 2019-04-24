@@ -1,6 +1,6 @@
 # Pengwin
 
-The first Linux® distribution optimized for WSL. Based on Debian®. From open-source software startup [Whitewater Foundry](https://whitewaterfoundry.com). Formerly WLinux.
+The first Linux® distribution optimized for [WSL](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux). Based on Debian®. From open-source software startup [Whitewater Foundry](https://whitewaterfoundry.com). Formerly WLinux.
 
 <img src='https://github.com/WhitewaterFoundry/Screenshots/raw/master/ezgif.com-gif-maker.gif'>
 
