@@ -49,7 +49,7 @@ Read more about the components from the upstream template by Microsoft [here](ht
         1. Open a `Developer Command Prompt for VS 2019` as an administrator and change directory to your build directory.
         1. Run `build.bat`
             - By default, this generates the debug appxbundle targeting both x64 and ARM64
-            - To only target Debug|x64, run `built.bat x64`
+            - To only target Debug|x64, run `build.bat x64`
             - To only target Debug|ARM64 run `build.bat ARM64`
             - To build Releases instead of Debug appxbundles, include the `rel` option (e.g. `build.bat rel`, `build.bat rel x64`)
             - For a clean build, include the `clean` option (e.g. `build.bat clean`, `build.bat clean rel ARM64`)
