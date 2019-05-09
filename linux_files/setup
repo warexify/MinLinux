@@ -14,6 +14,11 @@ function process_arguments() {
           SILENT=1
           shift
         ;;
+        --install)
+          echo "Base image creation"
+          INSTALL=1
+          shift
+        ;;
         *)
           shift
         esac
@@ -61,7 +66,7 @@ function remove_legacy_repo() {
 
 function remove_legacy_regkeys() {
   bash /usr/local/pengwin-setup.d/explorer.sh --upgrade --yes
-  
+
 }
 
 function invoke_setup() {
@@ -84,7 +89,10 @@ function main() {
     remove_legacy_repo
     install_repositories "${dev}"
     install_packages
-    remove_legacy_regkeys
+
+    if [[ ! ${INSTALL} ]]; then
+      remove_legacy_regkeys
+    fi
   fi
 
   if [[ ! ${SILENT} ]]; then

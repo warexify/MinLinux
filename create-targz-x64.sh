@@ -26,7 +26,7 @@ sudo apt-get -y -q autoremove
 # download and install pengwin-base and pengwin-setup
 sudo curl "https://salsa.debian.org/rhaist-guest/WSL/raw/master/linux_files/profile" -so "${TMPDIR}/${DIST}/etc/profile"
 sudo cp $BUILDIR/linux_files/setup $TMPDIR/$DIST/etc/setup
-sudo chroot $DIST /bin/bash -c "bash /etc/setup --silent"
+sudo chroot $DIST /bin/bash -c "bash /etc/setup --silent --install"
 
 # configure initial language settings
 sudo chroot $DIST /bin/bash -c "echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen && locale-gen"
