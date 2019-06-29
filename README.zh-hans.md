@@ -12,11 +12,11 @@
 - [繁體中文](README.zh-hant.md)
 - [日本語](README.ja.md)
 
-如要获取 Pengwin 最新动向，可以访问我们的[博客](https://www.pengwin.dev/blog)以及我们的推特账号 [@PengwinLinux](https://twitter.com/PengwinLinux) 。
+如要获取 Pengwin 最新动向，可以访问我们的[博客](https://www.pengwin.dev/blog)以及我们的推特账号 [@PengwinLinux](https://twitter.com/PengwinLinux)。
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/espadrine.svg?label=Follow&style=social)](https://twitter.com/pengwinlinux)
 
-如果你是企业用户，你也许会对我们专门针对企业用户开发的 [Pengwin 企业版](https://github.com/WhitewaterFoundry/WLE)感兴趣
+如果你是企业用户，你也许会对我们专门针对企业用户开发的 [Pengwin 企业版](https://github.com/WhitewaterFoundry/WLE)感兴趣。
 
 ## 功能
 
@@ -57,7 +57,7 @@
 
 ## 版本
 
-Pengwin 是一款滚动发行的发行版。 Debian 程序包、pengwin-base 以及 pengwin-setup 会受到持续而不间断的更新。 Pengwin 的版本号（如1.2）是用来进行长期的功能及 Bug 记录使用的，会在2-3个月发布一个新的版本。每一个新版本都会进行编译并上传到微软商店。例如说，第三个1.2编译版本在商店里会被标注为 1.2.3。
+Pengwin 是一款使用滚动发行的发行版。 Debian 程序包、pengwin-base 以及 pengwin-setup 会受到持续而不间断的更新。 Pengwin 的版本号（如1.2）是用来进行长期的功能及 Bug 记录使用的，会在2-3个月发布一个新的版本。每一个新版本都会进行编译并上传到微软商店。例如说，第三个1.2编译版本在商店里会被标注为 1.2.3。
 
 查看 `pengwin-setup` 的版本: `$ apt-cache policy pengwin-setup`
 
