@@ -13,7 +13,7 @@ sudo apt-get -y -q update
 sudo apt-get -y -q install curl gnupg cdebootstrap
 
 # install patched libdebian-installer, see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=904699
-sudo dpkg -i ./x64/libdebian-installer4_0.116_amd64.deb
+sudo dpkg -i $BUILDIR/x64/libdebian-installer4_0.116_amd64.deb
 
 # bootstrap image
 sudo cdebootstrap -a $ARCH --include=sudo,locales,git,ssh,gnupg,apt-transport-https,wget,ca-certificates,man,less,curl,bash-completion,vim $DIST $DIST http://deb.debian.org/debian
