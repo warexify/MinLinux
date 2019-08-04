@@ -4,16 +4,15 @@
 set -e
 BUILDIR=$(pwd)
 TMPDIR=$(mktemp -d)
-ARCH="amd64"
+ARCH=""
 DIST="testing"
 cd $TMPDIR
+
+function build {
 
 # install script dependencies
 sudo apt-get -y -q update
 sudo apt-get -y -q install curl gnupg cdebootstrap
-
-# install patched libdebian-installer, see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=904699
-sudo dpkg -i $BUILDIR/x64/libdebian-installer4_0.116_amd64.deb
 
 # bootstrap image
 sudo cdebootstrap -a $ARCH --include=sudo,locales,git,ssh,gnupg,apt-transport-https,wget,ca-certificates,man,less,curl,bash-completion,vim $DIST $DIST http://deb.debian.org/debian
@@ -50,5 +49,25 @@ sudo tar --ignore-failed-read -czvf $TMPDIR/install.tar.gz *
 
 # move into place in build folder
 cd $TMPDIR
-cp install.tar.gz $BUILDIR/x64/
+cp install.tar.gz $BUILDIR/ARM64/
 cd $BUILDIR
+
+}
+
+# describe script usage
+function usage {
+echo "./create-targz.sh <BUILD_ARCHITECTURE>"
+echo "Possible architectures: arm64, amd64"
+}
+
+# accept argument input for architecture type
+ARCH=$@
+if [ "$ARCH" = "amd64" ] ; then
+	ARCH="amd64"
+	build
+elif [ "$ARCH" = "arm64" ] ; then
+	ARCH="aarch64"
+	build
+else
+	usage
+fi
