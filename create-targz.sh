@@ -49,7 +49,7 @@ sudo tar --ignore-failed-read -czvf $TMPDIR/install.tar.gz *
 
 # move into place in build folder
 cd $TMPDIR
-cp install.tar.gz $BUILDIR/ARM64/
+cp install.tar.gz $BUILDIR/$ARCHDIR/
 cd $BUILDIR
 
 }
@@ -64,9 +64,11 @@ echo "Possible architectures: arm64, amd64"
 ARCH=$@
 if [ "$ARCH" = "amd64" ] ; then
 	ARCH="amd64"
+	ARCHDIR="x64"
 	build
 elif [ "$ARCH" = "arm64" ] ; then
 	ARCH="aarch64"
+	ARCHDIR="ARM64"
 	build
 else
 	usage
