@@ -17,10 +17,6 @@ sudo apt-get -y -q install curl gnupg cdebootstrap
 # bootstrap image
 sudo cdebootstrap -a $ARCH --include=sudo,locales,git,ssh,gnupg,apt-transport-https,wget,ca-certificates,man,less,curl,bash-completion,vim $DIST $DIST http://deb.debian.org/debian
 
-# remove patched cdebootstrap and libdebian-installer4
-sudo apt-get -y -q --fix-broken install
-sudo apt-get -y -q autoremove
-
 # download and install pengwin-base and pengwin-setup
 sudo curl "https://salsa.debian.org/rhaist-guest/WSL/raw/master/linux_files/profile" -so "${TMPDIR}/${DIST}/etc/profile"
 sudo cp $BUILDIR/linux_files/setup $TMPDIR/$DIST/etc/setup
