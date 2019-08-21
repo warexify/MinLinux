@@ -63,7 +63,7 @@ if [ "$ARCH" = "amd64" ] ; then
 	ARCHDIR="x64"
 	build
 elif [ "$ARCH" = "arm64" ] ; then
-	ARCH="aarch64"
+	ARCH="arm64"
 	ARCHDIR="ARM64"
 	build
 else
