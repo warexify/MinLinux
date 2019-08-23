@@ -1,6 +1,5 @@
 ## Pengwin Components
 
-- /create-targz-x64.sh - Builds the Pengwin custom Linux distro in a Pengwin or Debian environment.
 - Launcher project - Builds the actual executable that is run when a user launches the app. 
 - DistroLauncher-Appx project - Builds the distro package with all the assets and other dependencies.
 
@@ -36,20 +35,9 @@ Get-ChildItem $Store | Where-Object { $_.Subject -match $Subject } | Remove-Item
 New-SelfSignedCertificate -Type Custom -Subject $Subject -KeyUsage DigitalSignature -FriendlyName "Pengwin Test Certificate" -CertStoreLocation $Store -TextExtension @("2.5.29.37={text}1.3.6.1.5.5.7.3.3", "2.5.29.19={text}")
 ```
 
-1. Build install.tar.gz
-    1. You will need access to an existing Pengwin or Debian-based distro for this step. If you do not already have Pengwin installed, I recommend the following steps:
-        - Enable WSL on Windows if you have not already.
-        - Install the [Debian for WSL app](https://www.microsoft.com/en-us/p/debian-gnu-linux/9msvkqc78pk6?activetab=pivot%3Aoverviewtab) from the Microsoft Store.
-        - Run, let it finish installing, configure your username and password.
-        - Then you will need to update apt, upgrade existing packages, and then install git:
-            - ` $ sudo apt-get update ; sudo apt-get upgrade -y ; sudo apt-get install git -y`
-    1. With your Pengwin (or configured/updated Debian) distro in place, execute the following:
-        - ` $ git clone https://github.com/WhitewaterFoundry/Pengwin.git `
-        - ` $ cd Pengwin`
-        - ` $ chmod u+x create-targz-x64.sh`
-        - ` $ ./create-targz-x64.sh`
-    1. You should find an install.tar.gz in the /x64/ directory of your build directory.
-        - If you are targeting ARM64, you'll also need repeat the last two steps for `create-targz-arm64.sh`.
+1. Get or build install.tar.gz
+    1. Get the most [recent install.tar.gz files](https://github.com/whitewaterfoundry/pengwin-rootfs-builds/releases), and place in x64 or ARM64, or
+    1. Build the install.tar.gz on an existing Debian or Pengwin system using the [legacy build script](https://github.com/WhitewaterFoundry/legacy-rootfs-build-scripts).
 1. Build the solution to make sure you have everything you need. Fix any build dependencies you are missing.
 1. Build the Windows UWP package:
     The package can be built in Visual Studio or via command line
