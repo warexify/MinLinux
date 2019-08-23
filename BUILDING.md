@@ -21,10 +21,21 @@ Read more about the components from the upstream template by Microsoft [here](ht
 ## Build Process
 1. Open DistroLauncher.sln in Visual Studio Community 2019.
 2. Generate a test certificate:
-    1. In the Solution Explorer, open `DistroLauncher-Appx\MyDistro.appxmanifest`
-    1. Select the Packaging tab
-    1. Select "Choose Certificate"
-    1. Click the Configure Certificate drop down and select Create test certificate.
+
+As of Visual Studio 2019, the original feature to create Test Certificates have been removed in order to, "promote better security practices". A [bug report](https://developercommunity.visualstudio.com/content/problem/612872/create-test-certificate-option-missing-from-uwp-sd.html) has been filed, but it does not seem that this feature will be coming back soon. To address that bug report, [Chris Paterson](https://developercommunity.visualstudio.com/users/179609/0a25123f-a73b-680f-8ba0-adf2e9b32c8e.html) created a script which has this same feature.
+
+Open Powershell and copy and paste this script into the prompt, it creates the test certificate for you:
+```
+$Subject = "CN=Your-appxmanifest-publisher"
+$Store = "Cert:\CurrentUser\My"
+
+# Delete old certificate
+Get-ChildItem $Store | Where-Object { $_.Subject -match $Subject } | Remove-Item
+
+# Create new certificate
+New-SelfSignedCertificate -Type Custom -Subject $Subject -KeyUsage DigitalSignature -FriendlyName "Pengwin Test Certificate" -CertStoreLocation $Store -TextExtension @("2.5.29.37={text}1.3.6.1.5.5.7.3.3", "2.5.29.19={text}")
+```
+
 1. Build install.tar.gz
     1. You will need access to an existing Pengwin or Debian-based distro for this step. If you do not already have Pengwin installed, I recommend the following steps:
         - Enable WSL on Windows if you have not already.
