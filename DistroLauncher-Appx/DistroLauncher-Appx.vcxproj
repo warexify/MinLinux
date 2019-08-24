@@ -96,8 +96,7 @@
     <AppxManifest Include="MyDistro.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="DistroLauncher-Appx_StoreKey.pfx" />
-    <None Include="DistroLauncher-Appx_TemporaryKey.pfx" />
+    <None Include="..\ARM64\install.tar.gz" />
   </ItemGroup>
   <ItemGroup Condition="'$(Platform)'=='x64'">
     <None Include="..\x64\install.tar.gz">
