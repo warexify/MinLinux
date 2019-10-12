@@ -65,7 +65,7 @@ New-SelfSignedCertificate -Type Custom -Subject $Subject -KeyUsage DigitalSignat
 		1. Select "Local Machine" for the store location.
 		1. Select "Automatically select the certificate store based on the type of certificate", then click Next. (If you have any certificate issues, try specifying the Root Certificate Authority Trust here.)
 		1. Proceed through the rest of the wizard, clicking Next, Finish, OK, and then OK.
-    1. Once that's done, you should be able to double-click on the .appx package file and install it.
+    1. Once that's done, you should be able to double-click on the .appxbundle package file and install it.
 
 ## Command Line Usage
 The launcher app provides the following functionality:
