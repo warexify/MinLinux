@@ -9,7 +9,8 @@ Read more about the components from the upstream template by Microsoft [here](ht
 1. [Visual Studio Community 2019](https://visualstudio.microsoft.com/vs/community/). (Free)
 	- The "Universal Windows Platform development" Workload is required, along with the following Individual components:
 		- `C++ (v142) Universal Windows Platform tools`
-		- `Windows 10 SDK (10.0.17134.0) for UWP: C#, VB, JS`
+		- Recommended Version - `Windows 10 SDK (10.0.17763.0) for UWP: C#, VB, JS`
+		- Minimum Version - `Windows 10 SDK (10.0.17134.0) for UWP: C#, VB, JS`		
 1. Developer Mode
 	- Windows 10 must be in Developer mode, which can be enabled in Start -> Settings -> Update & Security -> For developers.
 1. Enable WSL
