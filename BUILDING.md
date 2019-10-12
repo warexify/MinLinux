@@ -35,10 +35,14 @@ Get-ChildItem $Store | Where-Object { $_.Subject -match $Subject } | Remove-Item
 # Create new certificate
 New-SelfSignedCertificate -Type Custom -Subject $Subject -KeyUsage DigitalSignature -FriendlyName "Pengwin Test Certificate" -CertStoreLocation $Store -TextExtension @("2.5.29.37={text}1.3.6.1.5.5.7.3.3", "2.5.29.19={text}")
 ```
-
+**You will need the thumbprint later so be sure to copy it**
 1. Get or build install.tar.gz
     1. Get the most [recent install.tar.gz files](https://github.com/whitewaterfoundry/pengwin-rootfs-builds/releases), and place in x64 or ARM64, or
     1. Build the install.tar.gz on an existing Debian or Pengwin system using the [legacy build script](https://github.com/WhitewaterFoundry/legacy-rootfs-build-scripts).
+1. Updating the thumbprint
+    1. Open the file `DistroLauncher-Appx\DistroLauncher-Appx.vcxproj`.
+    1. Search for the line that starts with `<PackageCertificateThumbprint>`.
+    1. Replace the string in the middle with the thumbprint that you copied earlier and save the file.
 1. Build the solution to make sure you have everything you need. Fix any build dependencies you are missing.
 1. Build the Windows UWP package:
     The package can be built in Visual Studio or via command line
