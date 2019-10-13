@@ -80,7 +80,7 @@
     <AppxBundlePlatforms>x64|arm64</AppxBundlePlatforms>
     <AppInstallerUpdateFrequency>0</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
-    <AppxPackageDir>C:\Users\Hayden\Downloads\</AppxPackageDir>
+    <AppxPackageDir>..\AppPackages\DistroLauncher-Appx</AppxPackageDir>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <PackageCertificateThumbprint>0104667402DD214EB2C94D57D806961D4D4DD3CE</PackageCertificateThumbprint>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
