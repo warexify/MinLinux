@@ -92,11 +92,15 @@ Purchases of Pengwin in the Microsoft Store pay for a team of open source indie 
 - [Hayden Barnes](https://github.com/sirredbeard)
 - [Patrick Wu](https://github.com/patrick330602)
 - [Carlos Rafael Ramirez](https://github.com/crramirez)
-- [Kim Bradley](https://github.com/grufwub)
 
 ### Contributors
 
 - [Andrew Fehr](https://github.com/ThatWeirdAndrew)
+- [Kim Bradley](https://github.com/grufwub)
+- [B. Branchard](https://github.com/branchard)
+- [haodeon](https://github.com/haodeon)
+- [Nick Clarke](https://github.com/nickolasclarke)
+- [laventillelion](https://github.com/laventillelion)
 
 ### Testing/QA
 
