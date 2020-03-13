@@ -9,7 +9,8 @@ Read more about the components from the upstream template by Microsoft [here](ht
 1. [Visual Studio Community 2019](https://visualstudio.microsoft.com/vs/community/). (Free)
 	- The "Universal Windows Platform development" Workload is required, along with the following Individual components:
 		- `C++ (v142) Universal Windows Platform tools`
-		- `Windows 10 SDK (10.0.17134.0) for UWP: C#, VB, JS`
+		- Recommended Version - `Windows 10 SDK (10.0.17763.0) for UWP: C#, VB, JS`
+		- Minimum Version - `Windows 10 SDK (10.0.17134.0) for UWP: C#, VB, JS`		
 1. Developer Mode
 	- Windows 10 must be in Developer mode, which can be enabled in Start -> Settings -> Update & Security -> For developers.
 1. Enable WSL
@@ -34,10 +35,14 @@ Get-ChildItem $Store | Where-Object { $_.Subject -match $Subject } | Remove-Item
 # Create new certificate
 New-SelfSignedCertificate -Type Custom -Subject $Subject -KeyUsage DigitalSignature -FriendlyName "Pengwin Test Certificate" -CertStoreLocation $Store -TextExtension @("2.5.29.37={text}1.3.6.1.5.5.7.3.3", "2.5.29.19={text}")
 ```
-
+**You will need the thumbprint later so be sure to copy it**
 1. Get or build install.tar.gz
     1. Get the most [recent install.tar.gz files](https://github.com/whitewaterfoundry/pengwin-rootfs-builds/releases), and place in x64 or ARM64, or
     1. Build the install.tar.gz on an existing Debian or Pengwin system using the [legacy build script](https://github.com/WhitewaterFoundry/legacy-rootfs-build-scripts).
+1. Updating the thumbprint
+    1. Open the file `DistroLauncher-Appx\DistroLauncher-Appx.vcxproj`
+    1. Search for the line that starts with `<PackageCertificateThumbprint>`
+    1. Replace the string in the middle with the thumbprint that you copied earlier and save the file.
 1. Build the solution to make sure you have everything you need. Fix any build dependencies you are missing.
 1. Build the Windows UWP package:
     The package can be built in Visual Studio or via command line
@@ -60,7 +65,7 @@ New-SelfSignedCertificate -Type Custom -Subject $Subject -KeyUsage DigitalSignat
 		1. Select "Local Machine" for the store location.
 		1. Select "Automatically select the certificate store based on the type of certificate", then click Next. (If you have any certificate issues, try specifying the Root Certificate Authority Trust here.)
 		1. Proceed through the rest of the wizard, clicking Next, Finish, OK, and then OK.
-    1. Once that's done, you should be able to double-click on the .appx package file and install it.
+    1. Once that's done, you should be able to double-click on the .appxbundle package file and install it.
 
 ## Command Line Usage
 The launcher app provides the following functionality:
