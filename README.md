@@ -89,7 +89,6 @@ Purchases of Pengwin in the Microsoft Store pay for a team of open source indie 
 
 ### Core Team
 
-- [Patrick Wu](https://github.com/patrick330602)
 - [Carlos Rafael Ramirez](https://github.com/crramirez)
 
 ### Contributors
@@ -100,6 +99,7 @@ Purchases of Pengwin in the Microsoft Store pay for a team of open source indie 
 - [haodeon](https://github.com/haodeon)
 - [Nick Clarke](https://github.com/nickolasclarke)
 - [laventillelion](https://github.com/laventillelion)
+- [Patrick Wu](https://github.com/patrick330602)
 
 ### Founder
 
