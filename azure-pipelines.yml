@@ -30,9 +30,8 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
-      move install_amd64_rootfs.tar.gz $(System.DefaultWorkingDirectory)\Pengwin\x64\install.tar.gz
-      move install_arm64_rootfs.tar.gz $(System.DefaultWorkingDirectory)\Pengwin\ARM64\install.tar.gz
-    workingDirectory: '$(System.ArtifactsDirectory)\drop'
+      copy $(System.ArtifactsDirectory)\drop\install_amd64_rootfs.tar.gz x64\install.tar.gz
+      copy $(System.ArtifactsDirectory)\drop\install_arm64_rootfs.tar.gz ARM64\install.tar.gz
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
