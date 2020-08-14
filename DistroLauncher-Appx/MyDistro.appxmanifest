@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap2="http://schemas.microsoft.com/appx/manifest/uap/windows10/2" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" IgnorableNamespaces="uap mp uap2 uap3 rescap desktop">
-  <Identity Name="WhitewaterFoundryLtd.Co.16571368D6CFF" Version="1.4.3.0" Publisher="CN=9879127B-9E92-4DE5-9C32-0B1F09F95DCF" ProcessorArchitecture="x64" />
-  <mp:PhoneIdentity PhoneProductId="9de1ec99-8e0b-48c6-87fd-a8d6ea96c83b" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="WhitewaterFoundryLtd.Co.16571368D6CFF" Version="20.7.2.0" Publisher="CN=9879127B-9E92-4DE5-9C32-0B1F09F95DCF" ProcessorArchitecture="x64" />
+  <mp:PhoneIdentity PhoneProductId="650c34b3-1f92-48f1-bdb4-c3bd3b362e15" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Pengwin</DisplayName>
     <PublisherDisplayName>Whitewater Foundry, Ltd. Co.</PublisherDisplayName>

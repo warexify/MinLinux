@@ -82,7 +82,7 @@
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
     <AppxPackageDir>..\AppPackages\DistroLauncher-Appx</AppxPackageDir>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
-    <PackageCertificateThumbprint>27F6B5C9E5A7617CE6E78990B0E88400164A2975</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>1135ED70FE5432B6365A160D89058876A18C8C85</PackageCertificateThumbprint>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
