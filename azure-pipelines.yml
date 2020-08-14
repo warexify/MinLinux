@@ -44,7 +44,7 @@ steps:
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
-    msbuildArgs: '/t:Build /m nr:true /p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload /p:PackageCertificateThumbprint=""  /p:PackageCertificateKeyFile="$(signingCert.secureFilePath)" '
+    msbuildArgs: '/t:Build /m /nr:true /p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload /p:PackageCertificateThumbprint=""  /p:PackageCertificateKeyFile="$(signingCert.secureFilePath)" '
     platform: 'x64'
     configuration: '$(buildConfiguration)'
     msbuildArchitecture: 'x64'
