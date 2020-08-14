@@ -17,6 +17,16 @@ variables:
   appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
 
 steps:
+- task: DownloadBuildArtifacts@0
+  inputs:
+    buildType: 'specific'
+    project: '84ac49ca-47e0-4979-b8ee-cd1cf8fe4e74'
+    pipeline: '1'
+    specificBuildWithTriggering: true
+    buildVersionToDownload: 'latest'
+    downloadType: 'single'
+    artifactName: 'drop'
+    downloadPath: '$(System.ArtifactsDirectory)'
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
