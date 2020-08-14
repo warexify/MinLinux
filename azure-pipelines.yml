@@ -27,6 +27,12 @@ steps:
     downloadType: 'single'
     artifactName: 'drop'
     downloadPath: '$(System.ArtifactsDirectory)'
+- task: CmdLine@2
+  inputs:
+    script: |
+      move install_amd64_rootfs.tar.gz $(System.DefaultWorkingDirectory)\Pengwin\x64\install.tar.gz
+      move install_arm64_rootfs.tar.gz $(System.DefaultWorkingDirectory)\Pengwin\ARM64\install.tar.gz
+    workingDirectory: '$(System.ArtifactsDirectory)\drop'
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
