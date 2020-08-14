@@ -89,7 +89,6 @@ Purchases of Pengwin in the Microsoft Store pay for a team of open source indie 
 
 ### Core Team
 
-- [Hayden Barnes](https://github.com/sirredbeard)
 - [Patrick Wu](https://github.com/patrick330602)
 - [Carlos Rafael Ramirez](https://github.com/crramirez)
 
@@ -102,9 +101,15 @@ Purchases of Pengwin in the Microsoft Store pay for a team of open source indie 
 - [Nick Clarke](https://github.com/nickolasclarke)
 - [laventillelion](https://github.com/laventillelion)
 
+### Founder
+
+- [Hayden Barnes](https://github.com/sirredbeard)
+
 ### Testing/QA
 
 - [Jack Mangano](https://thechipcollective.com/)
 - [Nuno do Carmo](http://wslcorsair.blogspot.com/)
+- [Jeremy Sinclair](https://twitter.com/sinclairinat0r)
+- [Ricardo Echavarria](https://twitter.com/r_icarus)
 
 <a href='//www.microsoft.com/store/apps/9NV1GV1PXZ6P?ocid=badge'><img src='https://assets.windowsphone.com/85864462-9c82-451e-9355-a3d5f874397a/English_get-it-from-MS_InvariantCulture_Default.png' alt='Store badge' height=50/></a>
