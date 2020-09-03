@@ -58,7 +58,7 @@ steps:
     sonar.cfamily.build-wrapper-output: '.'
 - task: CmdLine@2
   inputs:
-    script: 'build-wrapper-win-x86/build-wrapper-win-x86-64.exe --out-dir .'
+    script: 'build-wrapper-win-x86\build-wrapper-win-x86-64.exe --out-dir .'
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
