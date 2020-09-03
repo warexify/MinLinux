@@ -56,9 +56,9 @@ steps:
     projectName: 'Pengwin'
     projectVersion: '20.8.1'
     sonar.cfamily.build-wrapper-output: '.'
-- task: CmdLine@2
-  inputs:
-    script: 'build-wrapper-win-x86\build-wrapper-win-x86-64.exe --out-dir .'
+#- task: CmdLine@2
+#  inputs:
+#    script: 'build-wrapper-win-x86\build-wrapper-win-x86-64.exe --out-dir .'
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
@@ -66,7 +66,7 @@ steps:
     platform: 'x64'
     configuration: '$(buildConfiguration)'
     msbuildArchitecture: 'x64'
-- task: SonarCloudAnalyze@1
+#- task: SonarCloudAnalyze@1
 
 - task: CopyFiles@2
   inputs:
@@ -78,6 +78,6 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
-- task: SonarCloudPublish@1
-  inputs:
-    pollingTimeoutSec: '300'
+#- task: SonarCloudPublish@1
+#  inputs:
+#    pollingTimeoutSec: '300'
