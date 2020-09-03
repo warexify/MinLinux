@@ -41,13 +41,6 @@ steps:
   name: signingCert
   inputs:
     secureFile: 'store.pfx'
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/t:Build /m /p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload /p:PackageCertificateThumbprint=""  /p:PackageCertificateKeyFile="$(signingCert.secureFilePath)" /p:PackageCertificatePassword="1" '
-    platform: 'x64'
-    configuration: '$(buildConfiguration)'
-    msbuildArchitecture: 'x64'
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'SonarCloud'
@@ -56,6 +49,13 @@ steps:
     projectKey: 'Pengwin'
     projectName: 'Pengwin'
     projectVersion: '20.8.1'
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    msbuildArgs: '/t:Build /m /p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload /p:PackageCertificateThumbprint=""  /p:PackageCertificateKeyFile="$(signingCert.secureFilePath)" /p:PackageCertificatePassword="1" '
+    platform: 'x64'
+    configuration: '$(buildConfiguration)'
+    msbuildArchitecture: 'x64'
 - task: SonarCloudAnalyze@1
 
 - task: CopyFiles@2
