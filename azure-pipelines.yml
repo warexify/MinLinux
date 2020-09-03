@@ -45,8 +45,8 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      Invoke-WebRequest -Uri 'https://sonarcloud.io/static/cpp/build-wrapper-win-x86.zip'
-      Expand-Archive -Path '.\build-wrapper-win-x86.zip' -DestinationPath '.'
+      Invoke-WebRequest -Uri 'https://sonarcloud.io/static/cpp/build-wrapper-win-x86.zip' -OutFile 'build-wrapper.zip'
+      Expand-Archive -Path 'build-wrapper.zip' -DestinationPath '.'
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'SonarCloud'
