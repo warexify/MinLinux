@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Launcher", "DistroLauncher\DistroLauncher.vcxproj", "{BA627106-E5F7-46EE-B8D7-2D5A760F2FB2}"
 EndProject
-Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "Pengwin", "Pengwin\Pengwin.wapproj", "{4175DAA1-10E2-45BF-88BD-6577AF555B1B}"
+Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "MinLinux", "Pengwin\MinLinux.wapproj", "{4175DAA1-10E2-45BF-88BD-6577AF555B1B}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LauncherTests", "LauncherTests\LauncherTests.vcxproj", "{3FBA1AEE-63DF-4490-82AE-74AAAB1BFD80}"
 EndProject

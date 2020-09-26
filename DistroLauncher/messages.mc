@@ -49,7 +49,7 @@ Usage:
 
 MessageId=1006 SymbolicName=MSG_STATUS_INSTALLING
 Language=English
-Unpacking Pengwin, this may take a few minutes...
+Unpacking MinLinux, this may take a few minutes...
 .
 
 MessageId=1007 SymbolicName=MSG_INSTALL_SUCCESS
