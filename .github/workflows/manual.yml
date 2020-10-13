@@ -30,8 +30,9 @@ jobs:
     - name: Send greeting
       run: |
         cd docs/wiki
-        git pull
-        cd ..
-        git add wiki
-        git commit -m "Update how-to page"
-        git push
+        ls -l
+        #git pull
+        #cd ..
+        #git add wiki
+        #git commit -m "Update how-to page"
+        #git push
