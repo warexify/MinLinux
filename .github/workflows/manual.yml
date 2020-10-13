@@ -34,5 +34,7 @@ jobs:
         git submodule update --init --recursive
         cd ..
         git add wiki
+        git config --global user.email "crramirez@gmail.com"
+        git config --global user.name "Carlos Rafael Ramirez"
         git commit -m "Update how-to page"
         git push
