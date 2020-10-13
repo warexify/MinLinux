@@ -29,11 +29,9 @@ jobs:
     - uses: actions/checkout@v2
     - name: Send greeting
       run: |
+        set -x
         cd docs/wiki
         git submodule update --init --recursive
-        ls -l
-        git pull
-        cd ..
         git add wiki
         git commit -m "Update how-to page"
         git push
