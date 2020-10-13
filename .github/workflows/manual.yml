@@ -30,11 +30,12 @@ jobs:
     - name: Send greeting
       run: |
         set -x
-        cd docs/wiki
-        git submodule update --init --recursive
-        cd ../..
-        git add docs
+        #cd docs/wiki
+        git submodule update --remote --merge
+        #git submodule update --init --recursive
+        #cd ../..
+        #git add docs
         git config --global user.email "crramirez@gmail.com"
         git config --global user.name "Carlos Rafael Ramirez"
-        git commit -m "Update how-to page"
+        #git commit -m "Update how-to page"
         git push
