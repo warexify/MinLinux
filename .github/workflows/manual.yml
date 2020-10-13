@@ -28,4 +28,10 @@ jobs:
     # Runs a single command using the runners shell
     - uses: actions/checkout@v2
     - name: Send greeting
-      run: ls -l
+      run: |
+        cd docs/wiki
+        git pull
+        cd ..
+        git add wiki
+        git commit -m "Update how-to page"
+        git push
