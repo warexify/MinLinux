@@ -32,6 +32,7 @@ jobs:
         set -x
         cd docs/wiki
         git submodule update --init --recursive
+        cd ..
         git add wiki
         git commit -m "Update how-to page"
         git push
