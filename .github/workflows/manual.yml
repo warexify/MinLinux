@@ -33,7 +33,7 @@ jobs:
         cd docs/wiki
         git submodule update --init --recursive
         git submodule update --remote --merge
-        #cd ../..
+        cd ../..
         #git add docs
         git config --global user.email "crramirez@gmail.com"
         git config --global user.name "Carlos Rafael Ramirez"
