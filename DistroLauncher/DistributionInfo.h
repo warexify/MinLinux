@@ -16,7 +16,7 @@ namespace DistributionInfo
     const std::wstring Name = L"WLinux";
 
     // The title bar for the console window while the distribution is installing.
-    const std::wstring WindowTitle = L"Loading Pengwin";
+    const std::wstring WindowTitle = L"Pengwin";
 
     // Create and configure a user account.
     bool CreateUser(std::wstring_view userName);
