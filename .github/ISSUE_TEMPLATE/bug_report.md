@@ -1,6 +1,9 @@
 ---
 name: Bug report
 about: Create a report to help us improve
+title: ''
+labels: Bug
+assignees: ''
 
 ---
 
@@ -29,9 +32,8 @@ Add any other context about the problem here.
 [ ] I have checked official WSL troubleshooting documentation: https://docs.microsoft.com/en-us/windows/wsl/troubleshooting#confirm-wsl-is-enabled.
 [ ] I have searched the official Microsoft WSL issues page: https://github.com/Microsoft/WSL/issues.
 [ ] I have searched the Pengwin issues page: https://github.com/WhitewaterFoundry/Pengwin/issues.
-[ ] I have reset Pengwin: Settings->Apps->Apps & features->Pengwin->Advanced Options->Reset. 
-[ ] I have disabled and re-enabled WSL in Windows Features.
 [ ] I have run Windows 10 updates and restarted.
+[ ] I have restarted WSL service: `wsl.exe --terminate WLinux` `wsl.exe --shutdown`.
 
 What other troubleshooting have you attempted?
 
@@ -39,12 +41,12 @@ Insert here:
 
 **Pengwin Version**
 
-Find: Settings->Apps->Apps & features->Pengwin->Advanced Options->Version.
+Run `grep "PENGWIN_VERSION" /etc/os-release` in Pengwin.
 
 Insert here:
 
-**Windows Build**
+**WSL general info**
 
-Run 'systeminfo | findstr /C:"OS"' in Command Prompt and insert here:
+Run `wslsys` in Pengwin.
 
-For help on retrieving: https://docs.microsoft.com/en-us/windows/wsl/troubleshooting#check-your-build-number
+Insert here:
