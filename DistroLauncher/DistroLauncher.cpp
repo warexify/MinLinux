@@ -64,7 +64,7 @@ HRESULT SetDefaultUser(std::wstring_view userName)
 {
     // Query the UID of the given user name and configure the distribution
     // to use this UID as the default.
-    auto uid = DistributionInfo::QueryUid(userName);
+    const auto uid = DistributionInfo::QueryUid(userName);
     if (uid == UID_INVALID)
     {
         return E_INVALIDARG;
